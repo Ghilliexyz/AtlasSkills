@@ -1,0 +1,203 @@
+#
+#      /$$$$$$  /$$$$$$$$ /$$        /$$$$$$   /$$$$$$         /$$$$$$  /$$   /$$ /$$$$$$ /$$       /$$        /$$$$$$
+#     /$$__  $$|__  $$__/| $$       /$$__  $$ /$$__  $$       /$$__  $$| $$  /$$/|_  $$_/| $$      | $$       /$$__  $$
+#    | $$  \ $$   | $$   | $$      | $$  \ $$| $$  \__/      | $$  \__/| $$ /$$/   | $$  | $$      | $$      | $$  \__/
+#    | $$$$$$$$   | $$   | $$      | $$$$$$$$|  $$$$$$       |  $$$$$$ | $$$$$/    | $$  | $$      | $$      |  $$$$$$
+#    | $$__  $$   | $$   | $$      | $$__  $$ \____  $$       \____  $$| $$  $$    | $$  | $$      | $$       \____  $$
+#    | $$  | $$   | $$   | $$      | $$  | $$ /$$  \ $$       /$$  \ $$| $$\  $$   | $$  | $$      | $$       /$$  \ $$
+#    | $$  | $$   | $$   | $$$$$$$$| $$  | $$|  $$$$$$/      |  $$$$$$/| $$ \  $$ /$$$$$$| $$$$$$$$| $$$$$$$$|  $$$$$$/
+#    |__/  |__/   |__/   |________/|__/  |__/ \______/        \______/ |__/  \__/|______/|________/|________/ \______/
+#
+#    This plugin was made by _Ghillie
+#
+#    Plugin Version 1.0.0
+#
+#    Discord: https://discord.gg/f9swPR7NnV
+#
+
+Command-Messages:
+  ##########################################################
+  #                                                        #
+  #                   DEFAULT MESSAGES                     #
+  #                                                        #
+  ##########################################################
+  Command-Messages-UnknownCommand:
+    - "&c&m&l------------&f&l [&x&F&F&3&C&3&C&lA&x&F&F&4&F&3&E&lt&x&F&E&6&2&4&1&ll&x&F&E&7&5&4&3&la&x&F&D&8&8&4&6&ls &x&F&D&9&C&4&8&lS&x&F&D&A&F&4&A&lk&x&F&C&C&2&4&D&li&x&F&C&D&5&4&F&ll&x&F&B&E&8&5&2&ll&x&F&B&F&B&5&4&ls&f&l] &c&m&l-------------"
+    - ""
+    - "&c● &7This command is not recognised."
+    - ""
+    - "&c&m&l-----------------------------------------"
+  Command-Messages-NoPermissions:
+    - "&c&m&l------------&f&l [&x&F&F&3&C&3&C&lA&x&F&F&4&F&3&E&lt&x&F&E&6&2&4&1&ll&x&F&E&7&5&4&3&la&x&F&D&8&8&4&6&ls &x&F&D&9&C&4&8&lS&x&F&D&A&F&4&A&lk&x&F&C&C&2&4&D&li&x&F&C&D&5&4&F&ll&x&F&B&E&8&5&2&ll&x&F&B&F&B&5&4&ls&f&l] &c&m&l-------------"
+    - ""
+    - "&c● &7You do not have the correct &cPermissions &7or you are not &cOped&7."
+    - ""
+    - "&c&m&l-----------------------------------------"
+  Command-Messages-NotAPlayer:
+    - "&c&m&l------------&f&l [&x&F&F&3&C&3&C&lA&x&F&F&4&F&3&E&lt&x&F&E&6&2&4&1&ll&x&F&E&7&5&4&3&la&x&F&D&8&8&4&6&ls &x&F&D&9&C&4&8&lS&x&F&D&A&F&4&A&lk&x&F&C&C&2&4&D&li&x&F&C&D&5&4&F&ll&x&F&B&E&8&5&2&ll&x&F&B&F&B&5&4&ls&f&l] &c&m&l-------------"
+    - ""
+    - "&c● &7This command can only be used by players."
+    - ""
+    - "&c&m&l-----------------------------------------"
+  ##########################################################
+  #                                                        #
+  #                RELOAD CONFIG MESSAGES                  #
+  #                                                        #
+  ##########################################################
+  Command-Messages-ReloadConfig-ConfigReloaded:
+    - "&c&m&l------------&f&l [&x&F&F&3&C&3&C&lA&x&F&F&4&F&3&E&lt&x&F&E&6&2&4&1&ll&x&F&E&7&5&4&3&la&x&F&D&8&8&4&6&ls &x&F&D&9&C&4&8&lS&x&F&D&A&F&4&A&lk&x&F&C&C&2&4&D&li&x&F&C&D&5&4&F&ll&x&F&B&E&8&5&2&ll&x&F&B&F&B&5&4&ls&f&l] &c&m&l-------------"
+    - ""
+    - "&c● &7You have &aReloaded &7the config."
+    - ""
+    - "&c&m&l-----------------------------------------"
+  ##########################################################
+  #                                                        #
+  #                   SET SKILL MESSAGES                   #
+  #                                                        #
+  ##########################################################
+  Command-Messages-SetSkill-Usage-Message:
+    - "&c&m&l------------&f&l [&x&F&F&3&C&3&C&lA&x&F&F&4&F&3&E&lt&x&F&E&6&2&4&1&ll&x&F&E&7&5&4&3&la&x&F&D&8&8&4&6&ls &x&F&D&9&C&4&8&lS&x&F&D&A&F&4&A&lk&x&F&C&C&2&4&D&li&x&F&C&D&5&4&F&ll&x&F&B&E&8&5&2&ll&x&F&B&F&B&5&4&ls&f&l] &c&m&l-------------"
+    - ""
+    - "&c● &7Usage: &c/setlvl &e<player> <skill> <level>"
+    - ""
+    - "&c&m&l-----------------------------------------"
+  Command-Messages-SetSkill-PlayerNotFound-Message:
+    - "&c&m&l------------&f&l [&x&F&F&3&C&3&C&lA&x&F&F&4&F&3&E&lt&x&F&E&6&2&4&1&ll&x&F&E&7&5&4&3&la&x&F&D&8&8&4&6&ls &x&F&D&9&C&4&8&lS&x&F&D&A&F&4&A&lk&x&F&C&C&2&4&D&li&x&F&C&D&5&4&F&ll&x&F&B&E&8&5&2&ll&x&F&B&F&B&5&4&ls&f&l] &c&m&l-------------"
+    - ""
+    - "&c● &7Player Was Not Found"
+    - ""
+    - "&c&m&l-----------------------------------------"
+  Command-Messages-SetSkill-SkillNotFound-Message:
+    - "&c&m&l------------&f&l [&x&F&F&3&C&3&C&lA&x&F&F&4&F&3&E&lt&x&F&E&6&2&4&1&ll&x&F&E&7&5&4&3&la&x&F&D&8&8&4&6&ls &x&F&D&9&C&4&8&lS&x&F&D&A&F&4&A&lk&x&F&C&C&2&4&D&li&x&F&C&D&5&4&F&ll&x&F&B&E&8&5&2&ll&x&F&B&F&B&5&4&ls&f&l] &c&m&l-------------"
+    - ""
+    - "&c● &7Skill Was Not Found"
+    - ""
+    - "&c&m&l-----------------------------------------"
+  Command-Messages-SetSkill-LevelRange-Message:
+    - "&c&m&l------------&f&l [&x&F&F&3&C&3&C&lA&x&F&F&4&F&3&E&lt&x&F&E&6&2&4&1&ll&x&F&E&7&5&4&3&la&x&F&D&8&8&4&6&ls &x&F&D&9&C&4&8&lS&x&F&D&A&F&4&A&lk&x&F&C&C&2&4&D&li&x&F&C&D&5&4&F&ll&x&F&B&E&8&5&2&ll&x&F&B&F&B&5&4&ls&f&l] &c&m&l-------------"
+    - ""
+    - "&c● &7Level must be between &e1 &7and &e100+"
+    - ""
+    - "&c&m&l-----------------------------------------"
+  ##########################################################
+  #                                                        #
+  #                RESET SKILLS MESSAGES                   #
+  #                                                        #
+  ##########################################################
+  Command-Messages-ResetSkills-Usage-Message:
+    - "&c&m&l------------&f&l [&x&F&F&3&C&3&C&lA&x&F&F&4&F&3&E&lt&x&F&E&6&2&4&1&ll&x&F&E&7&5&4&3&la&x&F&D&8&8&4&6&ls &x&F&D&9&C&4&8&lS&x&F&D&A&F&4&A&lk&x&F&C&C&2&4&D&li&x&F&C&D&5&4&F&ll&x&F&B&E&8&5&2&ll&x&F&B&F&B&5&4&ls&f&l] &c&m&l-------------"
+    - ""
+    - "&c● &7Usage: &c/reset &e<player>"
+    - ""
+    - "&c&m&l-----------------------------------------"
+  Command-Messages-ResetSkills-PlayerNotFound-Message:
+    - "&c&m&l------------&f&l [&x&F&F&3&C&3&C&lA&x&F&F&4&F&3&E&lt&x&F&E&6&2&4&1&ll&x&F&E&7&5&4&3&la&x&F&D&8&8&4&6&ls &x&F&D&9&C&4&8&lS&x&F&D&A&F&4&A&lk&x&F&C&C&2&4&D&li&x&F&C&D&5&4&F&ll&x&F&B&E&8&5&2&ll&x&F&B&F&B&5&4&ls&f&l] &c&m&l-------------"
+    - ""
+    - "&c● &7Player Was Not Found"
+    - ""
+    - "&c&m&l-----------------------------------------"
+
+EnchantItems:
+  #Type of Item the Enchantments will be.
+  EnchantItem: ENCHANTED_BOOK
+  #This chance determines if it should run the spawning enchant logic to spawn an enchantment
+  #Default Spawn Chance = 0.05 (0.05 = 5% chance that it will allow the spawning system to loop through all the enchants)
+  #if the spawning chance fails no enchantment attempt to be spawned.
+  EnchantItem-Spawn-Chance: 0.05
+  #A list of all rarity's in the plugin. (0.5 = 50%)
+  EnchantItem-Rarity-List:
+    #Chance to get a Godly enchantment.
+    GODLY: 0.05
+    #Chance to get a Legendary enchantment.
+    LEGENDARY: 0.15
+    #Chance to get a Epic enchantment.
+    EPIC: 0.30
+    #Chance to get a Rare enchantment.
+    RARE: 0.5
+  #This allows you to flip the order of the enchants default is true, which means it will check all Rares all the way up to Godly#
+  #if false then it will check Godly first and make its way down to Rares.
+  EnchantItem-Flip-List: true
+
+#Sound Manager
+#https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html < list of all sounds in minecraft.
+SkillSounds:
+  #------------------LEVEL UP SKILL SOUNDS------------------#
+  #If True the skill level up sound will play.
+  Skill-LvlUP-Sound-Toggle: true
+  #The sound that plays when levelling up a skill.
+  Skill-LvlUP-Sound: ENTITY_PLAYER_LEVELUP
+  #The volume the sound plays at when levelling up a skill.
+  Skill-LvlUP-Volume: 1
+  #The pitch the sound plays at when levelling up a skill.
+  Skill-LvlUP-Pitch: 0.1
+  #------------------SET SKILL LEVEL SOUNDS------------------#
+  #If True the set skill sound will play.
+  Skill-SetSkillLvl-Sound-Toggle: true
+  #The sound that plays when setting a players skill to a new level.
+  Skill-SetSkillLvl-Sound: ENTITY_PLAYER_LEVELUP
+  #The volume the sound plays at when setting a players skill to a new level.
+  Skill-SetSkillLvl-Volume: 1
+  #The pitch the sound plays at when setting a players skill to a new level.
+  Skill-SetSkillLvl-Pitch: 0.1
+  #------------------RESET SKILLS SOUNDS------------------#
+  #If True the reset skills sound will play.
+  Skill-ResetSkills-Sound-Toggle: true
+  #The sound that plays when a players skills have been reset.
+  Skill-ResetSkills-Sound: ENTITY_IRON_GOLEM_REPAIR
+  #The volume the sound plays at a players skills have been reset.
+  Skill-ResetSkills-Volume: 1
+  #The pitch the sound plays at a players skills have been reset.
+  Skill-ResetSkills-Pitch: 0.1
+  #------------------SKILL DISABLED SOUNDS------------------#
+  #If True the skill disabled sound will play.
+  Skill-DisabledSkill-Sound-Toggle: true
+  #The sound that plays when a skill that is disabled has been activated.
+  Skill-DisabledSkill-Sound: BLOCK_ANVIL_LAND
+  #The volume the sound plays at when skill that is disabled has been activated.
+  Skill-DisabledSkill-Volume: 1
+  #The pitch the sound plays at when skill that is disabled has been activated.
+  Skill-DisabledSkill-Pitch: 0.1
+
+SkillMessages:
+  #------------------LEVEL UP SKILL Message------------------#
+  #If True the skill level up message will be sent to the player.
+  Skill-LvlUP-Message-Toggle: true
+  #The message that will be sent when a skill levels up.
+  Skill-LvlUP-Message:
+    -  "&c&m&l------------&f&l [&x&F&F&3&C&3&C&lA&x&F&F&4&F&3&E&lt&x&F&E&6&2&4&1&ll&x&F&E&7&5&4&3&la&x&F&D&8&8&4&6&ls &x&F&D&9&C&4&8&lS&x&F&D&A&F&4&A&lk&x&F&C&C&2&4&D&li&x&F&C&D&5&4&F&ll&x&F&B&E&8&5&2&ll&x&F&B&F&B&5&4&ls&f&l] &c&m&l-------------"
+    -  ""
+    -  "&c● &7You just leveled up &c&l{skillName} &7to Lvl: &e{skillLevel}"
+    -  ""
+    -  "&c&m&l-----------------------------------------"
+  #------------------SET SKILL LEVEL Message------------------#
+  #If True the set skill message will be sent to the player.
+  Skill-SetSkillLvl-Message-Toggle: true
+  #The message that will be sent when setting a players skill level.
+  Skill-SetSkillLvl-Message:
+    -  "&c&m&l------------&f&l [&x&F&F&3&C&3&C&lA&x&F&F&4&F&3&E&lt&x&F&E&6&2&4&1&ll&x&F&E&7&5&4&3&la&x&F&D&8&8&4&6&ls &x&F&D&9&C&4&8&lS&x&F&D&A&F&4&A&lk&x&F&C&C&2&4&D&li&x&F&C&D&5&4&F&ll&x&F&B&E&8&5&2&ll&x&F&B&F&B&5&4&ls&f&l] &c&m&l-------------"
+    -  ""
+    -  "&c● &7You just set &c&l{player}'s &e{skillName} &7level to &e{skillNewLevel}"
+    -  ""
+    -  "&c&m&l-----------------------------------------"
+  #------------------RESET SKILLS Message------------------#
+  #If True the reset all skills message will be sent to the player.
+  Skill-ResetSkills-Message-Toggle: true
+  #The message that will be sent when all their skills have been reset.
+  Skill-ResetSkills-Message:
+    -  "&c&m&l------------&f&l [&x&F&F&3&C&3&C&lA&x&F&F&4&F&3&E&lt&x&F&E&6&2&4&1&ll&x&F&E&7&5&4&3&la&x&F&D&8&8&4&6&ls &x&F&D&9&C&4&8&lS&x&F&D&A&F&4&A&lk&x&F&C&C&2&4&D&li&x&F&C&D&5&4&F&ll&x&F&B&E&8&5&2&ll&x&F&B&F&B&5&4&ls&f&l] &c&m&l-------------"
+    -  ""
+    -  "&c● &7You just reset all &eSkills &7for &c&l{player}"
+    -  ""
+    -  "&c&m&l-----------------------------------------"
+  #------------------SKILL DISABLED Message------------------#
+  #If True Skill Disable system will work.
+  Skill-DisabledSkill-Toggle: true
+  #If True the skill disabled message will be sent to the player.
+  Skill-DisabledSkill-Message-Toggle: true
+  #The message that will be sent when a skill has been activated but is disabled.
+  Skill-DisabledSkill-Message:
+    -  "&c&m&l------------&f&l [&x&F&F&3&C&3&C&lA&x&F&F&4&F&3&E&lt&x&F&E&6&2&4&1&ll&x&F&E&7&5&4&3&la&x&F&D&8&8&4&6&ls &x&F&D&9&C&4&8&lS&x&F&D&A&F&4&A&lk&x&F&C&C&2&4&D&li&x&F&C&D&5&4&F&ll&x&F&B&E&8&5&2&ll&x&F&B&F&B&5&4&ls&f&l] &c&m&l-------------"
+    -  ""
+    -  "&c● &7You cannot use &e{skillName} &7that skill is currently &c&lDISABLED"
+    -  ""
+    -  "&c&m&l-----------------------------------------"

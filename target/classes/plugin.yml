@@ -1,0 +1,31 @@
+name: AtlasSkills
+main: com.atlasplugins.atlasskills.Main
+
+version: '1.0.0'
+authors: [Ghillie]
+
+api-version: '1.21'
+description: Adds a MMO Feel to minecraft.
+
+# This sets PlaceholderAPI as an optional dependency for your plugin.
+softdepend: [PlaceholderAPI]
+
+commands:
+  atlasskills:
+    description: Atlas Skills Command
+    usage: /atlasskills [subcommand]
+    aliases: [askills, as]
+
+permissions:
+  atlasskills.help:
+    description: Permission needed to use the help command.
+    default: false
+  atlasskills.reloadconfig:
+    description: Permission needed to use the reload command.
+    default: false
+  atlasskills.setskilllvl:
+    description: Permission needed to set a players skill level.
+    default: false
+  atlasskills.resetskills:
+    description: Permission needed to reset players skills.
+    default: false
