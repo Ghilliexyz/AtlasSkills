@@ -13,6 +13,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityTameEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 
+import java.util.Random;
+
 public class FishingSkill implements Listener {
 
     private Main main;
@@ -32,7 +34,11 @@ public class FishingSkill implements Listener {
         if(!(e.getState() == PlayerFishEvent.State.CAUGHT_FISH)) return;
 
         // Get Skill XP amount
-        int fishingXP = main.getSkillsConfig().getInt("Skill-Settings.Fishing.Fishing-XP-Gain");
+        int fishingMinXP = main.getSkillsConfig().getInt("Skill-Settings.Fishing.Fishing-XP-Gain-Min");
+        int fishingMaxXP = main.getSkillsConfig().getInt("Skill-Settings.Fishing.Fishing-XP-Gain-Max");
+
+        Random random = new Random();
+        int fishingXP = fishingMinXP + random.nextInt(fishingMaxXP - fishingMinXP + 1);
 
         // get xp multiplier
         int xpMultiplier = main.getSkillsConfig().getInt("Skill-Addons.Skill-XP-Multiplier.Skill-XP-Multiplier-Amount");

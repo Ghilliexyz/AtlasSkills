@@ -14,6 +14,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Random;
+
 public class UnarmedSkill implements Listener {
 
     private Main main;
@@ -43,20 +45,24 @@ public class UnarmedSkill implements Listener {
         // get xp damage toggle
         boolean xpDamageToggle = main.getSkillsConfig().getBoolean("Skill-Settings.Unarmed.Unarmed-XP-Toggle");
 
-        int swordXP = 0;
+        int unarmedXP = 0;
         if (xpDamageToggle) {
-            // Get Skill XP Fixed amount
-            swordXP = main.getSkillsConfig().getInt("Skill-Settings.Unarmed.Unarmed-XP-Gain");
+            // Get Skill XP amount
+            int swordMinXP = main.getSkillsConfig().getInt("Skill-Settings.Unarmed.Unarmed-XP-Gain-Min");
+            int swordMaxXP = main.getSkillsConfig().getInt("Skill-Settings.Unarmed.Unarmed-XP-Gain-Max");
+
+            Random random = new Random();
+            unarmedXP = swordMinXP + random.nextInt(swordMaxXP - swordMinXP + 1);
         } else {
             // Calculate how much XP based on damage
-            swordXP = (int) damageDealt;
+            unarmedXP = (int) damageDealt;
         }
 
         // get xp multiplier
         int xpMultiplier = main.getSkillsConfig().getInt("Skill-Addons.Skill-XP-Multiplier.Skill-XP-Multiplier-Amount");
 
         // Add XP to Skill
-        levelManager.addXP(p, LevelManager.Skill.UNARMED, swordXP * xpMultiplier);
+        levelManager.addXP(p, LevelManager.Skill.UNARMED, unarmedXP * xpMultiplier);
 
         // Get Skill Stats
         int level = levelManager.getLevel(p, LevelManager.Skill.UNARMED);

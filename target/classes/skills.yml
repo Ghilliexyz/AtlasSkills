@@ -21,19 +21,26 @@ Skill-Addons:
 
 Skill-Settings:
   Acrobatics:
-    Acrobatics-XP-Gain: 5
+    Acrobatics-XP-Gain-Min: 1
+    Acrobatics-XP-Gain-Max: 10
   Alchemy:
-    Alchemy-XP-Gain: 5
+    Alchemy-XP-Gain-Min: 1
+    Alchemy-XP-Gain-Max: 10
   Archery:
-    Archery-XP-Gain: 5
+    Archery-XP-Gain-Min: 1
+    Archery-XP-Gain-Max: 10
   Axes:
-    Axes-XP-Gain: 5
+    Axes-XP-Gain-Min: 1
+    Axes-XP-Gain-Max: 10
   Excavation:
-    Excavation-XP-Gain: 5
+    Excavation-XP-Gain-Min: 1
+    Excavation-XP-Gain-Max: 10
   Fishing:
-    Fishing-XP-Gain: 5
+    Fishing-XP-Gain-Min: 1
+    Fishing-XP-Gain-Max: 10
   Herbalism:
-    Herbalism-XP-Gain: 5
+    Herbalism-XP-Gain-Min: 1
+    Herbalism-XP-Gain-Max: 10
     #The list of blocks/Plants this skill will work on.
     Herbalism-Block-List:
       - WHEAT
@@ -59,21 +66,26 @@ Skill-Settings:
       - TWISTING_VINES
       - TWISTING_VINES_PLANT
   Mining:
-    Mining-XP-Gain: 5
+    Mining-XP-Gain-Min: 1
+    Mining-XP-Gain-Max: 10
   Swords:
     #if this is true the xp you gain will be fixed at the amount (Swords-XP-Gain = 5)
     #if false then the xp you gain will be set by how much damage you do.
     Swords-XP-Toggle: false
-    Swords-XP-Gain: 5
+    Swords-XP-Gain-Min: 1
+    Swords-XP-Gain-Max: 10
   Taming:
-    Taming-XP-Gain: 5
+    Taming-XP-Gain-Min: 1
+    Taming-XP-Gain-Max: 10
   Unarmed:
     #if this is true the xp you gain will be fixed at the amount (Unarmed-XP-Gain = 5)
     #if false then the xp you gain will be set by how much damage you do.
     Unarmed-XP-Toggle: false
-    Unarmed-XP-Gain: 5
+    Unarmed-XP-Gain-Min: 1
+    Unarmed-XP-Gain-Max: 10
   Woodcutting:
-    Woodcutting-XP-Gain: 5
+    Woodcutting-XP-Gain-Min: 1
+    Woodcutting-XP-Gain-Max: 10
     #The list of blocks/logs this skill will work on.
     Woodcutting-Block-List:
       - OAK_LOG

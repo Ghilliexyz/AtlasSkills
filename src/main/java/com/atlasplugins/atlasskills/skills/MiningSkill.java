@@ -13,6 +13,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Random;
+
 public class MiningSkill implements Listener {
 
     private Main main;
@@ -33,7 +35,11 @@ public class MiningSkill implements Listener {
         if(!hasCorrectTool(tool.getType())) return;
 
         // Get Skill XP amount
-        int miningXP = main.getSkillsConfig().getInt("Skill-Settings.Mining.Mining-XP-Gain");
+        int miningMinXP = main.getSkillsConfig().getInt("Skill-Settings.Mining.Mining-XP-Gain-Min");
+        int miningMaxXP = main.getSkillsConfig().getInt("Skill-Settings.Mining.Mining-XP-Gain-Max");
+
+        Random random = new Random();
+        int miningXP = miningMinXP + random.nextInt(miningMaxXP - miningMinXP + 1);
 
         // get xp multiplier
         int xpMultiplier = main.getSkillsConfig().getInt("Skill-Addons.Skill-XP-Multiplier.Skill-XP-Multiplier-Amount");

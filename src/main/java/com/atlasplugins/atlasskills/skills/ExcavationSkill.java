@@ -13,6 +13,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Random;
+
 public class ExcavationSkill implements Listener {
 
     private Main main;
@@ -33,7 +35,11 @@ public class ExcavationSkill implements Listener {
         if(!hasCorrectTool(tool.getType())) return;
 
         // Get Skill XP amount
-        int excavationXP = main.getSkillsConfig().getInt("Skill-Settings.Excavation.Excavation-XP-Gain");
+        int excavationMinXP = main.getSkillsConfig().getInt("Skill-Settings.Excavation.Excavation-XP-Gain-Min");
+        int excavationMaxXP = main.getSkillsConfig().getInt("Skill-Settings.Excavation.Excavation-XP-Gain-Max");
+
+        Random random = new Random();
+        int excavationXP = excavationMinXP + random.nextInt(excavationMaxXP - excavationMinXP + 1);
 
         // get xp multiplier
         int xpMultiplier = main.getSkillsConfig().getInt("Skill-Addons.Skill-XP-Multiplier.Skill-XP-Multiplier-Amount");

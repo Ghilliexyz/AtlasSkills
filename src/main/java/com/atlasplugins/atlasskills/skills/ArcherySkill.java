@@ -14,6 +14,8 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.projectiles.ProjectileSource;
 
+import java.util.Random;
+
 public class ArcherySkill implements Listener {
 
     private Main main;
@@ -39,7 +41,11 @@ public class ArcherySkill implements Listener {
         if(!(projectile instanceof Arrow)) return;
 
         // Get Skill XP amount
-        int archeryXP = main.getSkillsConfig().getInt("Skill-Settings.Archery.Archery-XP-Gain");
+        int archeryMinXP = main.getSkillsConfig().getInt("Skill-Settings.Archery.Archery-XP-Gain-Min");
+        int archeryMaxXP = main.getSkillsConfig().getInt("Skill-Settings.Archery.Archery-XP-Gain-Max");
+
+        Random random = new Random();
+        int archeryXP = archeryMinXP + random.nextInt(archeryMaxXP - archeryMinXP + 1);
 
         // get xp multiplier
         int xpMultiplier = main.getSkillsConfig().getInt("Skill-Addons.Skill-XP-Multiplier.Skill-XP-Multiplier-Amount");

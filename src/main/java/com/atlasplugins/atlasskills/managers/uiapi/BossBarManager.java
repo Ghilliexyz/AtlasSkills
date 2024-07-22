@@ -10,96 +10,122 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 
 public class BossBarManager {
     private final Map<Player, BossBar> bossBars = new HashMap<>();
-    private BossBar bossBar;
-    private BukkitRunnable currentTask;
+    private final Map<Player, BukkitRunnable> hideTasks = new HashMap<>();
 
-    public void createBossBar(Player player, String title, BarColor color, BarStyle style, double BarProgress) {
-        if(bossBar != null)
-        {
-            bossBar.removeAll();
+    public void createBossBar(Player player, String title, BarColor color, BarStyle style, double barProgress) {
+        BossBar bossBar = bossBars.get(player);
+        if (bossBar == null) {
             bossBar = Bukkit.createBossBar(Main.color(title), color, style);
-            bossBar.addPlayer(player);
-            bossBar.setProgress(BarProgress);
             bossBars.put(player, bossBar);
-        }else{
-            bossBar = Bukkit.createBossBar(Main.color(title), color, style);
-            bossBar.addPlayer(player);
-            bossBar.setProgress(BarProgress);
-            bossBars.put(player, bossBar);
+            Main.instance.getLogger().log(Level.INFO, "Created new BossBar for player: " + player.getName());
+        } else {
+            bossBar.setTitle(Main.color(title));
+            bossBar.setColor(color);
+            bossBar.setStyle(style);
+            Main.instance.getLogger().log(Level.INFO, "Reusing existing BossBar for player: " + player.getName());
         }
+        bossBar.setProgress(barProgress);
+        bossBar.addPlayer(player);
+        bossBar.setVisible(true);
     }
 
     public void removeBossBar(Player player) {
-        bossBars.remove(player);
+        BossBar bossBar = bossBars.remove(player);
         if (bossBar != null) {
             bossBar.removeAll();
+            Main.instance.getLogger().log(Level.INFO, "Removed BossBar for player: " + player.getName());
         }
     }
 
     public void showProgressBar(Player player, String title, double progress, double progressMax) {
         double normalizedProgress = Math.max(0.0, Math.min(1.0, progress / progressMax));
-        bossBar.setTitle(Main.color(title));
-        bossBar.setProgress(normalizedProgress); // Progress is now between 0.0 and 1.0
+        BossBar bossBar = bossBars.get(player);
+        if (bossBar == null) {
+            bossBar = Bukkit.createBossBar(Main.color(title), BarColor.BLUE, BarStyle.SOLID); // Default color and style
+            bossBars.put(player, bossBar);
+            Main.instance.getLogger().log(Level.INFO, "Created new progress bar for player: " + player.getName());
+        } else {
+            bossBar.setTitle(Main.color(title));
+            Main.instance.getLogger().log(Level.INFO, "Updated progress bar for player: " + player.getName());
+        }
+        bossBar.setProgress(normalizedProgress);
         bossBar.addPlayer(player);
         bossBar.setVisible(true);
     }
 
     public void createXPBossBar(Player player, String title, BarColor color, BarStyle style, int currentXP, int currentLevel) {
-        int xpForNextLevel = Main.instance.getLevelManager().getXPForNextLevel(currentLevel); // XP required for the next level
-        double normalizedProgress = (double) currentXP / xpForNextLevel; // Progress as a fraction of XP needed for the next level
-
-        // Ensure progress is within [0.0, 1.0]
+        int xpForNextLevel = Main.instance.getLevelManager().getXPForNextLevel(currentLevel);
+        double normalizedProgress = (double) currentXP / xpForNextLevel;
         normalizedProgress = Math.max(0.0, Math.min(1.0, normalizedProgress));
 
-        if(bossBar != null)
-        {
-            bossBar.addPlayer(player);
-            bossBar.setProgress(normalizedProgress);
-            bossBars.put(player, bossBar);
-        }else{
+        BossBar bossBar = bossBars.get(player);
+        if (bossBar == null) {
             bossBar = Bukkit.createBossBar(Main.color(title), color, style);
-            bossBar.addPlayer(player);
-            bossBar.setProgress(normalizedProgress);
             bossBars.put(player, bossBar);
+            Main.instance.getLogger().log(Level.INFO, "Created new XP BossBar for player: " + player.getName());
+        } else {
+            bossBar.setTitle(Main.color(title));
+            bossBar.setColor(color);
+            bossBar.setStyle(style);
+            Main.instance.getLogger().log(Level.INFO, "Reusing existing XP BossBar for player: " + player.getName());
         }
+        bossBar.setProgress(normalizedProgress);
+        bossBar.addPlayer(player);
+        bossBar.setVisible(true);
     }
 
     public void showXPProgressBar(Player player, String title, int currentXP, int currentLevel) {
-        int xpForNextLevel = Main.instance.getLevelManager().getXPForNextLevel(currentLevel); // XP required for the next level
-        double normalizedProgress = (double) currentXP / xpForNextLevel; // Progress as a fraction of XP needed for the next level
-
-        // Ensure progress is within [0.0, 1.0]
+        int xpForNextLevel = Main.instance.getLevelManager().getXPForNextLevel(currentLevel);
+        double normalizedProgress = (double) currentXP / xpForNextLevel;
         normalizedProgress = Math.max(0.0, Math.min(1.0, normalizedProgress));
 
-        bossBar.setTitle(Main.color(title));
-        bossBar.setProgress(normalizedProgress); // Set progress to the normalized value
+        BossBar bossBar = bossBars.get(player);
+        if (bossBar == null) {
+            bossBar = Bukkit.createBossBar(Main.color(title), BarColor.BLUE, BarStyle.SOLID); // Default color and style
+            bossBars.put(player, bossBar);
+            Main.instance.getLogger().log(Level.INFO, "Created new XP progress bar for player: " + player.getName());
+        } else {
+            bossBar.setTitle(Main.color(title));
+            Main.instance.getLogger().log(Level.INFO, "Updated XP progress bar for player: " + player.getName());
+        }
+        bossBar.setProgress(normalizedProgress);
         bossBar.addPlayer(player);
         bossBar.setVisible(true);
     }
 
     public void hideProgressBar(Player player, long delay) {
-        if (currentTask != null && !currentTask.isCancelled()) {
-            currentTask.cancel();
+        BukkitRunnable hideTask = hideTasks.get(player);
+        if (hideTask != null && !hideTask.isCancelled()) {
+            hideTask.cancel();
         }
 
-        currentTask = new BukkitRunnable() {
+        hideTask = new BukkitRunnable() {
             @Override
             public void run() {
-                // Code to execute after the delay
-                bossBar.removePlayer(player);
-                bossBar.setVisible(false);
-                // Add any additional code you want to execute here
+                BossBar bossBar = bossBars.get(player);
+                if (bossBar != null) {
+                    bossBar.removePlayer(player);
+                    bossBar.setVisible(false);
+                    Main.instance.getLogger().log(Level.INFO, "Hid progress bar for player: " + player.getName());
+                }
             }
-        };currentTask.runTaskLater(Main.instance, delay * 20); // delayInSeconds * 20 ticks = delayInSeconds seconds
+        };
+
+        hideTasks.put(player, hideTask);
+        hideTask.runTaskLater(Main.instance, delay * 20);
     }
 
     public void cancelTimerBar() {
-        if (currentTask != null && !currentTask.isCancelled()) {
-            currentTask.cancel();
-            currentTask = null;
+        for (BukkitRunnable task : hideTasks.values()) {
+            if (task != null && !task.isCancelled()) {
+                task.cancel();
+            }
         }
+        hideTasks.clear();
+        Main.instance.getLogger().log(Level.INFO, "Cancelled all BossBar hide tasks");
     }
 }

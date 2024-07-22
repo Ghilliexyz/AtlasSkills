@@ -3,8 +3,6 @@ package com.atlasplugins.atlasskills.skills;
 import com.atlasplugins.atlasskills.Main;
 import com.atlasplugins.atlasskills.managers.levelsystem.LevelManager;
 import com.atlasplugins.atlasskills.managers.uiapi.UIManager;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.entity.Entity;
@@ -12,9 +10,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Tameable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityTameEvent;
-import org.bukkit.inventory.ItemStack;
+
+import java.util.Random;
 
 public class TamingSkill implements Listener {
 
@@ -35,7 +33,11 @@ public class TamingSkill implements Listener {
         if(!(entityTamed instanceof Tameable)) return;
 
         // Get Skill XP amount
-        int tamingXP = main.getSkillsConfig().getInt("Skill-Settings.Taming.Taming-XP-Gain");
+        int tamingMinXP = main.getSkillsConfig().getInt("Skill-Settings.Taming.Taming-XP-Gain-Min");
+        int tamingMaxXP = main.getSkillsConfig().getInt("Skill-Settings.Taming.Taming-XP-Gain-Max");
+
+        Random random = new Random();
+        int tamingXP = tamingMinXP + random.nextInt(tamingMaxXP - tamingMinXP + 1);
 
         // get xp multiplier
         int xpMultiplier = main.getSkillsConfig().getInt("Skill-Addons.Skill-XP-Multiplier.Skill-XP-Multiplier-Amount");

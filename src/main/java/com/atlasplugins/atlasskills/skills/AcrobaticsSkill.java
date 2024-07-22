@@ -11,6 +11,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 
+import java.util.Random;
+
 public class AcrobaticsSkill implements Listener {
 
     private Main main;
@@ -33,7 +35,11 @@ public class AcrobaticsSkill implements Listener {
         if(damageCause != EntityDamageEvent.DamageCause.FALL) return;
 
         // Get Skill XP amount
-        int acrobaticsXP = main.getSkillsConfig().getInt("Skill-Settings.Acrobatics.Acrobatics-XP-Gain");
+        int acrobaticsMinXP = main.getSkillsConfig().getInt("Skill-Settings.Acrobatics.Acrobatics-XP-Gain-Min");
+        int acrobaticsMaxXP = main.getSkillsConfig().getInt("Skill-Settings.Acrobatics.Acrobatics-XP-Gain-Max");
+
+        Random random = new Random();
+        int acrobaticsXP = acrobaticsMinXP + random.nextInt(acrobaticsMaxXP - acrobaticsMinXP + 1);
 
         // Get the final XP amount
         double finalXP = acrobaticsXP * damage;

@@ -14,6 +14,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
+import java.util.Random;
 
 public class HerbalismSkill implements Listener {
 
@@ -34,7 +35,7 @@ public class HerbalismSkill implements Listener {
         ItemStack tool = e.getPlayer().getInventory().getItemInMainHand();
 
         // if the player doesn't have the correct tool return
-        if (!hasCorrectTool(tool.getType())) return;
+        if (hasIncorrectTool(tool.getType())) return;
 
         // Get the list of blocks that work with this skill
         LOGS = main.getSkillsConfig().getStringList("Skill-Settings.Herbalism.Herbalism-Block-List");
@@ -43,7 +44,11 @@ public class HerbalismSkill implements Listener {
         if (!LOGS.contains(blockBroken.getType().toString())) return;
 
         // Get Skill XP amount
-        int herbalismXP = main.getSkillsConfig().getInt("Skill-Settings.Herbalism.Herbalism-XP-Gain");
+        int herbalismMinXP = main.getSkillsConfig().getInt("Skill-Settings.Herbalism.Herbalism-XP-Gain-Min");
+        int herbalismMaxXP = main.getSkillsConfig().getInt("Skill-Settings.Herbalism.Herbalism-XP-Gain-Max");
+
+        Random random = new Random();
+        int herbalismXP = herbalismMinXP + random.nextInt(herbalismMaxXP - herbalismMinXP + 1);
 
         // get xp multiplier
         int xpMultiplier = main.getSkillsConfig().getInt("Skill-Addons.Skill-XP-Multiplier.Skill-XP-Multiplier-Amount");
@@ -76,21 +81,43 @@ public class HerbalismSkill implements Listener {
         UIManager.getBossBarManager().hideProgressBar(p, skillBarHideDelay);
     }
 
-    public Boolean hasCorrectTool(Material tool) {
+    public Boolean hasIncorrectTool(Material tool) {
         switch (tool) {
-            case Material.AIR:
+            case Material.WOODEN_PICKAXE:
                 return true;
-            case Material.WOODEN_HOE:
+            case Material.STONE_PICKAXE:
                 return true;
-            case Material.STONE_HOE:
+            case Material.IRON_PICKAXE:
                 return true;
-            case Material.IRON_HOE:
+            case Material.GOLDEN_PICKAXE:
                 return true;
-            case Material.GOLDEN_HOE:
+            case Material.DIAMOND_PICKAXE:
                 return true;
-            case Material.DIAMOND_HOE:
+            case Material.NETHERITE_PICKAXE:
                 return true;
-            case Material.NETHERITE_HOE:
+            case Material.WOODEN_AXE:
+                return true;
+            case Material.STONE_AXE:
+                return true;
+            case Material.IRON_AXE:
+                return true;
+            case Material.GOLDEN_AXE:
+                return true;
+            case Material.DIAMOND_AXE:
+                return true;
+            case Material.NETHERITE_AXE:
+                return true;
+            case Material.WOODEN_SHOVEL:
+                return true;
+            case Material.STONE_SHOVEL:
+                return true;
+            case Material.IRON_SHOVEL:
+                return true;
+            case Material.GOLDEN_SHOVEL:
+                return true;
+            case Material.DIAMOND_SHOVEL:
+                return true;
+            case Material.NETHERITE_SHOVEL:
                 return true;
             default:
                 return false;

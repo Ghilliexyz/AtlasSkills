@@ -14,6 +14,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Random;
+
 public class SwordSkill implements Listener {
 
     private Main main;
@@ -45,8 +47,12 @@ public class SwordSkill implements Listener {
 
         int swordXP = 0;
         if(xpDamageToggle) {
-            // Get Skill XP Fixed amount
-            swordXP = main.getSkillsConfig().getInt("Skill-Settings.Swords.Swords-XP-Gain");
+            // Get Skill XP amount
+            int swordMinXP = main.getSkillsConfig().getInt("Skill-Settings.Swords.Swords-XP-Gain-Min");
+            int swordMaxXP = main.getSkillsConfig().getInt("Skill-Settings.Swords.Swords-XP-Gain-Max");
+
+            Random random = new Random();
+            swordXP = swordMinXP + random.nextInt(swordMaxXP - swordMinXP + 1);
         }else{
             // Calculate how much XP based on damage
             swordXP = (int) damageDealt;

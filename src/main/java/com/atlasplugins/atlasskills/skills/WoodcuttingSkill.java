@@ -14,6 +14,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
+import java.util.Random;
 
 public class WoodcuttingSkill implements Listener {
 
@@ -43,7 +44,11 @@ public class WoodcuttingSkill implements Listener {
         if (!LOGS.contains(blockBroken.getType().toString())) return;
 
         // Get Skill XP amount
-        int woodcuttingXP = main.getSkillsConfig().getInt("Skill-Settings.Woodcutting.Woodcutting-XP-Gain");
+        int woodcuttinMinXP = main.getSkillsConfig().getInt("Skill-Settings.Woodcutting.Woodcutting-XP-Gain-Min");
+        int woodcuttinMaxXP = main.getSkillsConfig().getInt("Skill-Settings.Woodcutting.Woodcutting-XP-Gain-Max");
+
+        Random random = new Random();
+        int woodcuttingXP = woodcuttinMinXP + random.nextInt(woodcuttinMaxXP - woodcuttinMinXP + 1);
 
         // get xp multiplier
         int xpMultiplier = main.getSkillsConfig().getInt("Skill-Addons.Skill-XP-Multiplier.Skill-XP-Multiplier-Amount");

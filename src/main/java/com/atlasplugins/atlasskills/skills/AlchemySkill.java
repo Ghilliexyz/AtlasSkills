@@ -16,6 +16,7 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
+import java.util.Random;
 
 public class AlchemySkill implements Listener {
 
@@ -50,9 +51,12 @@ public class AlchemySkill implements Listener {
         ItemStack potionSlot1 = e.getContents().getItem(1);
         ItemStack potionSlot2 = e.getContents().getItem(2);
 
-
         // Get Skill XP amount
-        int alchemyXP = main.getSkillsConfig().getInt("Skill-Settings.Alchemy.Alchemy-XP-Gain");
+        int alchemyMinXP = main.getSkillsConfig().getInt("Skill-Settings.Alchemy.Alchemy-XP-Gain-Min");
+        int alchemyMaxXP = main.getSkillsConfig().getInt("Skill-Settings.Alchemy.Alchemy-XP-Gain-Max");
+
+        Random random = new Random();
+        int alchemyXP = alchemyMinXP + random.nextInt(alchemyMaxXP - alchemyMinXP + 1);
 
         // Gets the final amount of XP
         int finalXP = 0;

@@ -14,6 +14,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Random;
+
 public class AxeSkill implements Listener {
 
     private Main main;
@@ -41,7 +43,11 @@ public class AxeSkill implements Listener {
         if(!(damagedEntity instanceof LivingEntity)) return;
 
         // Get Skill XP amount
-        int axeXP = main.getSkillsConfig().getInt("Skill-Settings.Axes.Axes-XP-Gain");
+        int axesMinXP = main.getSkillsConfig().getInt("Skill-Settings.Axes.Axes-XP-Gain-Min");
+        int axesMaxXP = main.getSkillsConfig().getInt("Skill-Settings.Axes.Axes-XP-Gain-Max");
+
+        Random random = new Random();
+        int axeXP = axesMinXP + random.nextInt(axesMaxXP - axesMinXP + 1);
 
         // get xp multiplier
         int xpMultiplier = main.getSkillsConfig().getInt("Skill-Addons.Skill-XP-Multiplier.Skill-XP-Multiplier-Amount");
