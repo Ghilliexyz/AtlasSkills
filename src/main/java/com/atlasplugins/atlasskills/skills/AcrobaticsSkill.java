@@ -25,22 +25,23 @@ public class AcrobaticsSkill implements Listener {
     public void onEntityDamageEvent(EntityDamageEvent e) {
         EntityDamageEvent.DamageCause damageCause = e.getCause();
         double damage = e.getFinalDamage();
-        Player p = (Player) e.getEntity();
         // if the entity isn't a Player then return
-        if(!(e.getEntity() instanceof Player)) return;
+        if(!(e.getEntity() instanceof Player p)) return;
 
-        // Get Acrobatics skill XP amount
-        int acrobaticsXP = main.getSkillsConfig().getInt("Skill-Settings.Mining.Mining-XP-Gain");
 
         // if the damage cause isn't from fall damage then return
         if(damageCause != EntityDamageEvent.DamageCause.FALL) return;
 
+        // Get Skill XP amount
+        int acrobaticsXP = main.getSkillsConfig().getInt("Skill-Settings.Acrobatics.Acrobatics-XP-Gain");
+
+        // Get the final XP amount
         double finalXP = acrobaticsXP * damage;
 
-        // Add XP to Mining
+        // Add XP to Skill
         levelManager.addXP(p, LevelManager.Skill.ACROBATICS, (int) finalXP);
 
-        // Get Acrobatics Stats
+        // Get Skill Stats
         int level = levelManager.getLevel(p, LevelManager.Skill.ACROBATICS);
         int xp = levelManager.getXP(p, LevelManager.Skill.ACROBATICS);
         int xpToNextLevel = levelManager.getXPForNextLevel(level);

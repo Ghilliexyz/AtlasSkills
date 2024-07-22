@@ -15,6 +15,9 @@
 #    Discord: https://discord.gg/f9swPR7NnV
 #
 
+Skill-Addons:
+  Skill-XP-Multiplier:
+    Skill-XP-Multiplier-Amount: 1
 
 Skill-Settings:
   Acrobatics:
@@ -25,8 +28,6 @@ Skill-Settings:
     Archery-XP-Gain: 5
   Axes:
     Axes-XP-Gain: 5
-  Crossbows:
-    Crossbows-XP-Gain: 5
   Excavation:
     Excavation-XP-Gain: 5
   Fishing:
@@ -37,9 +38,10 @@ Skill-Settings:
     Maces-XP-Gain: 5
   Mining:
     Mining-XP-Gain: 5
-  Repair:
-    Repair-XP-Gain: 5
   Swords:
+    #if this is true the xp you gain will be fixed at the amount (Swords-XP-Gain = 5)
+    #if false then the xp you gain will be set by how much damage you do.
+    Swords-XP-Toggle: false
     Swords-XP-Gain: 5
   Taming:
     Taming-XP-Gain: 5

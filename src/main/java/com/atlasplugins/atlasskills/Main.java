@@ -3,8 +3,7 @@ package com.atlasplugins.atlasskills;
 import com.atlasplugins.atlasskills.commands.CommandRouter;
 import com.atlasplugins.atlasskills.listeners.onPlayerEvents;
 import com.atlasplugins.atlasskills.managers.levelsystem.LevelManager;
-import com.atlasplugins.atlasskills.skills.AcrobaticsSkill;
-import com.atlasplugins.atlasskills.skills.MiningSkill;
+import com.atlasplugins.atlasskills.skills.*;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -67,6 +66,11 @@ public final class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new onPlayerEvents(),this);
         getServer().getPluginManager().registerEvents(new MiningSkill(this),this);
         getServer().getPluginManager().registerEvents(new AcrobaticsSkill(this),this);
+        getServer().getPluginManager().registerEvents(new AlchemySkill(this),this);
+        getServer().getPluginManager().registerEvents(new ArcherySkill(this),this);
+        getServer().getPluginManager().registerEvents(new AxeSkill(this),this);
+        getServer().getPluginManager().registerEvents(new ExcavationSkill(this),this);
+        getServer().getPluginManager().registerEvents(new SwordSkill(this),this);
 
         // Register commands
         this.commandRouter = new CommandRouter(this);
