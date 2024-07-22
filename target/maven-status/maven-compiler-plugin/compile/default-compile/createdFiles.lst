@@ -16,4 +16,5 @@ com\atlasplugins\atlasskills\managers\levelsystem\LevelManager.class
 com\atlasplugins\atlasskills\skills\MiningSkill.class
 com\atlasplugins\atlasskills\commands\AbstractCommand.class
 com\atlasplugins\atlasskills\commands\admin\ResetSkillsCommand.class
+com\atlasplugins\atlasskills\skills\AcrobaticsSkill.class
 com\atlasplugins\atlasskills\commands\CommandRouter.class

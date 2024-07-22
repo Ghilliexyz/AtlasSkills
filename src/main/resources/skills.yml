@@ -15,3 +15,37 @@
 #    Discord: https://discord.gg/f9swPR7NnV
 #
 
+
+Skill-Settings:
+  Acrobatics:
+    Acrobatics-XP-Gain: 5
+  Alchemy:
+    Alchemy-XP-Gain: 5
+  Archery:
+    Archery-XP-Gain: 5
+  Axes:
+    Axes-XP-Gain: 5
+  Crossbows:
+    Crossbows-XP-Gain: 5
+  Excavation:
+    Excavation-XP-Gain: 5
+  Fishing:
+    Fishing-XP-Gain: 5
+  Herbalism:
+    Herbalism-XP-Gain: 5
+  Maces:
+    Maces-XP-Gain: 5
+  Mining:
+    Mining-XP-Gain: 5
+  Repair:
+    Repair-XP-Gain: 5
+  Swords:
+    Swords-XP-Gain: 5
+  Taming:
+    Taming-XP-Gain: 5
+  Tridents:
+    Tridents-XP-Gain: 5
+  Unarmed:
+    Unarmed-XP-Gain: 5
+  Woodcutting:
+    Woodcutting-XP-Gain: 5

@@ -3,6 +3,7 @@ package com.atlasplugins.atlasskills;
 import com.atlasplugins.atlasskills.commands.CommandRouter;
 import com.atlasplugins.atlasskills.listeners.onPlayerEvents;
 import com.atlasplugins.atlasskills.managers.levelsystem.LevelManager;
+import com.atlasplugins.atlasskills.skills.AcrobaticsSkill;
 import com.atlasplugins.atlasskills.skills.MiningSkill;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
@@ -65,6 +66,7 @@ public final class Main extends JavaPlugin {
         // Register events
         getServer().getPluginManager().registerEvents(new onPlayerEvents(),this);
         getServer().getPluginManager().registerEvents(new MiningSkill(this),this);
+        getServer().getPluginManager().registerEvents(new AcrobaticsSkill(this),this);
 
         // Register commands
         this.commandRouter = new CommandRouter(this);

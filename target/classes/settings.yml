@@ -201,3 +201,10 @@ SkillMessages:
     -  "&c● &7You cannot use &e{skillName} &7that skill is currently &c&lDISABLED"
     -  ""
     -  "&c&m&l-----------------------------------------"
+
+#The way the skill bar will be displayed
+SkillBar:
+  SkillBar-Style-Title: "&c&lSKILL &7{skillName} lvl: &e{skillLvl} &7| xp: &e{skillXP} &7/ &e{skillXPToNextLevel}"
+  SkillBar-Color: WHITE
+  SkillBar-Style: SEGMENTED_10
+  SkillBar-Hide-Delay: 2

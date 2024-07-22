@@ -226,9 +226,9 @@ public class LevelManager {
         // Saves the players data
         savePlayerData();
 
-        boolean isResetMessageEnabled = main.getSettingsConfig().isBoolean("SkillMessages.Skill-Reset-Message-Toggle");
+        boolean isResetMessageEnabled = main.getSettingsConfig().isBoolean("SkillMessages.Skill-ResetSkills-Message-Toggle");
         if (isResetMessageEnabled) {
-            for (String resetMessage : main.getSettingsConfig().getStringList("SkillMessages.Skill-Reset-Message")) {
+            for (String resetMessage : main.getSettingsConfig().getStringList("SkillMessages.Skill-ResetSkills-Message")) {
                 String withPAPISet = main.setPlaceholders(player, resetMessage);
                 player.sendMessage(Main.color(withPAPISet)
                         .replace("{player}", player.getName()));
