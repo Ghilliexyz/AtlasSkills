@@ -1,7 +1,7 @@
 package com.atlasplugins.atlasskills;
 
 import com.atlasplugins.atlasskills.commands.CommandRouter;
-import com.atlasplugins.atlasskills.listeners.onPlayerQuit;
+import com.atlasplugins.atlasskills.listeners.onPlayerEvents;
 import com.atlasplugins.atlasskills.managers.levelsystem.LevelManager;
 import com.atlasplugins.atlasskills.skills.MiningSkill;
 import me.clip.placeholderapi.PlaceholderAPI;
@@ -59,8 +59,11 @@ public final class Main extends JavaPlugin {
         // Level System
         levelManager = new LevelManager(this);
 
+        // Loads the players data
+        levelManager.loadPlayerData();
+
         // Register events
-        getServer().getPluginManager().registerEvents(new onPlayerQuit(),this);
+        getServer().getPluginManager().registerEvents(new onPlayerEvents(),this);
         getServer().getPluginManager().registerEvents(new MiningSkill(this),this);
 
         // Register commands
@@ -81,6 +84,9 @@ public final class Main extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+
+        // Saves the players data
+        levelManager.savePlayerData();
 
         // Plugin Shutdown Message
         Bukkit.getConsoleSender().sendMessage(color("&4---------------------"));

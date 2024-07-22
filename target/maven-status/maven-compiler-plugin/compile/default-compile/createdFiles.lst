@@ -1,8 +1,8 @@
+com\atlasplugins\atlasskills\listeners\onPlayerEvents.class
 com\atlasplugins\atlasskills\managers\uiapi\BossBarManager$1.class
 com\atlasplugins\atlasskills\managers\uiapi\ScoreboardManagerr.class
 com\atlasplugins\atlasskills\managers\uiapi\UIManager.class
 com\atlasplugins\atlasskills\commands\user\Test.class
-com\atlasplugins\atlasskills\commands\user\Test$1.class
 com\atlasplugins\atlasskills\Main.class
 com\atlasplugins\atlasskills\managers\uiapi\ActionBarManager$1.class
 com\atlasplugins\atlasskills\managers\uiapi\ActionBarManager.class
@@ -11,7 +11,6 @@ com\atlasplugins\atlasskills\managers\uiapi\BossBarManager.class
 com\atlasplugins\atlasskills\managers\uiapi\TabMenuManager.class
 com\atlasplugins\atlasskills\managers\levelsystem\LevelManager$Skill.class
 com\atlasplugins\atlasskills\commands\user\HelpCommand.class
-com\atlasplugins\atlasskills\listeners\onPlayerQuit.class
 com\atlasplugins\atlasskills\commands\user\ReloadCommand.class
 com\atlasplugins\atlasskills\managers\levelsystem\LevelManager.class
 com\atlasplugins\atlasskills\skills\MiningSkill.class

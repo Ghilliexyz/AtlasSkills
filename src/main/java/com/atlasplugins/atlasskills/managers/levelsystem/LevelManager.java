@@ -4,15 +4,18 @@ import com.atlasplugins.atlasskills.Main;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
+import java.sql.*;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class LevelManager {
 
     private Main main;
     private Map<Player, EnumMap<Skill, Integer>> playerLevels;
     private Map<Player, EnumMap<Skill, Integer>> playerXP;
+    private Connection connection;
 
     /**
      * Constructor for the LevelManager.
@@ -24,6 +27,81 @@ public class LevelManager {
         this.main = main;
         this.playerLevels = new HashMap<>();
         this.playerXP = new HashMap<>();
+        try {
+            openConnection();
+            createTable();
+            loadPlayerData();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Opens a connection to the SQLite database.
+     *
+     * @throws SQLException If a database access error occurs.
+     */
+    private void openConnection() throws SQLException {
+        if (connection != null && !connection.isClosed()) {
+            return;
+        }
+        connection = DriverManager.getConnection("jdbc:sqlite:" + main.getDataFolder() + "/playerData.db");
+    }
+
+    /**
+     * Creates the player data table if it does not exist.
+     *
+     * @throws SQLException If a database access error occurs.
+     */
+    private void createTable() throws SQLException {
+        String createTableSQL = "CREATE TABLE IF NOT EXISTS player_data (uuid TEXT, skill TEXT, level INTEGER, xp INTEGER, PRIMARY KEY (uuid, skill))";
+        try (PreparedStatement pstmt = connection.prepareStatement(createTableSQL)) {
+            pstmt.executeUpdate();
+        }
+    }
+
+    /**
+     * Saves all player levels and XP to the database.
+     */
+    public void savePlayerData() {
+        String insertOrUpdateSQL = "INSERT OR REPLACE INTO player_data (uuid, skill, level, xp) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement pstmt = connection.prepareStatement(insertOrUpdateSQL)) {
+            for (Player player : playerLevels.keySet()) {
+                for (Skill skill : Skill.values()) {
+                    pstmt.setString(1, player.getUniqueId().toString());
+                    pstmt.setString(2, skill.name());
+                    pstmt.setInt(3, getLevel(player, skill));
+                    pstmt.setInt(4, getXP(player, skill));
+                    pstmt.addBatch();
+                }
+            }
+            pstmt.executeBatch();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Loads all player levels and XP from the database.
+     */
+    public void loadPlayerData() {
+        String selectSQL = "SELECT * FROM player_data";
+        try (PreparedStatement pstmt = connection.prepareStatement(selectSQL);
+             ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                UUID uuid = UUID.fromString(rs.getString("uuid"));
+                Player player = main.getServer().getPlayer(uuid);
+                if (player == null) continue;
+                Skill skill = Skill.valueOf(rs.getString("skill"));
+                int level = rs.getInt("level");
+                int xp = rs.getInt("xp");
+
+                playerLevels.computeIfAbsent(player, k -> new EnumMap<>(Skill.class)).put(skill, level);
+                playerXP.computeIfAbsent(player, k -> new EnumMap<>(Skill.class)).put(skill, xp);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -74,10 +152,8 @@ public class LevelManager {
             newXP -= getXPForNextLevel(currentLevel);
             currentLevel++;
 
-            // Check if the user wants to send a chat message when leveling up.
             boolean isLevelUpMessageEnabled = main.getSettingsConfig().isBoolean("SkillMessages.Skill-LvlUP-Message-Toggle");
             if (isLevelUpMessageEnabled) {
-                // Send levelUpMessage in chat when called.
                 for (String levelUpMessage : main.getSettingsConfig().getStringList("SkillMessages.Skill-LvlUP-Message")) {
                     String withPAPISet = main.setPlaceholders(player, levelUpMessage);
                     player.sendMessage(Main.color(withPAPISet)
@@ -87,20 +163,19 @@ public class LevelManager {
                 }
             }
 
-            // Get Level Up sound via config.
             Sound levelUpSound = Sound.valueOf(main.getSettingsConfig().getString("SkillSounds.Skill-LvlUP-Sound"));
             float levelUpVolume = main.getSettingsConfig().getInt("SkillSounds.Skill-LvlUP-Volume");
             float levelUpPitch = main.getSettingsConfig().getInt("SkillSounds.Skill-LvlUP-Pitch");
 
-            // Get the bool to check if the user wants to play the Enchantment Disabled sound
             boolean levelUpPlaySound = main.getSettingsConfig().getBoolean("SkillSounds.Skill-LvlUP-Sound-Toggle");
 
-            // check if the user doesn't want to play the sound then return if not.
             if (levelUpPlaySound) {
-                // Play sound for when enchant is blacklisted.
                 player.playSound(player.getLocation(), levelUpSound, levelUpVolume, levelUpPitch);
             }
         }
+
+        // Saves the players data
+        Main.instance.getLevelManager().savePlayerData();
 
         playerXP.computeIfAbsent(player, k -> new EnumMap<>(Skill.class)).put(skill, newXP);
         playerLevels.computeIfAbsent(player, k -> new EnumMap<>(Skill.class)).put(skill, currentLevel);
@@ -117,10 +192,8 @@ public class LevelManager {
         playerLevels.computeIfAbsent(player, k -> new EnumMap<>(Skill.class)).put(skill, level);
         playerXP.computeIfAbsent(player, k -> new EnumMap<>(Skill.class)).put(skill, 0);
 
-        // Check if the user wants to send a chat message when setting the level.
         boolean isSetLvlMessageEnabled = main.getSettingsConfig().isBoolean("SkillMessages.Skill-SetSkillLvl-Message-Toggle");
         if (isSetLvlMessageEnabled) {
-            // Send setLevelMessage in chat when called.
             for (String setLevelMessage : main.getSettingsConfig().getStringList("SkillMessages.Skill-SetSkillLvl-Message")) {
                 String withPAPISet = main.setPlaceholders(player, setLevelMessage);
                 player.sendMessage(Main.color(withPAPISet)
@@ -130,53 +203,46 @@ public class LevelManager {
             }
         }
 
-        // Get Set Level sound via config.
         Sound setLevelSound = Sound.valueOf(main.getSettingsConfig().getString("SkillSounds.Skill-SetSkillLvl-Sound"));
         float setLevelVolume = main.getSettingsConfig().getInt("SkillSounds.Skill-SetSkillLvl-Volume");
         float setLevelPitch = main.getSettingsConfig().getInt("SkillSounds.Skill-SetSkillLvl-Pitch");
 
-        // Get the bool to check if the user wants to play the Enchantment Disabled sound
         boolean setLevelPlaySound = main.getSettingsConfig().getBoolean("SkillSounds.Skill-SetSkillLvl-Sound-Toggle");
 
-        // check if the user doesn't want to play the sound then return if not.
         if (setLevelPlaySound) {
-            // Play sound for when enchant is blacklisted.
             player.playSound(player.getLocation(), setLevelSound, setLevelVolume, setLevelPitch);
         }
     }
 
     /**
-     * Resets all skills for a player, removing all levels and XP.
+     * Resets a player's levels and XP for all skills.
      *
-     * @param player The player whose skills are being reset.
+     * @param player The player whose levels and XP are being reset.
      */
     public void resetPlayer(Player player) {
         playerLevels.remove(player);
         playerXP.remove(player);
 
-        // Check if the user wants to send a chat message when resetting skills.
-        boolean isResetLevelsMessageEnabled = main.getSettingsConfig().isBoolean("SkillMessages.Skill-ResetSkills-Message-Toggle");
-        if (isResetLevelsMessageEnabled) {
-            // Send resetLevelsMessage in chat when called.
-            for (String resetLevelsMessage : main.getSettingsConfig().getStringList("SkillMessages.Skill-ResetSkills-Message")) {
-                String withPAPISet = main.setPlaceholders(player, resetLevelsMessage);
+        // Saves the players data
+        savePlayerData();
+
+        boolean isResetMessageEnabled = main.getSettingsConfig().isBoolean("SkillMessages.Skill-Reset-Message-Toggle");
+        if (isResetMessageEnabled) {
+            for (String resetMessage : main.getSettingsConfig().getStringList("SkillMessages.Skill-Reset-Message")) {
+                String withPAPISet = main.setPlaceholders(player, resetMessage);
                 player.sendMessage(Main.color(withPAPISet)
                         .replace("{player}", player.getName()));
             }
         }
 
-        // Get Reset Levels sound via config.
-        Sound resetLevelsSound = Sound.valueOf(main.getSettingsConfig().getString("SkillSounds.Skill-ResetSkills-Sound"));
-        float resetLevelsVolume = main.getSettingsConfig().getInt("SkillSounds.Skill-ResetSkills-Volume");
-        float resetLevelsPitch = main.getSettingsConfig().getInt("SkillSounds.Skill-ResetSkills-Pitch");
+        Sound resetSound = Sound.valueOf(main.getSettingsConfig().getString("SkillSounds.Skill-ResetSkills-Sound"));
+        float resetVolume = main.getSettingsConfig().getInt("SkillSounds.Skill-ResetSkills-Volume");
+        float resetPitch = main.getSettingsConfig().getInt("SkillSounds.Skill-ResetSkills-Pitch");
 
-        // Get the bool to check if the user wants to play the Enchantment Disabled sound
-        boolean resetLevelsPlaySound = main.getSettingsConfig().getBoolean("SkillSounds.Skill-ResetSkills-Sound-Toggle");
+        boolean resetPlaySound = main.getSettingsConfig().getBoolean("SkillSounds.Skill-ResetSkills-Sound-Toggle");
 
-        // check if the user doesn't want to play the sound then return if not.
-        if (resetLevelsPlaySound) {
-            // Play sound for when enchant is blacklisted.
-            player.playSound(player.getLocation(), resetLevelsSound, resetLevelsVolume, resetLevelsPitch);
+        if (resetPlaySound) {
+            player.playSound(player.getLocation(), resetSound, resetVolume, resetPitch);
         }
     }
 

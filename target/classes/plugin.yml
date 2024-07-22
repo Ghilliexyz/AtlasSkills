@@ -5,7 +5,7 @@ version: '1.0.0'
 authors: [Ghillie]
 
 api-version: '1.21'
-description: Adds a MMO Feel to minecraft.
+description: Adds a MMO feel to minecraft.
 
 # This sets PlaceholderAPI as an optional dependency for your plugin.
 softdepend: [PlaceholderAPI]
