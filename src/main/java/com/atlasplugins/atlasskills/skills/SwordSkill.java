@@ -52,8 +52,11 @@ public class SwordSkill implements Listener {
             swordXP = (int) damageDealt;
         }
 
+        // get xp multiplier
+        int xpMultiplier = main.getSkillsConfig().getInt("Skill-Addons.Skill-XP-Multiplier.Skill-XP-Multiplier-Amount");
+
         // Add XP to Skill
-        levelManager.addXP(p, LevelManager.Skill.SWORDS, swordXP);
+        levelManager.addXP(p, LevelManager.Skill.SWORDS, swordXP * xpMultiplier);
 
         // Get Skill Stats
         int level = levelManager.getLevel(p, LevelManager.Skill.SWORDS);

@@ -43,8 +43,11 @@ public class AxeSkill implements Listener {
         // Get Skill XP amount
         int axeXP = main.getSkillsConfig().getInt("Skill-Settings.Axes.Axes-XP-Gain");
 
+        // get xp multiplier
+        int xpMultiplier = main.getSkillsConfig().getInt("Skill-Addons.Skill-XP-Multiplier.Skill-XP-Multiplier-Amount");
+
         // Add XP to Skill
-        levelManager.addXP(p, LevelManager.Skill.AXES, axeXP);
+        levelManager.addXP(p, LevelManager.Skill.AXES, axeXP * xpMultiplier);
 
         // Get Skill Stats
         int level = levelManager.getLevel(p, LevelManager.Skill.AXES);

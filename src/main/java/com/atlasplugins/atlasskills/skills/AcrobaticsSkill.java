@@ -38,8 +38,11 @@ public class AcrobaticsSkill implements Listener {
         // Get the final XP amount
         double finalXP = acrobaticsXP * damage;
 
+        // get xp multiplier
+        int xpMultiplier = main.getSkillsConfig().getInt("Skill-Addons.Skill-XP-Multiplier.Skill-XP-Multiplier-Amount");
+
         // Add XP to Skill
-        levelManager.addXP(p, LevelManager.Skill.ACROBATICS, (int) finalXP);
+        levelManager.addXP(p, LevelManager.Skill.ACROBATICS, (int) finalXP * xpMultiplier);
 
         // Get Skill Stats
         int level = levelManager.getLevel(p, LevelManager.Skill.ACROBATICS);

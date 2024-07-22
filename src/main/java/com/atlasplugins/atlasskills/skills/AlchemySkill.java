@@ -70,8 +70,11 @@ public class AlchemySkill implements Listener {
             finalXP++;
         }
 
+        // get xp multiplier
+        int xpMultiplier = main.getSkillsConfig().getInt("Skill-Addons.Skill-XP-Multiplier.Skill-XP-Multiplier-Amount");
+
         // Add XP to Skill
-        levelManager.addXP(p, LevelManager.Skill.ALCHEMY, alchemyXP * finalXP);
+        levelManager.addXP(p, LevelManager.Skill.ALCHEMY, (alchemyXP * finalXP) * xpMultiplier);
 
         // Get Skill Stats
         int level = levelManager.getLevel(p, LevelManager.Skill.ALCHEMY);

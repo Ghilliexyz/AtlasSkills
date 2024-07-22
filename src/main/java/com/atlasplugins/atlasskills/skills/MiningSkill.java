@@ -35,8 +35,11 @@ public class MiningSkill implements Listener {
         // Get Skill XP amount
         int miningXP = main.getSkillsConfig().getInt("Skill-Settings.Mining.Mining-XP-Gain");
 
+        // get xp multiplier
+        int xpMultiplier = main.getSkillsConfig().getInt("Skill-Addons.Skill-XP-Multiplier.Skill-XP-Multiplier-Amount");
+
         // Add XP to Skill
-        levelManager.addXP(p, LevelManager.Skill.MINING, miningXP);
+        levelManager.addXP(p, LevelManager.Skill.MINING, miningXP * xpMultiplier);
 
         // Get Skill Stats
         int level = levelManager.getLevel(p, LevelManager.Skill.MINING);

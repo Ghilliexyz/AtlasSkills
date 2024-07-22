@@ -35,8 +35,11 @@ public class ExcavationSkill implements Listener {
         // Get Skill XP amount
         int excavationXP = main.getSkillsConfig().getInt("Skill-Settings.Excavation.Excavation-XP-Gain");
 
+        // get xp multiplier
+        int xpMultiplier = main.getSkillsConfig().getInt("Skill-Addons.Skill-XP-Multiplier.Skill-XP-Multiplier-Amount");
+
         // Add XP to Skill
-        levelManager.addXP(p, LevelManager.Skill.EXCAVATION, excavationXP);
+        levelManager.addXP(p, LevelManager.Skill.EXCAVATION, excavationXP * xpMultiplier);
 
         // Get Skill Stats
         int level = levelManager.getLevel(p, LevelManager.Skill.EXCAVATION);

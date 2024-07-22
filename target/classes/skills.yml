@@ -15,6 +15,9 @@
 #    Discord: https://discord.gg/f9swPR7NnV
 #
 
+Skill-Addons:
+  Skill-XP-Multiplier:
+    Skill-XP-Multiplier-Amount: 1
 
 Skill-Settings:
   Acrobatics:

@@ -41,8 +41,11 @@ public class ArcherySkill implements Listener {
         // Get Skill XP amount
         int archeryXP = main.getSkillsConfig().getInt("Skill-Settings.Archery.Archery-XP-Gain");
 
+        // get xp multiplier
+        int xpMultiplier = main.getSkillsConfig().getInt("Skill-Addons.Skill-XP-Multiplier.Skill-XP-Multiplier-Amount");
+
         // Add XP to Skill
-        levelManager.addXP(p, LevelManager.Skill.ARCHERY, archeryXP);
+        levelManager.addXP(p, LevelManager.Skill.ARCHERY, archeryXP * xpMultiplier);
 
         // Get Skill Stats
         int level = levelManager.getLevel(p, LevelManager.Skill.ARCHERY);
