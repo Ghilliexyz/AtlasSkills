@@ -34,8 +34,30 @@ Skill-Settings:
     Fishing-XP-Gain: 5
   Herbalism:
     Herbalism-XP-Gain: 5
-  Maces:
-    Maces-XP-Gain: 5
+    #The list of blocks/Plants this skill will work on.
+    Herbalism-Block-List:
+      - WHEAT
+      - WHEAT_SEEDS
+      - POTATOES
+      - CARROTS
+      - MELON
+      - MELON_SEEDS
+      - MELON_STEM
+      - PUMPKIN
+      - PUMPKIN_SEEDS
+      - PUMPKIN_STEM
+      - SUGAR_CANE
+      - COCOA
+      - CACTUS
+      - BROWN_MUSHROOM
+      - RED_MUSHROOM
+      - NETHER_WART
+      - LILY_PAD
+      - VINE
+      - WEEPING_VINES
+      - WEEPING_VINES_PLANT
+      - TWISTING_VINES
+      - TWISTING_VINES_PLANT
   Mining:
     Mining-XP-Gain: 5
   Swords:
@@ -45,9 +67,23 @@ Skill-Settings:
     Swords-XP-Gain: 5
   Taming:
     Taming-XP-Gain: 5
-  Tridents:
-    Tridents-XP-Gain: 5
   Unarmed:
+    #if this is true the xp you gain will be fixed at the amount (Unarmed-XP-Gain = 5)
+    #if false then the xp you gain will be set by how much damage you do.
+    Unarmed-XP-Toggle: false
     Unarmed-XP-Gain: 5
   Woodcutting:
     Woodcutting-XP-Gain: 5
+    #The list of blocks/logs this skill will work on.
+    Woodcutting-Block-List:
+      - OAK_LOG
+      - SPRUCE_LOG
+      - BIRCH_LOG
+      - JUNGLE_LOG
+      - ACACIA_LOG
+      - DARK_OAK_LOG
+      - CHERRY_LOG
+      - MANGROVE_LOG
+      - MANGROVE_ROOTS
+      - CRIMSON_STEM
+      - WARPED_STEM

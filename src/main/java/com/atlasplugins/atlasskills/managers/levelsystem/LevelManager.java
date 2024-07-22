@@ -254,16 +254,12 @@ public class LevelManager {
         ALCHEMY,
         ARCHERY,
         AXES,
-        CROSSBOWS,
         EXCAVATION,
         FISHING,
         HERBALISM,
-        MACES,
         MINING,
-        REPAIR,
         SWORDS,
         TAMING,
-        TRIDENTS,
         UNARMED,
         WOODCUTTING
     }

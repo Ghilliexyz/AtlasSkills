@@ -64,13 +64,18 @@ public final class Main extends JavaPlugin {
 
         // Register events
         getServer().getPluginManager().registerEvents(new onPlayerEvents(),this);
-        getServer().getPluginManager().registerEvents(new MiningSkill(this),this);
         getServer().getPluginManager().registerEvents(new AcrobaticsSkill(this),this);
         getServer().getPluginManager().registerEvents(new AlchemySkill(this),this);
         getServer().getPluginManager().registerEvents(new ArcherySkill(this),this);
         getServer().getPluginManager().registerEvents(new AxeSkill(this),this);
         getServer().getPluginManager().registerEvents(new ExcavationSkill(this),this);
+        getServer().getPluginManager().registerEvents(new FishingSkill(this),this);
+        getServer().getPluginManager().registerEvents(new HerbalismSkill(this),this);
+        getServer().getPluginManager().registerEvents(new MiningSkill(this),this);
         getServer().getPluginManager().registerEvents(new SwordSkill(this),this);
+        getServer().getPluginManager().registerEvents(new TamingSkill(this),this);
+        getServer().getPluginManager().registerEvents(new UnarmedSkill(this),this);
+        getServer().getPluginManager().registerEvents(new WoodcuttingSkill(this),this);
 
         // Register commands
         this.commandRouter = new CommandRouter(this);
