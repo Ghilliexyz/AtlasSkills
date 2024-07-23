@@ -46,13 +46,22 @@ public class AxeSkill implements Listener {
         // if the entity is an ArmorStand then return
         if ((damagedEntity instanceof ArmorStand)) return;
 
-        // Get Skill XP amount
-        int axesMinXP = main.getSkillsConfig().getInt("Skill-Settings.Axes.Axes-XP-Gain-Min");
-        int axesMaxXP = main.getSkillsConfig().getInt("Skill-Settings.Axes.Axes-XP-Gain-Max");
+        // get xp damage toggle
+        boolean xpDamageToggle = main.getSkillsConfig().getBoolean("Skill-Settings.Axes.Axes-XP-Toggle");
 
-        // Gets a random int between the Min and Max XP Values
-        Random random = new Random();
-        int axeXP = axesMinXP + random.nextInt(axesMaxXP - axesMinXP + 1);
+        int axeXP = 0;
+        if(xpDamageToggle) {
+            // Get Skill XP amount
+            int axesMinXP = main.getSkillsConfig().getInt("Skill-Settings.Axes.Axes-XP-Gain-Min");
+            int axesMaxXP = main.getSkillsConfig().getInt("Skill-Settings.Axes.Axes-XP-Gain-Max");
+
+            // Gets a random int between the Min and Max XP Values
+            Random random = new Random();
+            axeXP = axesMinXP + random.nextInt(axesMaxXP - axesMinXP + 1);
+        }else{
+            // Calculate how much XP based on damage
+            axeXP = (int) damageDealt;
+        }
 
         // get xp multiplier
         int xpMultiplier = main.getSkillsConfig().getInt("Skill-Addons.Skill-XP-Multiplier.Skill-XP-Multiplier-Amount");

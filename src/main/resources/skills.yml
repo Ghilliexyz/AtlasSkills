@@ -35,6 +35,9 @@ Skill-Settings:
     Archery-XP-Gain-Min: 1
     Archery-XP-Gain-Max: 10
   Axes:
+    #if this is true the xp you gain will be fixed at the amount (Axes-XP-Gain = 5)
+    #if false then the xp you gain will be set by how much damage you do.
+    Axes-XP-Toggle: false
     Axes-XP-Gain-Min: 1
     Axes-XP-Gain-Max: 10
   Excavation:

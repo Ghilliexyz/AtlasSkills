@@ -61,6 +61,13 @@ public final class Main extends JavaPlugin {
         // Level System
         levelManager = new LevelManager(this);
 
+        // Loads all player data
+        // NOTE: This is used for /reload confirm
+        // it will make sure every player's stats who is currently on the server will keep their stats instead of being reset.
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            levelManager.loadPlayerData(player);
+        }
+
         // Schedule periodic saving every 5 minutes (6000 ticks)
 //        this.saveTask = Bukkit.getScheduler().runTaskTimer(this, () -> {
 //            for (Player player : Bukkit.getOnlinePlayers()) {

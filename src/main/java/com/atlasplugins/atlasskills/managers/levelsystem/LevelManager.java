@@ -77,7 +77,7 @@ public class LevelManager {
 
             pstmt.executeBatch();
             connection.commit();  // Commit transaction
-            System.out.println("Player data saved successfully for: " + player.getName());
+//            System.out.println("Player data saved successfully for: " + player.getName());
         } catch (SQLException e) {
             e.printStackTrace();
             try {
@@ -112,7 +112,7 @@ public class LevelManager {
                     playerXP.computeIfAbsent(player, k -> new EnumMap<>(Skill.class)).put(skill, xp);
                 }
             }
-            System.out.println("Player data loaded successfully for: " + player.getName());
+//            System.out.println("Player data loaded successfully for: " + player.getName());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -227,7 +227,7 @@ public class LevelManager {
         }
 
         // Saves the players data
-        Main.instance.getLevelManager().savePlayerData(player);
+//        Main.instance.getLevelManager().savePlayerData(player);
 
         playerXP.computeIfAbsent(player, k -> new EnumMap<>(Skill.class)).put(skill, newXP);
         playerLevels.computeIfAbsent(player, k -> new EnumMap<>(Skill.class)).put(skill, currentLevel);
