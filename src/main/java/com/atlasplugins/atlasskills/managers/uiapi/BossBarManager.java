@@ -21,12 +21,10 @@ public class BossBarManager {
         if (bossBar == null) {
             bossBar = Bukkit.createBossBar(Main.color(title), color, style);
             bossBars.put(player, bossBar);
-            Main.instance.getLogger().log(Level.INFO, "Created new BossBar for player: " + player.getName());
         } else {
             bossBar.setTitle(Main.color(title));
             bossBar.setColor(color);
             bossBar.setStyle(style);
-            Main.instance.getLogger().log(Level.INFO, "Reusing existing BossBar for player: " + player.getName());
         }
         bossBar.setProgress(barProgress);
         bossBar.addPlayer(player);
@@ -37,7 +35,6 @@ public class BossBarManager {
         BossBar bossBar = bossBars.remove(player);
         if (bossBar != null) {
             bossBar.removeAll();
-            Main.instance.getLogger().log(Level.INFO, "Removed BossBar for player: " + player.getName());
         }
     }
 
@@ -47,10 +44,8 @@ public class BossBarManager {
         if (bossBar == null) {
             bossBar = Bukkit.createBossBar(Main.color(title), BarColor.BLUE, BarStyle.SOLID); // Default color and style
             bossBars.put(player, bossBar);
-            Main.instance.getLogger().log(Level.INFO, "Created new progress bar for player: " + player.getName());
         } else {
             bossBar.setTitle(Main.color(title));
-            Main.instance.getLogger().log(Level.INFO, "Updated progress bar for player: " + player.getName());
         }
         bossBar.setProgress(normalizedProgress);
         bossBar.addPlayer(player);
@@ -66,12 +61,10 @@ public class BossBarManager {
         if (bossBar == null) {
             bossBar = Bukkit.createBossBar(Main.color(title), color, style);
             bossBars.put(player, bossBar);
-            Main.instance.getLogger().log(Level.INFO, "Created new XP BossBar for player: " + player.getName());
         } else {
             bossBar.setTitle(Main.color(title));
             bossBar.setColor(color);
             bossBar.setStyle(style);
-            Main.instance.getLogger().log(Level.INFO, "Reusing existing XP BossBar for player: " + player.getName());
         }
         bossBar.setProgress(normalizedProgress);
         bossBar.addPlayer(player);
@@ -87,10 +80,8 @@ public class BossBarManager {
         if (bossBar == null) {
             bossBar = Bukkit.createBossBar(Main.color(title), BarColor.BLUE, BarStyle.SOLID); // Default color and style
             bossBars.put(player, bossBar);
-            Main.instance.getLogger().log(Level.INFO, "Created new XP progress bar for player: " + player.getName());
         } else {
             bossBar.setTitle(Main.color(title));
-            Main.instance.getLogger().log(Level.INFO, "Updated XP progress bar for player: " + player.getName());
         }
         bossBar.setProgress(normalizedProgress);
         bossBar.addPlayer(player);
@@ -110,7 +101,6 @@ public class BossBarManager {
                 if (bossBar != null) {
                     bossBar.removePlayer(player);
                     bossBar.setVisible(false);
-                    Main.instance.getLogger().log(Level.INFO, "Hid progress bar for player: " + player.getName());
                 }
             }
         };
@@ -126,6 +116,5 @@ public class BossBarManager {
             }
         }
         hideTasks.clear();
-        Main.instance.getLogger().log(Level.INFO, "Cancelled all BossBar hide tasks");
     }
 }

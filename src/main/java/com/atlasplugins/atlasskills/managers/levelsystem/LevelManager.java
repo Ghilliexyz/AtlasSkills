@@ -152,14 +152,50 @@ public class LevelManager {
             newXP -= getXPForNextLevel(currentLevel);
             currentLevel++;
 
-            boolean isLevelUpMessageEnabled = main.getSettingsConfig().isBoolean("SkillMessages.Skill-LvlUP-Message-Toggle");
-            if (isLevelUpMessageEnabled) {
-                for (String levelUpMessage : main.getSettingsConfig().getStringList("SkillMessages.Skill-LvlUP-Message")) {
-                    String withPAPISet = main.setPlaceholders(player, levelUpMessage);
-                    player.sendMessage(Main.color(withPAPISet)
-                            .replace("{player}", player.getName())
-                            .replace("{skillName}", skill.toString())
-                            .replace("{skillLevel}", String.valueOf(currentLevel)));
+            boolean isSkillRewardXP = main.getSkillsConfig().getBoolean("Skill-Addons.Skill-LvlUp-Rewards.Skill-LvlUp-Reward-XP-Multiplier-Toggle");
+
+            int xpReward = 0;
+
+            if(isSkillRewardXP)
+            {
+                if(currentLevel % 10 == 0)
+                {
+                    xpReward = currentLevel * 100;
+                    player.giveExp(xpReward);
+
+                    boolean isLevelUpRewardMessageEnabled = main.getSettingsConfig().isBoolean("SkillMessages.Skill-LvlUPReward-Message-Toggle");
+                    if(isLevelUpRewardMessageEnabled) {
+                        for (String levelUpMessage : main.getSettingsConfig().getStringList("SkillMessages.Skill-LvlUPReward-Message")) {
+                            String withPAPISet = main.setPlaceholders(player, levelUpMessage);
+                            player.sendMessage(Main.color(withPAPISet)
+                                    .replace("{player}", player.getName())
+                                    .replace("{skillName}", skill.toString())
+                                    .replace("{skillLevel}", String.valueOf(currentLevel))
+                                    .replace("{skillRewardXP}", String.valueOf(xpReward)));
+                        }
+                    }
+                }else {
+                    boolean isLevelUpMessageEnabled = main.getSettingsConfig().isBoolean("SkillMessages.Skill-LvlUP-Message-Toggle");
+                    if (isLevelUpMessageEnabled) {
+                        for (String levelUpMessage : main.getSettingsConfig().getStringList("SkillMessages.Skill-LvlUP-Message")) {
+                            String withPAPISet = main.setPlaceholders(player, levelUpMessage);
+                            player.sendMessage(Main.color(withPAPISet)
+                                    .replace("{player}", player.getName())
+                                    .replace("{skillName}", skill.toString())
+                                    .replace("{skillLevel}", String.valueOf(currentLevel)));
+                        }
+                    }
+                }
+            }else {
+                boolean isLevelUpMessageEnabled = main.getSettingsConfig().isBoolean("SkillMessages.Skill-LvlUP-Message-Toggle");
+                if (isLevelUpMessageEnabled) {
+                    for (String levelUpMessage : main.getSettingsConfig().getStringList("SkillMessages.Skill-LvlUP-Message")) {
+                        String withPAPISet = main.setPlaceholders(player, levelUpMessage);
+                        player.sendMessage(Main.color(withPAPISet)
+                                .replace("{player}", player.getName())
+                                .replace("{skillName}", skill.toString())
+                                .replace("{skillLevel}", String.valueOf(currentLevel)));
+                    }
                 }
             }
 
@@ -188,7 +224,7 @@ public class LevelManager {
      * @param skill  The skill whose level is being set.
      * @param level  The level to set.
      */
-    public void setLevel(Player player, Skill skill, int level) {
+    public void setLevel(Player player, Player sender, Skill skill, int level) {
         playerLevels.computeIfAbsent(player, k -> new EnumMap<>(Skill.class)).put(skill, level);
         playerXP.computeIfAbsent(player, k -> new EnumMap<>(Skill.class)).put(skill, 0);
 
@@ -196,7 +232,7 @@ public class LevelManager {
         if (isSetLvlMessageEnabled) {
             for (String setLevelMessage : main.getSettingsConfig().getStringList("SkillMessages.Skill-SetSkillLvl-Message")) {
                 String withPAPISet = main.setPlaceholders(player, setLevelMessage);
-                player.sendMessage(Main.color(withPAPISet)
+                sender.sendMessage(Main.color(withPAPISet)
                         .replace("{player}", player.getName())
                         .replace("{skillName}", skill.toString())
                         .replace("{skillNewLevel}", String.valueOf(level)));
@@ -210,7 +246,7 @@ public class LevelManager {
         boolean setLevelPlaySound = main.getSettingsConfig().getBoolean("SkillSounds.Skill-SetSkillLvl-Sound-Toggle");
 
         if (setLevelPlaySound) {
-            player.playSound(player.getLocation(), setLevelSound, setLevelVolume, setLevelPitch);
+            sender.playSound(sender.getLocation(), setLevelSound, setLevelVolume, setLevelPitch);
         }
     }
 

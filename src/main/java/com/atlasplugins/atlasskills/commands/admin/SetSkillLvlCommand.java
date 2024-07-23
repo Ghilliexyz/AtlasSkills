@@ -67,7 +67,7 @@ public class SetSkillLvlCommand extends AbstractCommand {
             }
             return;
         }
-        main.getLevelManager().setLevel((Player) sender, skill, level);
+        main.getLevelManager().setLevel(player, (Player) sender, skill, level);
     }
 
     @Override

@@ -18,6 +18,11 @@
 Skill-Addons:
   Skill-XP-Multiplier:
     Skill-XP-Multiplier-Amount: 1
+  Skill-LvlUp-Rewards:
+    #this is the reward multiplier toggle (if true the XP Reward will work)
+    Skill-LvlUp-Reward-XP-Multiplier-Toggle: true
+    #this is the reward multiplier the formula works as so (skillLvl * 100) example: 10 * 100 = 1000
+    Skill-LvlUp-Reward-XP-Multiplier: 100
 
 Skill-Settings:
   Acrobatics:

@@ -95,18 +95,6 @@ public class HerbalismSkill implements Listener {
                 return true;
             case Material.NETHERITE_PICKAXE:
                 return true;
-            case Material.WOODEN_AXE:
-                return true;
-            case Material.STONE_AXE:
-                return true;
-            case Material.IRON_AXE:
-                return true;
-            case Material.GOLDEN_AXE:
-                return true;
-            case Material.DIAMOND_AXE:
-                return true;
-            case Material.NETHERITE_AXE:
-                return true;
             case Material.WOODEN_SHOVEL:
                 return true;
             case Material.STONE_SHOVEL:

@@ -12,6 +12,7 @@ com\atlasplugins\atlasskills\skills\AxeSkill.class
 com\atlasplugins\atlasskills\commands\user\HelpCommand.class
 com\atlasplugins\atlasskills\commands\user\ReloadCommand.class
 com\atlasplugins\atlasskills\managers\levelsystem\LevelManager.class
+com\atlasplugins\atlasskills\commands\user\SkillsCommand.class
 com\atlasplugins\atlasskills\commands\AbstractCommand.class
 com\atlasplugins\atlasskills\skills\AcrobaticsSkill.class
 com\atlasplugins\atlasskills\skills\SwordSkill.class

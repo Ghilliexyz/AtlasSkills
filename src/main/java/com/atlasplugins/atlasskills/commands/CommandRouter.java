@@ -5,6 +5,7 @@ import com.atlasplugins.atlasskills.commands.admin.ResetSkillsCommand;
 import com.atlasplugins.atlasskills.commands.admin.SetSkillLvlCommand;
 import com.atlasplugins.atlasskills.commands.user.HelpCommand;
 import com.atlasplugins.atlasskills.commands.user.ReloadCommand;
+import com.atlasplugins.atlasskills.commands.user.SkillsCommand;
 import com.atlasplugins.atlasskills.commands.user.Test;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -30,6 +31,7 @@ public class CommandRouter implements CommandExecutor, TabCompleter {
         // Register your commands here
         registerCommand(new HelpCommand(main));
         registerCommand(new ReloadCommand(main));
+        registerCommand(new SkillsCommand(main));
         registerCommand(new Test(main));
         registerCommand(new SetSkillLvlCommand(main));
         registerCommand(new ResetSkillsCommand(main));

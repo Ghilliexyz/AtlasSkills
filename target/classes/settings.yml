@@ -97,27 +97,6 @@ Command-Messages:
     - ""
     - "&c&m&l-----------------------------------------"
 
-EnchantItems:
-  #Type of Item the Enchantments will be.
-  EnchantItem: ENCHANTED_BOOK
-  #This chance determines if it should run the spawning enchant logic to spawn an enchantment
-  #Default Spawn Chance = 0.05 (0.05 = 5% chance that it will allow the spawning system to loop through all the enchants)
-  #if the spawning chance fails no enchantment attempt to be spawned.
-  EnchantItem-Spawn-Chance: 0.05
-  #A list of all rarity's in the plugin. (0.5 = 50%)
-  EnchantItem-Rarity-List:
-    #Chance to get a Godly enchantment.
-    GODLY: 0.05
-    #Chance to get a Legendary enchantment.
-    LEGENDARY: 0.15
-    #Chance to get a Epic enchantment.
-    EPIC: 0.30
-    #Chance to get a Rare enchantment.
-    RARE: 0.5
-  #This allows you to flip the order of the enchants default is true, which means it will check all Rares all the way up to Godly#
-  #if false then it will check Godly first and make its way down to Rares.
-  EnchantItem-Flip-List: true
-
 #Sound Manager
 #https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html < list of all sounds in minecraft.
 SkillSounds:
@@ -167,6 +146,18 @@ SkillMessages:
     -  "&c&m&l------------&f&l [&x&F&F&3&C&3&C&lA&x&F&F&4&F&3&E&lt&x&F&E&6&2&4&1&ll&x&F&E&7&5&4&3&la&x&F&D&8&8&4&6&ls &x&F&D&9&C&4&8&lS&x&F&D&A&F&4&A&lk&x&F&C&C&2&4&D&li&x&F&C&D&5&4&F&ll&x&F&B&E&8&5&2&ll&x&F&B&F&B&5&4&ls&f&l] &c&m&l-------------"
     -  ""
     -  "&c● &7You just leveled up &c&l{skillName} &7to Lvl: &e{skillLevel}"
+    -  ""
+    -  "&c&m&l-----------------------------------------"
+  #------------------LEVEL UP REWARD Message------------------#
+  #If True the skill level up message will be sent to the player.
+  Skill-LvlUPReward-Message-Toggle: true
+  #The message that will be sent when a skill levels up.
+  Skill-LvlUPReward-Message:
+    -  "&c&m&l------------&f&l [&x&F&F&3&C&3&C&lA&x&F&F&4&F&3&E&lt&x&F&E&6&2&4&1&ll&x&F&E&7&5&4&3&la&x&F&D&8&8&4&6&ls &x&F&D&9&C&4&8&lS&x&F&D&A&F&4&A&lk&x&F&C&C&2&4&D&li&x&F&C&D&5&4&F&ll&x&F&B&E&8&5&2&ll&x&F&B&F&B&5&4&ls&f&l] &c&m&l-------------"
+    -  ""
+    -  "&c● &7You just leveled up &c&l{skillName} &7to Lvl: &e{skillLevel}"
+    -  ""
+    -  "&c● &7You have been rewarded &e{skillRewardXP} xp"
     -  ""
     -  "&c&m&l-----------------------------------------"
   #------------------SET SKILL LEVEL Message------------------#
