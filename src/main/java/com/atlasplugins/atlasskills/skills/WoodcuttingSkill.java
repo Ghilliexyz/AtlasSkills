@@ -47,6 +47,7 @@ public class WoodcuttingSkill implements Listener {
         int woodcuttinMinXP = main.getSkillsConfig().getInt("Skill-Settings.Woodcutting.Woodcutting-XP-Gain-Min");
         int woodcuttinMaxXP = main.getSkillsConfig().getInt("Skill-Settings.Woodcutting.Woodcutting-XP-Gain-Max");
 
+        // Gets a random int between the Min and Max XP Values
         Random random = new Random();
         int woodcuttingXP = woodcuttinMinXP + random.nextInt(woodcuttinMaxXP - woodcuttinMinXP + 1);
 

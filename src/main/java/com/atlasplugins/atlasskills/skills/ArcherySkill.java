@@ -37,6 +37,9 @@ public class ArcherySkill implements Listener {
         // if the entity is not living then return
         if(!(hitEntity instanceof LivingEntity)) return;
 
+        // if the entity is an ArmorStand then return
+        if ((hitEntity instanceof ArmorStand)) return;
+
         // if the projectile is not an arrow then return
         if(!(projectile instanceof Arrow)) return;
 
@@ -44,6 +47,7 @@ public class ArcherySkill implements Listener {
         int archeryMinXP = main.getSkillsConfig().getInt("Skill-Settings.Archery.Archery-XP-Gain-Min");
         int archeryMaxXP = main.getSkillsConfig().getInt("Skill-Settings.Archery.Archery-XP-Gain-Max");
 
+        // Gets a random int between the Min and Max XP Values
         Random random = new Random();
         int archeryXP = archeryMinXP + random.nextInt(archeryMaxXP - archeryMinXP + 1);
 

@@ -37,6 +37,7 @@ public class FishingSkill implements Listener {
         int fishingMinXP = main.getSkillsConfig().getInt("Skill-Settings.Fishing.Fishing-XP-Gain-Min");
         int fishingMaxXP = main.getSkillsConfig().getInt("Skill-Settings.Fishing.Fishing-XP-Gain-Max");
 
+        // Gets a random int between the Min and Max XP Values
         Random random = new Random();
         int fishingXP = fishingMinXP + random.nextInt(fishingMaxXP - fishingMinXP + 1);
 

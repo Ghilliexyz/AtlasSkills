@@ -36,6 +36,7 @@ public class TamingSkill implements Listener {
         int tamingMinXP = main.getSkillsConfig().getInt("Skill-Settings.Taming.Taming-XP-Gain-Min");
         int tamingMaxXP = main.getSkillsConfig().getInt("Skill-Settings.Taming.Taming-XP-Gain-Max");
 
+        // Gets a random int between the Min and Max XP Values
         Random random = new Random();
         int tamingXP = tamingMinXP + random.nextInt(tamingMaxXP - tamingMinXP + 1);
 

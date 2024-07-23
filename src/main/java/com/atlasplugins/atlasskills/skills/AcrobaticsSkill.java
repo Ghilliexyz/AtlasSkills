@@ -38,6 +38,7 @@ public class AcrobaticsSkill implements Listener {
         int acrobaticsMinXP = main.getSkillsConfig().getInt("Skill-Settings.Acrobatics.Acrobatics-XP-Gain-Min");
         int acrobaticsMaxXP = main.getSkillsConfig().getInt("Skill-Settings.Acrobatics.Acrobatics-XP-Gain-Max");
 
+        // Gets a random int between the Min and Max XP Values
         Random random = new Random();
         int acrobaticsXP = acrobaticsMinXP + random.nextInt(acrobaticsMaxXP - acrobaticsMinXP + 1);
 

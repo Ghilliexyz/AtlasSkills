@@ -38,6 +38,7 @@ public class MiningSkill implements Listener {
         int miningMinXP = main.getSkillsConfig().getInt("Skill-Settings.Mining.Mining-XP-Gain-Min");
         int miningMaxXP = main.getSkillsConfig().getInt("Skill-Settings.Mining.Mining-XP-Gain-Max");
 
+        // Gets a random int between the Min and Max XP Values
         Random random = new Random();
         int miningXP = miningMinXP + random.nextInt(miningMaxXP - miningMinXP + 1);
 

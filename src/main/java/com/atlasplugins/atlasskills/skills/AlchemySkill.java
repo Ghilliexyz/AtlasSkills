@@ -55,6 +55,7 @@ public class AlchemySkill implements Listener {
         int alchemyMinXP = main.getSkillsConfig().getInt("Skill-Settings.Alchemy.Alchemy-XP-Gain-Min");
         int alchemyMaxXP = main.getSkillsConfig().getInt("Skill-Settings.Alchemy.Alchemy-XP-Gain-Max");
 
+        // Gets a random int between the Min and Max XP Values
         Random random = new Random();
         int alchemyXP = alchemyMinXP + random.nextInt(alchemyMaxXP - alchemyMinXP + 1);
 

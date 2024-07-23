@@ -47,6 +47,7 @@ public class HerbalismSkill implements Listener {
         int herbalismMinXP = main.getSkillsConfig().getInt("Skill-Settings.Herbalism.Herbalism-XP-Gain-Min");
         int herbalismMaxXP = main.getSkillsConfig().getInt("Skill-Settings.Herbalism.Herbalism-XP-Gain-Max");
 
+        // Gets a random int between the Min and Max XP Values
         Random random = new Random();
         int herbalismXP = herbalismMinXP + random.nextInt(herbalismMaxXP - herbalismMinXP + 1);
 

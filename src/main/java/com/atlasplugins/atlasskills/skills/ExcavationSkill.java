@@ -38,6 +38,7 @@ public class ExcavationSkill implements Listener {
         int excavationMinXP = main.getSkillsConfig().getInt("Skill-Settings.Excavation.Excavation-XP-Gain-Min");
         int excavationMaxXP = main.getSkillsConfig().getInt("Skill-Settings.Excavation.Excavation-XP-Gain-Max");
 
+        // Gets a random int between the Min and Max XP Values
         Random random = new Random();
         int excavationXP = excavationMinXP + random.nextInt(excavationMaxXP - excavationMinXP + 1);
 

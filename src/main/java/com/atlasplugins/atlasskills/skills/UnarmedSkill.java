@@ -6,6 +6,7 @@ import com.atlasplugins.atlasskills.managers.uiapi.UIManager;
 import org.bukkit.Material;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -42,6 +43,9 @@ public class UnarmedSkill implements Listener {
         // if the entity is not living then return
         if (!(damagedEntity instanceof LivingEntity)) return;
 
+        // if the entity is an ArmorStand then return
+        if ((damagedEntity instanceof ArmorStand)) return;
+
         // get xp damage toggle
         boolean xpDamageToggle = main.getSkillsConfig().getBoolean("Skill-Settings.Unarmed.Unarmed-XP-Toggle");
 
@@ -51,6 +55,7 @@ public class UnarmedSkill implements Listener {
             int swordMinXP = main.getSkillsConfig().getInt("Skill-Settings.Unarmed.Unarmed-XP-Gain-Min");
             int swordMaxXP = main.getSkillsConfig().getInt("Skill-Settings.Unarmed.Unarmed-XP-Gain-Max");
 
+            // Gets a random int between the Min and Max XP Values
             Random random = new Random();
             unarmedXP = swordMinXP + random.nextInt(swordMaxXP - swordMinXP + 1);
         } else {

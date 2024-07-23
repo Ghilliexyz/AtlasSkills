@@ -6,6 +6,7 @@ import com.atlasplugins.atlasskills.managers.uiapi.UIManager;
 import org.bukkit.Material;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -42,10 +43,14 @@ public class AxeSkill implements Listener {
         // if the entity is not living then return
         if(!(damagedEntity instanceof LivingEntity)) return;
 
+        // if the entity is an ArmorStand then return
+        if ((damagedEntity instanceof ArmorStand)) return;
+
         // Get Skill XP amount
         int axesMinXP = main.getSkillsConfig().getInt("Skill-Settings.Axes.Axes-XP-Gain-Min");
         int axesMaxXP = main.getSkillsConfig().getInt("Skill-Settings.Axes.Axes-XP-Gain-Max");
 
+        // Gets a random int between the Min and Max XP Values
         Random random = new Random();
         int axeXP = axesMinXP + random.nextInt(axesMaxXP - axesMinXP + 1);
 
