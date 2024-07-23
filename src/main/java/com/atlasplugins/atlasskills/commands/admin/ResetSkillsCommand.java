@@ -42,7 +42,7 @@ public class ResetSkillsCommand extends AbstractCommand {
             return;
         }
 
-        main.getLevelManager().resetPlayer(player);
+        main.getLevelManager().resetPlayer(player, (Player) sender);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.atlasplugins.atlasskills.commands.user;
 import com.atlasplugins.atlasskills.Main;
 import com.atlasplugins.atlasskills.commands.AbstractCommand;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Collections;
@@ -16,7 +17,7 @@ public class Test extends AbstractCommand {
     @Override
     public void execute(JavaPlugin plugin, CommandSender sender, String label, List<String> args) {
         // Saves the players data
-        Main.instance.getLevelManager().savePlayerData();
+        Main.instance.getLevelManager().savePlayerData((Player) sender);
     }
 
     @Override

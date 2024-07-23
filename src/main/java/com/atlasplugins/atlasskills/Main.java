@@ -12,6 +12,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,6 +36,7 @@ public final class Main extends JavaPlugin {
 
     // Level System
     private LevelManager levelManager;
+    private BukkitTask saveTask;
 
     // Command Router Stuff
     private CommandRouter commandRouter;
@@ -59,8 +61,12 @@ public final class Main extends JavaPlugin {
         // Level System
         levelManager = new LevelManager(this);
 
-        // Loads the players data
-        levelManager.loadPlayerData();
+        // Schedule periodic saving every 5 minutes (6000 ticks)
+//        this.saveTask = Bukkit.getScheduler().runTaskTimer(this, () -> {
+//            for (Player player : Bukkit.getOnlinePlayers()) {
+//                levelManager.savePlayerData(player);
+//            }
+//        }, 6000L, 6000L);
 
         // Register events
         getServer().getPluginManager().registerEvents(new onPlayerEvents(),this);
@@ -96,8 +102,16 @@ public final class Main extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
 
-        // Saves the players data
-        levelManager.savePlayerData();
+        // Save all player data
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            levelManager.savePlayerData(player);
+        }
+        levelManager.closeConnection();
+
+        // Cancel the save task
+        if (saveTask != null) {
+            saveTask.cancel();
+        }
 
         // Plugin Shutdown Message
         Bukkit.getConsoleSender().sendMessage(color("&4---------------------"));

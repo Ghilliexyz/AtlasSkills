@@ -13,8 +13,9 @@ public class onPlayerEvents implements Listener {
 
     @EventHandler
     public void onPlayerJoinEvent(PlayerJoinEvent e){
+        Player p = e.getPlayer();
         // Saves the players data
-        Main.instance.getLevelManager().loadPlayerData();
+        Main.instance.getLevelManager().loadPlayerData(p);
     }
 
 
@@ -22,10 +23,10 @@ public class onPlayerEvents implements Listener {
     public void onPlayerQuitEvent(PlayerQuitEvent e){
         Player p = e.getPlayer();
 
+        // Saves the players data
+        Main.instance.getLevelManager().savePlayerData(p);
+
         UIManager.getBossBarManager().removeBossBar(p);
         UIManager.getScoreboardManager().clearScoreboard(p);
-
-        // Saves the players data
-//        Main.instance.getLevelManager().savePlayerData();
     }
 }

@@ -30,7 +30,6 @@ public class LevelManager {
         try {
             openConnection();
             createTable();
-            loadPlayerData();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -61,48 +60,65 @@ public class LevelManager {
     }
 
     /**
-     * Saves all player levels and XP to the database.
+     * Saves a specific player's levels and XP to the database.
      */
-    public void savePlayerData() {
+    public void savePlayerData(Player player) {
         String insertOrUpdateSQL = "INSERT OR REPLACE INTO player_data (uuid, skill, level, xp) VALUES (?, ?, ?, ?)";
         try (PreparedStatement pstmt = connection.prepareStatement(insertOrUpdateSQL)) {
-            for (Player player : playerLevels.keySet()) {
-                for (Skill skill : Skill.values()) {
-                    pstmt.setString(1, player.getUniqueId().toString());
-                    pstmt.setString(2, skill.name());
-                    pstmt.setInt(3, getLevel(player, skill));
-                    pstmt.setInt(4, getXP(player, skill));
-                    pstmt.addBatch();
-                }
+            connection.setAutoCommit(false);  // Start transaction
+
+            for (Skill skill : Skill.values()) {
+                pstmt.setString(1, player.getUniqueId().toString());
+                pstmt.setString(2, skill.name());
+                pstmt.setInt(3, getLevel(player, skill));
+                pstmt.setInt(4, getXP(player, skill));
+                pstmt.addBatch();
             }
+
             pstmt.executeBatch();
+            connection.commit();  // Commit transaction
+            System.out.println("Player data saved successfully for: " + player.getName());
         } catch (SQLException e) {
             e.printStackTrace();
+            try {
+                connection.rollback();  // Rollback transaction on error
+            } catch (SQLException rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);  // Reset auto-commit
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
     }
+
 
     /**
-     * Loads all player levels and XP from the database.
+     * Loads a specific player's levels and XP from the database.
      */
-    public void loadPlayerData() {
-        String selectSQL = "SELECT * FROM player_data";
-        try (PreparedStatement pstmt = connection.prepareStatement(selectSQL);
-             ResultSet rs = pstmt.executeQuery()) {
-            while (rs.next()) {
-                UUID uuid = UUID.fromString(rs.getString("uuid"));
-                Player player = main.getServer().getPlayer(uuid);
-                if (player == null) continue;
-                Skill skill = Skill.valueOf(rs.getString("skill"));
-                int level = rs.getInt("level");
-                int xp = rs.getInt("xp");
+    public void loadPlayerData(Player player) {
+        String selectSQL = "SELECT * FROM player_data WHERE uuid = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(selectSQL)) {
+            pstmt.setString(1, player.getUniqueId().toString());
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Skill skill = Skill.valueOf(rs.getString("skill"));
+                    int level = rs.getInt("level");
+                    int xp = rs.getInt("xp");
 
-                playerLevels.computeIfAbsent(player, k -> new EnumMap<>(Skill.class)).put(skill, level);
-                playerXP.computeIfAbsent(player, k -> new EnumMap<>(Skill.class)).put(skill, xp);
+                    playerLevels.computeIfAbsent(player, k -> new EnumMap<>(Skill.class)).put(skill, level);
+                    playerXP.computeIfAbsent(player, k -> new EnumMap<>(Skill.class)).put(skill, xp);
+                }
             }
+            System.out.println("Player data loaded successfully for: " + player.getName());
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+
 
     /**
      * Gets the level of a specific skill for a player.
@@ -169,7 +185,7 @@ public class LevelManager {
                             String withPAPISet = main.setPlaceholders(player, levelUpMessage);
                             player.sendMessage(Main.color(withPAPISet)
                                     .replace("{player}", player.getName())
-                                    .replace("{skillName}", skill.toString())
+                                    .replace("{skillName}", ReformatName(skill.toString()))
                                     .replace("{skillLevel}", String.valueOf(currentLevel))
                                     .replace("{skillRewardXP}", String.valueOf(xpReward)));
                         }
@@ -181,7 +197,7 @@ public class LevelManager {
                             String withPAPISet = main.setPlaceholders(player, levelUpMessage);
                             player.sendMessage(Main.color(withPAPISet)
                                     .replace("{player}", player.getName())
-                                    .replace("{skillName}", skill.toString())
+                                    .replace("{skillName}", ReformatName(skill.toString()))
                                     .replace("{skillLevel}", String.valueOf(currentLevel)));
                         }
                     }
@@ -193,7 +209,7 @@ public class LevelManager {
                         String withPAPISet = main.setPlaceholders(player, levelUpMessage);
                         player.sendMessage(Main.color(withPAPISet)
                                 .replace("{player}", player.getName())
-                                .replace("{skillName}", skill.toString())
+                                .replace("{skillName}", ReformatName(skill.toString()))
                                 .replace("{skillLevel}", String.valueOf(currentLevel)));
                     }
                 }
@@ -211,7 +227,7 @@ public class LevelManager {
         }
 
         // Saves the players data
-        Main.instance.getLevelManager().savePlayerData();
+        Main.instance.getLevelManager().savePlayerData(player);
 
         playerXP.computeIfAbsent(player, k -> new EnumMap<>(Skill.class)).put(skill, newXP);
         playerLevels.computeIfAbsent(player, k -> new EnumMap<>(Skill.class)).put(skill, currentLevel);
@@ -234,7 +250,7 @@ public class LevelManager {
                 String withPAPISet = main.setPlaceholders(player, setLevelMessage);
                 sender.sendMessage(Main.color(withPAPISet)
                         .replace("{player}", player.getName())
-                        .replace("{skillName}", skill.toString())
+                        .replace("{skillName}", ReformatName(skill.toString()))
                         .replace("{skillNewLevel}", String.valueOf(level)));
             }
         }
@@ -255,18 +271,18 @@ public class LevelManager {
      *
      * @param player The player whose levels and XP are being reset.
      */
-    public void resetPlayer(Player player) {
+    public void resetPlayer(Player player, Player sender) {
         playerLevels.remove(player);
         playerXP.remove(player);
 
         // Saves the players data
-        savePlayerData();
+        savePlayerData(player);
 
         boolean isResetMessageEnabled = main.getSettingsConfig().isBoolean("SkillMessages.Skill-ResetSkills-Message-Toggle");
         if (isResetMessageEnabled) {
             for (String resetMessage : main.getSettingsConfig().getStringList("SkillMessages.Skill-ResetSkills-Message")) {
                 String withPAPISet = main.setPlaceholders(player, resetMessage);
-                player.sendMessage(Main.color(withPAPISet)
+                sender.sendMessage(Main.color(withPAPISet)
                         .replace("{player}", player.getName()));
             }
         }
@@ -278,7 +294,20 @@ public class LevelManager {
         boolean resetPlaySound = main.getSettingsConfig().getBoolean("SkillSounds.Skill-ResetSkills-Sound-Toggle");
 
         if (resetPlaySound) {
-            player.playSound(player.getLocation(), resetSound, resetVolume, resetPitch);
+            sender.playSound(sender.getLocation(), resetSound, resetVolume, resetPitch);
+        }
+    }
+
+    /**
+     * Closes the connection to the SQLite database.
+     */
+    public void closeConnection() {
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -298,5 +327,12 @@ public class LevelManager {
         TAMING,
         UNARMED,
         WOODCUTTING
+    }
+
+    public String ReformatName(String name) {
+        if (name == null || name.isEmpty()) {
+            return name; // Return the original value if it's null or empty
+        }
+        return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
     }
 }

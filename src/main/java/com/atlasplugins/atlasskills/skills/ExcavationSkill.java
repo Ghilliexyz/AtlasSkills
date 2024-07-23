@@ -63,7 +63,7 @@ public class ExcavationSkill implements Listener {
         UIManager.getBossBarManager().createXPBossBar(p, "", skillBarColor, skillBarStyle, xp, level);
         assert skillBarTitle != null;
         UIManager.getBossBarManager().showXPProgressBar(p, skillBarTitle
-                .replace("{skillName}", LevelManager.Skill.EXCAVATION.toString())
+                .replace("{skillName}", levelManager.ReformatName(LevelManager.Skill.EXCAVATION.toString()))
                 .replace("{skillXP}", String.valueOf(xp))
                 .replace("{skillLvl}", String.valueOf(level))
                 .replace("{skillXPToNextLevel}", String.valueOf(xpToNextLevel)), xp, level);
