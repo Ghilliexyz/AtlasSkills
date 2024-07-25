@@ -95,6 +95,10 @@ public final class Main extends JavaPlugin {
         getCommand("atlasskills").setExecutor(commandRouter);
         getCommand("atlasskills").setTabCompleter(commandRouter);
 
+        // BStats Info
+        int pluginId = 22775; // <-- Replace with the id of your plugin!
+        Metrics metrics = new Metrics(this, pluginId);
+
         // Plugin Startup Message
         Bukkit.getConsoleSender().sendMessage(color("&4---------------------"));
         Bukkit.getConsoleSender().sendMessage(color("&7&l[&c&lAtlas Skills&7&l] &e1.0.0"));
