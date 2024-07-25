@@ -4,6 +4,7 @@ import com.atlasplugins.atlasskills.commands.CommandRouter;
 import com.atlasplugins.atlasskills.listeners.onPlayerEvents;
 import com.atlasplugins.atlasskills.managers.levelsystem.LevelManager;
 import com.atlasplugins.atlasskills.skills.*;
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -27,6 +28,9 @@ public final class Main extends JavaPlugin {
 
     // PlaceholderAPI
     private boolean isPlaceholderAPIPresent;
+    // WorldGuardAPI
+    private boolean isWorldGuardAPIPresent;
+    private WorldGuardPlugin worldGuardPlugin;
 
     // Config Stuff
     private FileConfiguration skillsConfig;
@@ -54,12 +58,23 @@ public final class Main extends JavaPlugin {
             getLogger().info("PlaceholderAPI not found, placeholders will not be used.");
         }
 
+        // check if WorldGuardAPI is present on the server.
+        isWorldGuardAPIPresent = checkForWorldGuardAPI();
+        if (isWorldGuardAPIPresent) {
+            getLogger().info("WorldGuardAPI found, worldguard will be used.");
+        } else {
+            getLogger().info("WorldGuardAPI not found, worldguard will not be used.");
+        }
+
         // Load custom configs
         loadSkillsConfig();
         loadSettingsConfig();
 
         // Level System
         levelManager = new LevelManager(this);
+
+        // WorldGuard
+        worldGuardPlugin = (WorldGuardPlugin) getServer().getPluginManager().getPlugin("worldguard");
 
         // Loads all player data
         // NOTE: This is used for /reload confirm
@@ -144,9 +159,23 @@ public final class Main extends JavaPlugin {
         }
     }
 
+    public WorldGuardPlugin getWorldGuardPlugin()
+    {
+        return worldGuardPlugin;
+    }
+
     private boolean checkForPlaceholderAPI() {
         Plugin plugin = Bukkit.getPluginManager().getPlugin("PlaceholderAPI");
         return plugin != null && plugin.isEnabled();
+    }
+
+    private boolean checkForWorldGuardAPI() {
+        Plugin plugin = getServer().getPluginManager().getPlugin("worldguard");
+        if (plugin instanceof WorldGuardPlugin) {
+            return plugin.isEnabled();
+        }else {
+            return false;
+        }
     }
 
     public FileConfiguration getSkillsConfig() {

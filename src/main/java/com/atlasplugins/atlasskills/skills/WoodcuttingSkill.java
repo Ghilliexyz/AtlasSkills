@@ -3,6 +3,13 @@ package com.atlasplugins.atlasskills.skills;
 import com.atlasplugins.atlasskills.Main;
 import com.atlasplugins.atlasskills.managers.levelsystem.LevelManager;
 import com.atlasplugins.atlasskills.managers.uiapi.UIManager;
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
+import com.sk89q.worldguard.WorldGuard;
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import com.sk89q.worldguard.protection.ApplicableRegionSet;
+import com.sk89q.worldguard.protection.managers.RegionManager;
+import com.sk89q.worldguard.protection.regions.ProtectedRegion;
+import com.sk89q.worldguard.protection.regions.RegionContainer;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.boss.BarColor;
@@ -20,12 +27,14 @@ public class WoodcuttingSkill implements Listener {
 
     private Main main;
     private LevelManager levelManager;
+    private WorldGuardPlugin worldGuardPlugin;
 
     private List<String> LOGS;
 
     public WoodcuttingSkill(Main main) {
         this.main = main;
         this.levelManager = main.getLevelManager();
+        this.worldGuardPlugin = main.getWorldGuardPlugin();
     }
 
     @EventHandler
@@ -33,6 +42,26 @@ public class WoodcuttingSkill implements Listener {
         Block blockBroken = e.getBlock();
         Player p = e.getPlayer();
         ItemStack tool = e.getPlayer().getInventory().getItemInMainHand();
+
+        //WorldGuard Checks
+        if(worldGuardPlugin.isEnabled())
+        {
+            RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
+            RegionManager regions = container.get(BukkitAdapter.adapt(blockBroken.getWorld()));
+
+            if (regions != null) {
+                ApplicableRegionSet set = regions.getApplicableRegions(BukkitAdapter.asBlockVector(blockBroken.getLocation()));
+
+                for (ProtectedRegion region : set) {
+                    if (!region.getMembers().contains(worldGuardPlugin.wrapPlayer(p)) &&
+                            !region.getOwners().contains(worldGuardPlugin.wrapPlayer(p))) {
+                        // Cancel the event if the player is not a member or owner of the region
+                        e.setCancelled(true);
+                        return;
+                    }
+                }
+            }
+        }
 
         // if the player doesn't have the correct tool return
         if (!hasCorrectTool(tool.getType())) return;
