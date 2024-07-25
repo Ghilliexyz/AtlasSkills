@@ -41,7 +41,7 @@ public class AcrobaticsSkill implements Listener {
         if(!(e.getEntity() instanceof Player p)) return;
 
         //WorldGuard Checks
-        if(worldGuardPlugin.isEnabled() && !p.isOp())
+        if(worldGuardPlugin != null && worldGuardPlugin.isEnabled() && !p.isOp())
         {
             RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
             RegionManager regions = container.get(BukkitAdapter.adapt(p.getWorld()));

@@ -151,8 +151,7 @@ public final class Main extends JavaPlugin {
 
     public String setPlaceholders(Player p, String text)
     {
-        if(checkForPlaceholderAPI())
-        {
+        if(checkForPlaceholderAPI()) {
             return PlaceholderAPI.setPlaceholders(p, text);
         }else{
             return text;
@@ -161,7 +160,11 @@ public final class Main extends JavaPlugin {
 
     public WorldGuardPlugin getWorldGuardPlugin()
     {
-        return worldGuardPlugin;
+        if(checkForWorldGuardAPI()){
+            return worldGuardPlugin;
+        } else {
+            return null;
+        }
     }
 
     private boolean checkForPlaceholderAPI() {
