@@ -41,7 +41,7 @@ public class MiningSkill implements Listener {
         ItemStack tool = e.getPlayer().getInventory().getItemInMainHand();
 
         //WorldGuard Checks
-        if(worldGuardPlugin.isEnabled())
+        if(worldGuardPlugin.isEnabled() && !p.isOp())
         {
             RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
             RegionManager regions = container.get(BukkitAdapter.adapt(blockBroken.getWorld()));

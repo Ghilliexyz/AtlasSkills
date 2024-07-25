@@ -3,6 +3,13 @@ package com.atlasplugins.atlasskills.skills;
 import com.atlasplugins.atlasskills.Main;
 import com.atlasplugins.atlasskills.managers.levelsystem.LevelManager;
 import com.atlasplugins.atlasskills.managers.uiapi.UIManager;
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
+import com.sk89q.worldguard.WorldGuard;
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import com.sk89q.worldguard.protection.ApplicableRegionSet;
+import com.sk89q.worldguard.protection.managers.RegionManager;
+import com.sk89q.worldguard.protection.regions.ProtectedRegion;
+import com.sk89q.worldguard.protection.regions.RegionContainer;
 import org.bukkit.block.Block;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
@@ -18,10 +25,12 @@ public class AcrobaticsSkill implements Listener {
 
     private Main main;
     private LevelManager levelManager;
+    private WorldGuardPlugin worldGuardPlugin;
 
     public AcrobaticsSkill(Main main) {
         this.main = main;
         this.levelManager = main.getLevelManager();
+        this.worldGuardPlugin = main.getWorldGuardPlugin();
     }
 
     @EventHandler
@@ -30,6 +39,23 @@ public class AcrobaticsSkill implements Listener {
         double damage = e.getFinalDamage();
         // if the entity isn't a Player then return
         if(!(e.getEntity() instanceof Player p)) return;
+
+        //WorldGuard Checks
+        if(worldGuardPlugin.isEnabled() && !p.isOp())
+        {
+            RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
+            RegionManager regions = container.get(BukkitAdapter.adapt(p.getWorld()));
+
+            if (regions != null) {
+                ApplicableRegionSet set = regions.getApplicableRegions(BukkitAdapter.asBlockVector(p.getLocation()));
+
+                for (ProtectedRegion region : set) {
+                    // Cancel the event if the player is in a protected region
+                    e.setCancelled(true);
+                    return;
+                }
+            }
+        }
 
 
         // if the damage cause isn't from fall damage then return
