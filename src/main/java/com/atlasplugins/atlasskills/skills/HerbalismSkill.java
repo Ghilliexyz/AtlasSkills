@@ -12,6 +12,7 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.sk89q.worldguard.protection.regions.RegionContainer;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.entity.Player;
@@ -83,8 +84,21 @@ public class HerbalismSkill implements Listener {
         // get xp multiplier
         int xpMultiplier = main.getSkillsConfig().getInt("Skill-Addons.Skill-XP-Multiplier.Skill-XP-Multiplier-Amount");
 
+        int finalXP = herbalismXP;
+        if(hasAboveBlock(blockBroken.getType()))
+        {
+            finalXP = (herbalismXP * countBlocksAbove(blockBroken));
+        }
+        if(hasBelowBlock(blockBroken.getType()))
+        {
+            finalXP = (herbalismXP * countBlocksBelow(blockBroken));
+        }
+
+        Main.instance.getLogger().info("herbalismXP: " + herbalismXP);
+        Main.instance.getLogger().info("Final XP: " + finalXP);
+
         // Add XP to Skill
-        levelManager.addXP(p, LevelManager.Skill.HERBALISM, herbalismXP * xpMultiplier);
+        levelManager.addXP(p, LevelManager.Skill.HERBALISM, finalXP * xpMultiplier);
 
         // Get Skill Stats
         int level = levelManager.getLevel(p, LevelManager.Skill.HERBALISM);
@@ -109,6 +123,69 @@ public class HerbalismSkill implements Listener {
 
         // Hide Bossbar after x amount of seconds
         UIManager.getBossBarManager().hideProgressBar(p, skillBarHideDelay);
+    }
+
+    // Method to check the number of blocks above the given block that are of the same type
+    public static int countBlocksAbove(Block startBlock) {
+        Material blockType = startBlock.getType();
+        if (!hasAboveBlock(blockType)) {return 1;}
+
+        int count = 1;
+        Block currentBlock = startBlock.getRelative(BlockFace.UP);
+
+        while (currentBlock.getType() == blockType) {
+            count++;
+            currentBlock = currentBlock.getRelative(BlockFace.UP);
+        }
+
+        Main.instance.getLogger().info("Amount broken: " + count);
+
+        return count;
+    }
+
+    // Method to check the number of vine blocks below the given block
+    public static int countBlocksBelow(Block startBlock) {
+        Material blockType = startBlock.getType();
+        if (!hasBelowBlock(blockType)) {return 1;}
+
+        int count = 1;
+        Block currentBlock = startBlock.getRelative(BlockFace.DOWN);
+
+        while (currentBlock.getType() == blockType) {
+            count++;
+            currentBlock = currentBlock.getRelative(BlockFace.DOWN);
+        }
+
+        Main.instance.getLogger().info("Amount broken: " + count);
+
+        return count;
+    }
+
+    public static boolean hasAboveBlock(Material startBlock){
+        switch (startBlock) {
+            case Material.SUGAR_CANE:
+                return true;
+            case Material.CACTUS:
+                return true;
+            case Material.TWISTING_VINES:
+                return true;
+            case Material.TWISTING_VINES_PLANT:
+                return true;
+            default:
+                return false;
+        }
+    }
+    public static boolean hasBelowBlock(Material startBlock){
+        switch (startBlock) {
+            case Material.VINE:
+                return true;
+            case Material.WEEPING_VINES:
+                return true;
+            case Material.WEEPING_VINES_PLANT:
+                return true;
+            default:
+                return false;
+        }
     }
 
     public Boolean hasIncorrectTool(Material tool) {
