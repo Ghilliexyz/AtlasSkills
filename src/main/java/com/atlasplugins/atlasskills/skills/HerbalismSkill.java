@@ -94,9 +94,6 @@ public class HerbalismSkill implements Listener {
             finalXP = (herbalismXP * countBlocksBelow(blockBroken));
         }
 
-        Main.instance.getLogger().info("herbalismXP: " + herbalismXP);
-        Main.instance.getLogger().info("Final XP: " + finalXP);
-
         // Add XP to Skill
         levelManager.addXP(p, LevelManager.Skill.HERBALISM, finalXP * xpMultiplier);
 
@@ -138,8 +135,6 @@ public class HerbalismSkill implements Listener {
             currentBlock = currentBlock.getRelative(BlockFace.UP);
         }
 
-        Main.instance.getLogger().info("Amount broken: " + count);
-
         return count;
     }
 
@@ -155,8 +150,6 @@ public class HerbalismSkill implements Listener {
             count++;
             currentBlock = currentBlock.getRelative(BlockFace.DOWN);
         }
-
-        Main.instance.getLogger().info("Amount broken: " + count);
 
         return count;
     }
