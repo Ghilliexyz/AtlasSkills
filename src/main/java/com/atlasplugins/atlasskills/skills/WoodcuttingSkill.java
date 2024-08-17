@@ -16,6 +16,7 @@ import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
@@ -37,7 +38,7 @@ public class WoodcuttingSkill implements Listener {
         this.worldGuardPlugin = main.getWorldGuardPlugin();
     }
 
-    @EventHandler
+    @EventHandler (priority = EventPriority.LOWEST)
     public void onBlockBreakEvent(BlockBreakEvent e) {
         Block blockBroken = e.getBlock();
         Player p = e.getPlayer();

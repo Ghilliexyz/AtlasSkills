@@ -107,3 +107,190 @@ Skill-Settings:
       - MANGROVE_ROOTS
       - CRIMSON_STEM
       - WARPED_STEM
+
+Skills-Gui:
+  Skills-Menu:
+    Skills-Menu-Size: 36
+    Skills-Menu-Title: "&f&l[&x&F&F&3&C&3&C&lA&x&F&F&4&F&3&E&lt&x&F&E&6&2&4&1&ll&x&F&E&7&5&4&3&la&x&F&D&8&8&4&6&ls &x&F&D&9&C&4&8&lS&x&F&D&A&F&4&A&lk&x&F&C&C&2&4&D&li&x&F&C&D&5&4&F&ll&x&F&B&E&8&5&2&ll&x&F&B&F&B&5&4&ls&f&l]"
+    Skills-Menu-Filler-Item: BLACK_STAINED_GLASS_PANE
+    Skills-Menu-Filler-Title: "&0_"
+  Acrobatics-Slot:
+    Acrobatics-InventorySlot: 10
+    Acrobatics-Item: DIAMOND_BOOTS
+    Acrobatics-Title: "&f&l[&c&lSkill&f&l] &eAcrobatics"
+    Acrobatics-Lore:
+     - "&c&m&l-------------------------------------"
+     - ""
+     - "&c● &7Description:"
+     - "  &7You can level up your &eAcrobatics &7by taking fall damage."
+     - "  &7For every 10 levels, you will gain (lvl * 100) EXP."
+     - ""
+     - "&c● &7Current Level: &e{acrobaticsLevel} "
+     - "&c● &7Current XP: &e {acrobaticsXp} &7/ &e{acrobaticsXpToNextLvl}"
+     - ""
+     - "&c&m&l-------------------------------------"
+  Alchemy-Slot:
+    Alchemy-InventorySlot: 11
+    Alchemy-Item: BREWING_STAND
+    Alchemy-Title: "&f&l[&c&lSkill&f&l] &eAlchemy"
+    Alchemy-Lore:
+      - "&c&m&l-------------------------------------"
+      - ""
+      - "&c● &7Description:"
+      - "  &7You can level up your &eAlchemy &7by brewing potions."
+      - "  &7For every 10 levels, you will gain (lvl * 100) EXP."
+      - ""
+      - "&c● &7Current Level: &e{alchemyLevel} "
+      - "&c● &7Current XP: &e {alchemyXp} &7/ &e{alchemyXpToNextLvl}"
+      - ""
+      - "&c&m&l-------------------------------------"
+  Archery-Slot:
+    Archery-InventorySlot: 12
+    Archery-Item: BOW
+    Archery-Title: "&f&l[&c&lSkill&f&l] &eArchery"
+    Archery-Lore:
+      - "&c&m&l-------------------------------------"
+      - ""
+      - "&c● &7Description:"
+      - "  &7You can level up your &eArchery &7by hitting targets and dealing damage with a bow."
+      - "  &7For every 10 levels, you will gain (lvl * 100) EXP."
+      - ""
+      - "&c● &7Current Level: &e{archeryLevel} "
+      - "&c● &7Current XP: &e {archeryXp} &7/ &e{archeryXpToNextLvl}"
+      - ""
+      - "&c&m&l-------------------------------------"
+  Axes-Slot:
+    Axes-InventorySlot: 13
+    Axes-Item: DIAMOND_AXE
+    Axes-Title: "&f&l[&c&lSkill&f&l] &eAxes"
+    Axes-Lore:
+      - "&c&m&l-------------------------------------"
+      - ""
+      - "&c● &7Description:"
+      - "  &7You can level up your &eAxes &7by dealing damage with axes."
+      - "  &7For every 10 levels, you will gain (lvl * 100) EXP."
+      - ""
+      - "&c● &7Current Level: &e{axesLevel} "
+      - "&c● &7Current XP: &e {axesXp} &7/ &e{axesXpToNextLvl}"
+      - ""
+      - "&c&m&l-------------------------------------"
+  Excavation-Slot:
+    Excavation-InventorySlot: 14
+    Excavation-Item: IRON_SHOVEL
+    Excavation-Title: "&f&l[&c&lSkill&f&l] &eExcavation"
+    Excavation-Lore:
+      - "&c&m&l-------------------------------------"
+      - ""
+      - "&c● &7Description:"
+      - "  &7You can level up your &eExcavation &7by using a Shovel."
+      - "  &7For every 10 levels you will gain (lvl * 100) EXP"
+      - ""
+      - "&c● &7Current Level: &e{excavationLevel} "
+      - "&c● &7Current XP: &e {excavationXp} &7/ &e{excavationXpToNextLvl}"
+      - ""
+      - "&c&m&l-------------------------------------"
+  Fishing-Slot:
+    Fishing-InventorySlot: 15
+    Fishing-Item: TROPICAL_FISH
+    Fishing-Title: "&f&l[&c&lSkill&f&l] &eFishing"
+    Fishing-Lore:
+      - "&c&m&l-------------------------------------"
+      - ""
+      - "&c● &7Description:"
+      - "  &7You can level up your &eFishing &7by catching fish, treasure, and junk."
+      - "  &7For every 10 levels you will gain (lvl * 100) EXP"
+      - ""
+      - "&c● &7Current Level: &e{fishingLevel} "
+      - "&c● &7Current XP: &e {fishingXp} &7/ &e{fishingXpToNextLvl}"
+      - ""
+      - "&c&m&l-------------------------------------"
+  Herbalism-Slot:
+    Herbalism-InventorySlot: 16
+    Herbalism-Item: WHEAT
+    Herbalism-Title: "&f&l[&c&lSkill&f&l] &eHerbalism"
+    Herbalism-Lore:
+      - "&c&m&l-------------------------------------"
+      - ""
+      - "&c● &7Description:"
+      - "  &7You can level up your &eHerbalism &7by harvesting crops, flowers, and herbs."
+      - "  &7For every 10 levels you will gain (lvl * 100) EXP"
+      - ""
+      - "&c● &7Current Level: &e{herbalismLevel} "
+      - "&c● &7Current XP: &e {herbalismXp} &7/ &e{herbalismXpToNextLvl}"
+      - ""
+      - "&c&m&l-------------------------------------"
+  Mining-Slot:
+    Mining-InventorySlot: 19
+    Mining-Item: IRON_PICKAXE
+    Mining-Title: "&f&l[&c&lSkill&f&l] &eMining"
+    Mining-Lore:
+      - "&c&m&l-------------------------------------"
+      - ""
+      - "&c● &7Description:"
+      - "  &7You can level up your &eMining &7by extracting ores and breaking blocks."
+      - "  &7For every 10 levels you will gain (lvl * 100) EXP"
+      - ""
+      - "&c● &7Current Level: &e{miningLevel} "
+      - "&c● &7Current XP: &e {miningXp} &7/ &e{miningXpToNextLvl}"
+      - ""
+      - "&c&m&l-------------------------------------"
+  Swords-Slot:
+    Swords-InventorySlot: 20
+    Swords-Item: DIAMOND_SWORD
+    Swords-Title: "&f&l[&c&lSkill&f&l] &eSwords"
+    Swords-Lore:
+      - "&c&m&l-------------------------------------"
+      - ""
+      - "&c● &7Description:"
+      - "  &7You can level up your &eSwords &7by dealing damage with swords."
+      - "  &7For every 10 levels you will gain (lvl * 100) EXP"
+      - ""
+      - "&c● &7Current Level: &e{swordLevel} "
+      - "&c● &7Current XP: &e {swordXp} &7/ &e{swordXpToNextLvl}"
+      - ""
+      - "&c&m&l-------------------------------------"
+  Taming-Slot:
+    Taming-InventorySlot: 21
+    Taming-Item: BONE
+    Taming-Title: "&f&l[&c&lSkill&f&l] &eTaming"
+    Taming-Lore:
+      - "&c&m&l-------------------------------------"
+      - ""
+      - "&c● &7Description:"
+      - "  &7You can level up your &eTaming &7by taming."
+      - "  &7For every 10 levels you will gain (lvl * 100) EXP"
+      - ""
+      - "&c● &7Current Level: &e{tamingLevel} "
+      - "&c● &7Current XP: &e {tamingXp} &7/ &e{tamingXpToNextLvl}"
+      - ""
+      - "&c&m&l-------------------------------------"
+  Unarmed-Slot:
+    Unarmed-InventorySlot: 22
+    Unarmed-Item: RABBIT_FOOT
+    Unarmed-Title: "&f&l[&c&lSkill&f&l] &eUnarmed"
+    Unarmed-Lore:
+      - "&c&m&l-------------------------------------"
+      - ""
+      - "&c● &7Description:"
+      - "  &7You can level up your &eUnarmed &7by fighting enemies with your fists."
+      - "  &7For every 10 levels you will gain (lvl * 100) EXP"
+      - ""
+      - "&c● &7Current Level: &e{unarmedLevel} "
+      - "&c● &7Current XP: &e {unarmedXp} &7/ &e{unarmedXpToNextLvl}"
+      - ""
+      - "&c&m&l-------------------------------------"
+  Woodcutting-Slot:
+    Woodcutting-InventorySlot: 23
+    Woodcutting-Item: OAK_LOG
+    Woodcutting-Title: "&f&l[&c&lSkill&f&l] &eWoodcutting"
+    Woodcutting-Lore:
+      - "&c&m&l-------------------------------------"
+      - ""
+      - "&c● &7Description:"
+      - "  &7You can level up your &eWoodcutting &7by chopping down trees and breaking logs."
+      - "  &7For every 10 levels you will gain (lvl * 100) EXP"
+      - ""
+      - "&c● &7Current Level: &e{woodcuttingLevel} "
+      - "&c● &7Current XP: &e {woodcuttingXp} &7/ &e{woodcuttingXpToNextLvl}"
+      - ""
+      - "&c&m&l-------------------------------------"

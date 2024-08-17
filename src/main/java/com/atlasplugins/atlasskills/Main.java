@@ -1,6 +1,8 @@
 package com.atlasplugins.atlasskills;
 
 import com.atlasplugins.atlasskills.commands.CommandRouter;
+import com.atlasplugins.atlasskills.guis.GuiListener;
+import com.atlasplugins.atlasskills.guis.SkillsGui;
 import com.atlasplugins.atlasskills.listeners.onPlayerEvents;
 import com.atlasplugins.atlasskills.managers.levelsystem.LevelManager;
 import com.atlasplugins.atlasskills.skills.*;
@@ -104,6 +106,7 @@ public final class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new TamingSkill(this),this);
         getServer().getPluginManager().registerEvents(new UnarmedSkill(this),this);
         getServer().getPluginManager().registerEvents(new WoodcuttingSkill(this),this);
+        getServer().getPluginManager().registerEvents(new GuiListener(this), this);
 
         // Register commands
         this.commandRouter = new CommandRouter(this);
@@ -174,11 +177,7 @@ public final class Main extends JavaPlugin {
 
     private boolean checkForWorldGuardAPI() {
         Plugin plugin = getServer().getPluginManager().getPlugin("worldguard");
-        if (plugin instanceof WorldGuardPlugin) {
-            return plugin.isEnabled();
-        }else {
-            return false;
-        }
+        return plugin != null && plugin.isEnabled();
     }
 
     public FileConfiguration getSkillsConfig() {
@@ -223,5 +222,10 @@ public final class Main extends JavaPlugin {
 
     public LevelManager getLevelManager(){
         return levelManager;
+    }
+
+    public void openSkillsGui(Player player) {
+        SkillsGui skillsGui = new SkillsGui(this, player, levelManager);
+        skillsGui.open();
     }
 }

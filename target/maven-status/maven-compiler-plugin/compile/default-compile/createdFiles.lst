@@ -2,12 +2,14 @@ com\atlasplugins\atlasskills\listeners\onPlayerEvents.class
 com\atlasplugins\atlasskills\managers\uiapi\UIManager.class
 com\atlasplugins\atlasskills\Metrics$MetricsBase.class
 com\atlasplugins\atlasskills\Metrics$MultiLineChart.class
+com\atlasplugins\atlasskills\guis\SkillsGui.class
 com\atlasplugins\atlasskills\Metrics$SingleLineChart.class
 com\atlasplugins\atlasskills\Main.class
 com\atlasplugins\atlasskills\managers\uiapi\ActionBarManager$1.class
 com\atlasplugins\atlasskills\skills\WoodcuttingSkill.class
 com\atlasplugins\atlasskills\skills\AxeSkill.class
 com\atlasplugins\atlasskills\commands\user\HelpCommand.class
+com\atlasplugins\atlasskills\guis\GuiManager.class
 com\atlasplugins\atlasskills\managers\levelsystem\LevelManager.class
 com\atlasplugins\atlasskills\skills\SwordSkill.class
 com\atlasplugins\atlasskills\Metrics$SimpleBarChart.class
@@ -15,6 +17,7 @@ com\atlasplugins\atlasskills\skills\SwordSkill$1.class
 com\atlasplugins\atlasskills\managers\uiapi\ScoreboardManagerr.class
 com\atlasplugins\atlasskills\skills\FishingSkill.class
 com\atlasplugins\atlasskills\commands\user\Test.class
+com\atlasplugins\atlasskills\guis\GuiListener.class
 com\atlasplugins\atlasskills\skills\TamingSkill.class
 com\atlasplugins\atlasskills\managers\uiapi\ActionBarManager.class
 com\atlasplugins\atlasskills\commands\admin\SetSkillLvlCommand.class
@@ -46,5 +49,6 @@ com\atlasplugins\atlasskills\managers\levelsystem\LevelManager$Skill.class
 com\atlasplugins\atlasskills\skills\WoodcuttingSkill$1.class
 com\atlasplugins\atlasskills\skills\MiningSkill$1.class
 com\atlasplugins\atlasskills\Metrics$AdvancedBarChart.class
+com\atlasplugins\atlasskills\guis\Gui.class
 com\atlasplugins\atlasskills\Metrics$JsonObjectBuilder.class
 com\atlasplugins\atlasskills\commands\admin\ResetSkillsCommand.class

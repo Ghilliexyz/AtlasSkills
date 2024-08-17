@@ -10,13 +10,17 @@ import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.sk89q.worldguard.protection.regions.RegionContainer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.Ageable;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
@@ -26,6 +30,7 @@ import java.util.Random;
 
 public class HerbalismSkill implements Listener {
 
+    private static final Logger log = LogManager.getLogger(HerbalismSkill.class);
     private Main main;
     private LevelManager levelManager;
     private WorldGuardPlugin worldGuardPlugin;
@@ -72,6 +77,16 @@ public class HerbalismSkill implements Listener {
 
         // if the block broken doesn't match with the list then return
         if (!CROPS.contains(blockBroken.getType().toString())) return;
+
+        // return if the crop is not at max age.
+//        if(blockBroken.getState().getBlockData() instanceof Ageable blockAgeable)
+//        {
+//            main.getLogger().info("Block data: " + blockAgeable);
+//            if(blockAgeable.getAge() < blockAgeable.getMaximumAge())
+//            {
+//                return;
+//            }
+//        }
 
         // Get Skill XP amount
         int herbalismMinXP = main.getSkillsConfig().getInt("Skill-Settings.Herbalism.Herbalism-XP-Gain-Min");
