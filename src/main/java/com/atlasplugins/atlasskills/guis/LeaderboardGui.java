@@ -3,10 +3,11 @@ package com.atlasplugins.atlasskills.guis;
 import com.atlasplugins.atlasskills.Main;
 import com.atlasplugins.atlasskills.managers.levelsystem.LevelManager;
 import com.atlasplugins.atlasskills.managers.levelsystem.PlayerSkillData;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -14,12 +15,17 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.profile.PlayerProfile;
 import org.bukkit.profile.PlayerTextures;
 
+import javax.net.ssl.HttpsURLConnection;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 public class LeaderboardGui extends Gui {
 
@@ -74,10 +80,11 @@ public class LeaderboardGui extends Gui {
             ItemStack playerHead = new ItemStack(Material.PLAYER_HEAD);
             SkullMeta playerSkullMeta = (SkullMeta) playerHead.getItemMeta();
 
-            PlayerProfile playerSkullProfile = getProfile(playerUUID);
-            playerSkullProfile.update();
-
+            PlayerProfile playerSkullProfile = getProfile(getPlayerSkinUrl(playerUUID.toString()), playerUUID);
+            assert playerSkullMeta != null;
             playerSkullMeta.setOwnerProfile(playerSkullProfile);
+//            playerSkullProfile.update();
+
 
             int acrobaticsLevel = main.getLevelManager().getDataBaseLevel(data.getUuid(), LevelManager.Skill.ACROBATICS);
             int acrobaticsXp = main.getLevelManager().getDataBaseXP(data.getUuid(), LevelManager.Skill.ACROBATICS);
@@ -451,14 +458,66 @@ public class LeaderboardGui extends Gui {
         return prevPage;
     }
 
-
-    private static PlayerProfile getProfile(UUID uuid) {
-        PlayerProfile profile = Bukkit.createPlayerProfile(uuid); // Get a new player profile
+    private static PlayerProfile getProfile(String url, UUID Random_UUID) {
+        PlayerProfile profile = Bukkit.createPlayerProfile(Random_UUID); // Get a new player profile
         PlayerTextures textures = profile.getTextures();
-
+        URL urlObject;
+        try {
+            urlObject = new URL(url); // The URL to the skin, for example: https://textures.minecraft.net/texture/18813764b2abc94ec3c3bc67b9147c21be850cdf996679703157f4555997ea63a
+        } catch (MalformedURLException exception) {
+            throw new RuntimeException("Invalid URL", exception);
+        }
+        textures.setSkin(urlObject); // Set the skin of the player profile to the URL
         profile.setTextures(textures); // Set the textures back to the profile
         return profile;
     }
 
+    // Function to get the player's skin texture URL using their UUID
+    public static String getPlayerSkinUrl(String uuid) {
+        try {
+            // Build the URL for the session server API call
+            String urlString = "https://sessionserver.mojang.com/session/minecraft/profile/" + uuid;
+            URL url = new URL(urlString);
+
+            // Open connection and make the request
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+
+            // Read the response
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String inputLine;
+            StringBuilder content = new StringBuilder();
+            while ((inputLine = in.readLine()) != null) {
+                content.append(inputLine);
+            }
+
+            // Close connections
+            in.close();
+            connection.disconnect();
+
+            // Parse the response JSON
+            JsonObject profileJson = JsonParser.parseString(content.toString()).getAsJsonObject();
+            JsonObject properties = profileJson.getAsJsonArray("properties").get(0).getAsJsonObject();
+            String base64Textures = properties.get("value").getAsString();
+
+            // Decode the base64 texture data
+            String decodedTextures = new String(Base64.getDecoder().decode(base64Textures));
+
+            // Parse the decoded texture data as JSON
+            JsonObject texturesJson = JsonParser.parseString(decodedTextures).getAsJsonObject();
+            JsonObject skinData = texturesJson.getAsJsonObject("textures").getAsJsonObject("SKIN");
+
+            // Extract the skin URL
+            String skinUrl = skinData.get("url").getAsString();
+
+            return skinUrl;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Return null if something goes wrong
+        return null;
+    }
 
 }
