@@ -1,19 +1,18 @@
 package com.atlasplugins.atlasskills.managers.levelsystem;
 
 import com.atlasplugins.atlasskills.Main;
+import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import java.sql.*;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class LevelManager {
 
     private Main main;
-    private Map<Player, EnumMap<Skill, Integer>> playerLevels;
-    private Map<Player, EnumMap<Skill, Integer>> playerXP;
+    private Map<UUID, EnumMap<Skill, Integer>> playerLevels;
+    private Map<UUID, EnumMap<Skill, Integer>> playerXP;
     private Connection connection;
 
     /**
@@ -61,16 +60,16 @@ public class LevelManager {
     /**
      * Saves a specific player's levels and XP to the database.
      */
-    public void savePlayerData(Player player) {
+    public void savePlayerData(UUID uuid) {
         String insertOrUpdateSQL = "INSERT OR REPLACE INTO player_data (uuid, skill, level, xp) VALUES (?, ?, ?, ?)";
         try (PreparedStatement pstmt = connection.prepareStatement(insertOrUpdateSQL)) {
             connection.setAutoCommit(false);  // Start transaction
 
             for (Skill skill : Skill.values()) {
-                pstmt.setString(1, player.getUniqueId().toString());
+                pstmt.setString(1, uuid.toString());
                 pstmt.setString(2, skill.name());
-                pstmt.setInt(3, getLevel(player, skill));
-                pstmt.setInt(4, getXP(player, skill));
+                pstmt.setInt(3, getLevel(uuid, skill));
+                pstmt.setInt(4, getXP(uuid, skill));
                 pstmt.addBatch();
             }
 
@@ -93,22 +92,60 @@ public class LevelManager {
         }
     }
 
+    /**
+     * Saves all player's levels and XP to the database.
+     */
+    public void saveAllPlayerData() {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+
+            String insertOrUpdateSQL = "INSERT OR REPLACE INTO player_data (uuid, skill, level, xp) VALUES (?, ?, ?, ?)";
+            try (PreparedStatement pstmt = connection.prepareStatement(insertOrUpdateSQL)) {
+                connection.setAutoCommit(false);  // Start transaction
+
+                for (Skill skill : Skill.values()) {
+                    pstmt.setString(1, player.getUniqueId().toString());
+                    pstmt.setString(2, skill.name());
+                    pstmt.setInt(3, getLevel(player.getUniqueId(), skill));
+                    pstmt.setInt(4, getXP(player.getUniqueId(), skill));
+                    pstmt.addBatch();
+                }
+
+                pstmt.executeBatch();
+                connection.commit();  // Commit transaction
+//            System.out.println("Player data saved successfully for: " + player.getName());
+            } catch (SQLException e) {
+                e.printStackTrace();
+                try {
+                    connection.rollback();  // Rollback transaction on error
+                } catch (SQLException rollbackEx) {
+                    rollbackEx.printStackTrace();
+                }
+            } finally {
+                try {
+                    connection.setAutoCommit(true);  // Reset auto-commit
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+    }
+
 
     /**
      * Loads a specific player's levels and XP from the database.
      */
-    public void loadPlayerData(Player player) {
+    public void loadPlayerData(UUID uuid) {
         String selectSQL = "SELECT * FROM player_data WHERE uuid = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(selectSQL)) {
-            pstmt.setString(1, player.getUniqueId().toString());
+            pstmt.setString(1, uuid.toString());
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     Skill skill = Skill.valueOf(rs.getString("skill"));
                     int level = rs.getInt("level");
                     int xp = rs.getInt("xp");
 
-                    playerLevels.computeIfAbsent(player, k -> new EnumMap<>(Skill.class)).put(skill, level);
-                    playerXP.computeIfAbsent(player, k -> new EnumMap<>(Skill.class)).put(skill, xp);
+                    playerLevels.computeIfAbsent(uuid, k -> new EnumMap<>(Skill.class)).put(skill, level);
+                    playerXP.computeIfAbsent(uuid, k -> new EnumMap<>(Skill.class)).put(skill, xp);
                 }
             }
 //            System.out.println("Player data loaded successfully for: " + player.getName());
@@ -117,28 +154,82 @@ public class LevelManager {
         }
     }
 
-
-
     /**
      * Gets the level of a specific skill for a player.
      *
-     * @param player The player whose skill level is being queried.
+     * @param uuid The player whose skill level is being queried.
      * @param skill  The skill whose level is being queried.
      * @return The level of the specified skill for the player.
      */
-    public int getLevel(Player player, Skill skill) {
-        return playerLevels.getOrDefault(player, new EnumMap<>(Skill.class)).getOrDefault(skill, 1);
+    public int getLevel(UUID uuid, Skill skill) {
+        return playerLevels.getOrDefault(uuid, new EnumMap<>(Skill.class)).getOrDefault(skill, 1);
+    }
+
+    /**
+     * Gets the level of a specific skill for a player from the database.
+     *
+     * @param uuid The player whose skill level is being queried.
+     * @param skill The skill whose level is being queried.
+     * @return The level of the specified skill for the player.
+     */
+    public int getDataBaseLevel(UUID uuid, Skill skill) {
+        String selectSQL = "SELECT level FROM player_data WHERE uuid = ? AND skill = ?";
+        int defaultLevel = 1;
+
+        try (PreparedStatement pstmt = connection.prepareStatement(selectSQL)) {
+            pstmt.setString(1, uuid.toString());
+            pstmt.setString(2, skill.name());
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("level");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // Return default level if no result is found
+        return defaultLevel;
     }
 
     /**
      * Gets the XP of a specific skill for a player.
      *
-     * @param player The player whose skill XP is being queried.
+     * @param uuid The player whose skill XP is being queried.
      * @param skill  The skill whose XP is being queried.
      * @return The XP of the specified skill for the player.
      */
-    public int getXP(Player player, Skill skill) {
-        return playerXP.getOrDefault(player, new EnumMap<>(Skill.class)).getOrDefault(skill, 0);
+    public int getXP(UUID uuid, Skill skill) {
+        return playerXP.getOrDefault(uuid, new EnumMap<>(Skill.class)).getOrDefault(skill, 0);
+    }
+
+    /**
+     * Gets the XP of a specific skill for a player from the database.
+     *
+     * @param uuid The player whose skill XP is being queried.
+     * @param skill The skill whose XP is being queried.
+     * @return The XP of the specified skill for the player.
+     */
+    public int getDataBaseXP(UUID uuid, Skill skill) {
+        String selectSQL = "SELECT xp FROM player_data WHERE uuid = ? AND skill = ?";
+        int defaultXP = 0;
+
+        try (PreparedStatement pstmt = connection.prepareStatement(selectSQL)) {
+            pstmt.setString(1, uuid.toString());
+            pstmt.setString(2, skill.name());
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("xp");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // Return default XP if no result is found
+        return defaultXP;
     }
 
     /**
@@ -159,9 +250,9 @@ public class LevelManager {
      * @param xp     The amount of XP to add.
      */
     public void addXP(Player player, Skill skill, int xp) {
-        int currentXP = getXP(player, skill);
+        int currentXP = getXP(player.getUniqueId(), skill);
         int newXP = currentXP + xp;
-        int currentLevel = getLevel(player, skill);
+        int currentLevel = getLevel(player.getUniqueId(), skill);
 
         while (newXP >= getXPForNextLevel(currentLevel)) {
             newXP -= getXPForNextLevel(currentLevel);
@@ -228,8 +319,8 @@ public class LevelManager {
         // Saves the players data
 //        Main.instance.getLevelManager().savePlayerData(player);
 
-        playerXP.computeIfAbsent(player, k -> new EnumMap<>(Skill.class)).put(skill, newXP);
-        playerLevels.computeIfAbsent(player, k -> new EnumMap<>(Skill.class)).put(skill, currentLevel);
+        playerXP.computeIfAbsent(player.getUniqueId(), k -> new EnumMap<>(Skill.class)).put(skill, newXP);
+        playerLevels.computeIfAbsent(player.getUniqueId(), k -> new EnumMap<>(Skill.class)).put(skill, currentLevel);
     }
 
     /**
@@ -240,8 +331,8 @@ public class LevelManager {
      * @param level  The level to set.
      */
     public void setLevel(Player player, Player sender, Skill skill, int level) {
-        playerLevels.computeIfAbsent(player, k -> new EnumMap<>(Skill.class)).put(skill, level);
-        playerXP.computeIfAbsent(player, k -> new EnumMap<>(Skill.class)).put(skill, 0);
+        playerLevels.computeIfAbsent(player.getUniqueId(), k -> new EnumMap<>(Skill.class)).put(skill, level);
+        playerXP.computeIfAbsent(player.getUniqueId(), k -> new EnumMap<>(Skill.class)).put(skill, 0);
 
         boolean isSetLvlMessageEnabled = main.getSettingsConfig().isBoolean("SkillMessages.Skill-SetSkillLvl-Message-Toggle");
         if (isSetLvlMessageEnabled) {
@@ -271,11 +362,11 @@ public class LevelManager {
      * @param player The player whose levels and XP are being reset.
      */
     public void resetPlayer(Player player, Player sender) {
-        playerLevels.remove(player);
-        playerXP.remove(player);
+        playerLevels.remove(player.getUniqueId());
+        playerXP.remove(player.getUniqueId());
 
         // Saves the players data
-        savePlayerData(player);
+        savePlayerData(player.getUniqueId());
 
         boolean isResetMessageEnabled = main.getSettingsConfig().isBoolean("SkillMessages.Skill-ResetSkills-Message-Toggle");
         if (isResetMessageEnabled) {
@@ -326,6 +417,30 @@ public class LevelManager {
         TAMING,
         UNARMED,
         WOODCUTTING
+    }
+
+    public List<PlayerSkillData> getAllPlayerData() {
+        List<PlayerSkillData> playerDataList = new ArrayList<>();
+
+        try {
+            String query = "SELECT uuid, SUM(level) as total_level, SUM(xp) as total_xp FROM player_data GROUP BY uuid ORDER BY total_level DESC;";
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                UUID uuid = UUID.fromString(resultSet.getString("uuid"));
+                int totalLevel = resultSet.getInt("total_level");
+                int totalXP = resultSet.getInt("total_xp");
+
+                // Create a new PlayerSkillData object and add it to the list
+                playerDataList.add(new PlayerSkillData(uuid, totalLevel, totalXP));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return playerDataList;
     }
 
     public String ReformatName(String name) {

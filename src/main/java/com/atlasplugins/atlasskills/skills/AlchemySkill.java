@@ -82,8 +82,8 @@ public class AlchemySkill implements Listener {
         levelManager.addXP(p, LevelManager.Skill.ALCHEMY, (alchemyXP * finalXP) * xpMultiplier);
 
         // Get Skill Stats
-        int level = levelManager.getLevel(p, LevelManager.Skill.ALCHEMY);
-        int xp = levelManager.getXP(p, LevelManager.Skill.ALCHEMY);
+        int level = levelManager.getLevel(p.getUniqueId(), LevelManager.Skill.ALCHEMY);
+        int xp = levelManager.getXP(p.getUniqueId(), LevelManager.Skill.ALCHEMY);
         int xpToNextLevel = levelManager.getXPForNextLevel(level);
 
         // Get boss bar style

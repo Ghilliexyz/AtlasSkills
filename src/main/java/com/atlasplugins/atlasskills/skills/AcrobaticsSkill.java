@@ -79,8 +79,8 @@ public class AcrobaticsSkill implements Listener {
         levelManager.addXP(p, LevelManager.Skill.ACROBATICS, (int) finalXP * xpMultiplier);
 
         // Get Skill Stats
-        int level = levelManager.getLevel(p, LevelManager.Skill.ACROBATICS);
-        int xp = levelManager.getXP(p, LevelManager.Skill.ACROBATICS);
+        int level = levelManager.getLevel(p.getUniqueId(), LevelManager.Skill.ACROBATICS);
+        int xp = levelManager.getXP(p.getUniqueId(), LevelManager.Skill.ACROBATICS);
         int xpToNextLevel = levelManager.getXPForNextLevel(level);
 
         // Get boss bar style

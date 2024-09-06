@@ -9,16 +9,17 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.Collections;
 import java.util.List;
 
-public class Test extends AbstractCommand {
+public class LeaderboardCommand extends AbstractCommand {
 
     private Main main;
-    public Test(Main main) {this.main = main;}
+    public LeaderboardCommand(Main main) {this.main = main;}
 
     @Override
     public void execute(JavaPlugin plugin, CommandSender sender, String label, List<String> args) {
         Player player = (Player) sender;
-        // Saves the players data
-        Main.instance.getLevelManager().savePlayerData(player.getUniqueId());
+
+        // open gui
+        main.openLeaderboardGui(player);
     }
 
     @Override
@@ -28,7 +29,7 @@ public class Test extends AbstractCommand {
 
     @Override
     public List<String> getLabels() {
-        return Collections.singletonList("test");
+        return Collections.singletonList("leaderboard");
     }
 
     @Override
@@ -36,3 +37,5 @@ public class Test extends AbstractCommand {
         return null;  // permission required for help command
     }
 }
+
+

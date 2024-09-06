@@ -3,7 +3,6 @@ package com.atlasplugins.atlasskills.guis;
 import com.atlasplugins.atlasskills.Main;
 import com.atlasplugins.atlasskills.managers.levelsystem.LevelManager;
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -20,8 +19,7 @@ public class SkillsGui extends Gui {
         // Directly pass the fetched values to super()
         super(player,
                 Main.color(main.getSkillsConfig().getString("Skills-Gui.Skills-Menu.Skills-Menu-Title")),
-                main.getSkillsConfig().getInt("Skills-Gui.Skills-Menu.Skills-Menu-Size")
-        );
+                main.getSkillsConfig().getInt("Skills-Gui.Skills-Menu.Skills-Menu-Size"));
 
         this.player = player;
         this.levelManager = levelManager;
@@ -35,52 +33,52 @@ public class SkillsGui extends Gui {
 
     @Override
     public void setupItems() {
-        int acrobaticsLevel = levelManager.getLevel(player, LevelManager.Skill.ACROBATICS);
-        int acrobaticsXp = levelManager.getXP(player, LevelManager.Skill.ACROBATICS);
+        int acrobaticsLevel = levelManager.getLevel(player.getUniqueId(), LevelManager.Skill.ACROBATICS);
+        int acrobaticsXp = levelManager.getXP(player.getUniqueId(), LevelManager.Skill.ACROBATICS);
         int acrobaticsXpToNextLvl = levelManager.getXPForNextLevel(acrobaticsLevel);
 
-        int alchemyLevel = levelManager.getLevel(player, LevelManager.Skill.ALCHEMY);
-        int alchemyXp = levelManager.getXP(player, LevelManager.Skill.ALCHEMY);
+        int alchemyLevel = levelManager.getLevel(player.getUniqueId(), LevelManager.Skill.ALCHEMY);
+        int alchemyXp = levelManager.getXP(player.getUniqueId(), LevelManager.Skill.ALCHEMY);
         int alchemyXpToNextLvl = levelManager.getXPForNextLevel(alchemyLevel);
 
-        int archeryLevel = levelManager.getLevel(player, LevelManager.Skill.ARCHERY);
-        int archeryXp = levelManager.getXP(player, LevelManager.Skill.ARCHERY);
+        int archeryLevel = levelManager.getLevel(player.getUniqueId(), LevelManager.Skill.ARCHERY);
+        int archeryXp = levelManager.getXP(player.getUniqueId(), LevelManager.Skill.ARCHERY);
         int archeryXpToNextLvl = levelManager.getXPForNextLevel(archeryLevel);
 
-        int axesLevel = levelManager.getLevel(player, LevelManager.Skill.AXES);
-        int axesXp = levelManager.getXP(player, LevelManager.Skill.AXES);
+        int axesLevel = levelManager.getLevel(player.getUniqueId(), LevelManager.Skill.AXES);
+        int axesXp = levelManager.getXP(player.getUniqueId(), LevelManager.Skill.AXES);
         int axesXpToNextLvl = levelManager.getXPForNextLevel(axesLevel);
 
-        int excavationLevel = levelManager.getLevel(player, LevelManager.Skill.EXCAVATION);
-        int excavationXp = levelManager.getXP(player, LevelManager.Skill.EXCAVATION);
+        int excavationLevel = levelManager.getLevel(player.getUniqueId(), LevelManager.Skill.EXCAVATION);
+        int excavationXp = levelManager.getXP(player.getUniqueId(), LevelManager.Skill.EXCAVATION);
         int excavationXpToNextLvl = levelManager.getXPForNextLevel(excavationLevel);
 
-        int fishingLevel = levelManager.getLevel(player, LevelManager.Skill.FISHING);
-        int fishingXp = levelManager.getXP(player, LevelManager.Skill.FISHING);
+        int fishingLevel = levelManager.getLevel(player.getUniqueId(), LevelManager.Skill.FISHING);
+        int fishingXp = levelManager.getXP(player.getUniqueId(), LevelManager.Skill.FISHING);
         int fishingXpToNextLvl = levelManager.getXPForNextLevel(fishingLevel);
 
-        int herbalismLevel = levelManager.getLevel(player, LevelManager.Skill.HERBALISM);
-        int herbalismXp = levelManager.getXP(player, LevelManager.Skill.HERBALISM);
+        int herbalismLevel = levelManager.getLevel(player.getUniqueId(), LevelManager.Skill.HERBALISM);
+        int herbalismXp = levelManager.getXP(player.getUniqueId(), LevelManager.Skill.HERBALISM);
         int herbalismXpToNextLvl = levelManager.getXPForNextLevel(herbalismLevel);
 
-        int miningLevel = levelManager.getLevel(player, LevelManager.Skill.MINING);
-        int miningXp = levelManager.getXP(player, LevelManager.Skill.MINING);
+        int miningLevel = levelManager.getLevel(player.getUniqueId(), LevelManager.Skill.MINING);
+        int miningXp = levelManager.getXP(player.getUniqueId(), LevelManager.Skill.MINING);
         int miningXpToNextLvl = levelManager.getXPForNextLevel(miningLevel);
 
-        int swordLevel = levelManager.getLevel(player, LevelManager.Skill.SWORDS);
-        int swordXp = levelManager.getXP(player, LevelManager.Skill.SWORDS);
+        int swordLevel = levelManager.getLevel(player.getUniqueId(), LevelManager.Skill.SWORDS);
+        int swordXp = levelManager.getXP(player.getUniqueId(), LevelManager.Skill.SWORDS);
         int swordXpToNextLvl = levelManager.getXPForNextLevel(swordLevel);
 
-        int tamingLevel = levelManager.getLevel(player, LevelManager.Skill.TAMING);
-        int tamingXp = levelManager.getXP(player, LevelManager.Skill.TAMING);
+        int tamingLevel = levelManager.getLevel(player.getUniqueId(), LevelManager.Skill.TAMING);
+        int tamingXp = levelManager.getXP(player.getUniqueId(), LevelManager.Skill.TAMING);
         int tamingXpToNextLvl = levelManager.getXPForNextLevel(tamingLevel);
 
-        int unarmedLevel = levelManager.getLevel(player, LevelManager.Skill.UNARMED);
-        int unarmedXp = levelManager.getXP(player, LevelManager.Skill.UNARMED);
+        int unarmedLevel = levelManager.getLevel(player.getUniqueId(), LevelManager.Skill.UNARMED);
+        int unarmedXp = levelManager.getXP(player.getUniqueId(), LevelManager.Skill.UNARMED);
         int unarmedXpToNextLvl = levelManager.getXPForNextLevel(unarmedLevel);
 
-        int woodcuttingLevel = levelManager.getLevel(player, LevelManager.Skill.WOODCUTTING);
-        int woodcuttingXp = levelManager.getXP(player, LevelManager.Skill.WOODCUTTING);
+        int woodcuttingLevel = levelManager.getLevel(player.getUniqueId(), LevelManager.Skill.WOODCUTTING);
+        int woodcuttingXp = levelManager.getXP(player.getUniqueId(), LevelManager.Skill.WOODCUTTING);
         int woodcuttingXpToNextLvl = levelManager.getXPForNextLevel(woodcuttingLevel);
 
         // Set up the specific items for this GUI \\

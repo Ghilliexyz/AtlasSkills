@@ -2,9 +2,11 @@ package com.atlasplugins.atlasskills;
 
 import com.atlasplugins.atlasskills.commands.CommandRouter;
 import com.atlasplugins.atlasskills.guis.GuiListener;
+import com.atlasplugins.atlasskills.guis.LeaderboardGui;
 import com.atlasplugins.atlasskills.guis.SkillsGui;
 import com.atlasplugins.atlasskills.listeners.onPlayerEvents;
 import com.atlasplugins.atlasskills.managers.levelsystem.LevelManager;
+import com.atlasplugins.atlasskills.managers.levelsystem.PlayerSkillData;
 import com.atlasplugins.atlasskills.skills.*;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import me.clip.placeholderapi.PlaceholderAPI;
@@ -19,6 +21,7 @@ import org.bukkit.scheduler.BukkitTask;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public final class Main extends JavaPlugin {
 
@@ -43,6 +46,9 @@ public final class Main extends JavaPlugin {
     // Level System
     private LevelManager levelManager;
     private BukkitTask saveTask;
+
+    // Skill Stuff
+    private PlayerSkillData playerSkillData;
 
     // Command Router Stuff
     private CommandRouter commandRouter;
@@ -82,7 +88,7 @@ public final class Main extends JavaPlugin {
         // NOTE: This is used for /reload confirm
         // it will make sure every player's stats who is currently on the server will keep their stats instead of being reset.
         for (Player player : Bukkit.getOnlinePlayers()) {
-            levelManager.loadPlayerData(player);
+            levelManager.loadPlayerData(player.getUniqueId());
         }
 
         // Schedule periodic saving every 5 minutes (6000 ticks)
@@ -133,7 +139,7 @@ public final class Main extends JavaPlugin {
 
         // Save all player data
         for (Player player : Bukkit.getOnlinePlayers()) {
-            levelManager.savePlayerData(player);
+            levelManager.savePlayerData(player.getUniqueId());
         }
         levelManager.closeConnection();
 
@@ -227,5 +233,21 @@ public final class Main extends JavaPlugin {
     public void openSkillsGui(Player player) {
         SkillsGui skillsGui = new SkillsGui(this, player, levelManager);
         skillsGui.open();
+    }
+
+
+    public void openLeaderboardGui(Player player) {
+        // Save player data before fetching it
+        getLevelManager().saveAllPlayerData();
+        // Fetch all player data from the SQLite database
+        List<PlayerSkillData> playerDataList = levelManager.getAllPlayerData(); // Assume this method fetches the sorted player data
+
+        if (!playerDataList.isEmpty()) {
+            LeaderboardGui leaderboardGui = new LeaderboardGui(player,this, playerDataList, 0);
+            leaderboardGui.open();
+//            new LeaderboardGui(player, this, playerDataList, 0).open(); // Open the first page
+        } else {
+            player.sendMessage(Main.color("&cNo players found!"));
+        }
     }
 }

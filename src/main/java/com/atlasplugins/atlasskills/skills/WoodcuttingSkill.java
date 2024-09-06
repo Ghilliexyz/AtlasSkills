@@ -88,8 +88,8 @@ public class WoodcuttingSkill implements Listener {
         levelManager.addXP(p, LevelManager.Skill.WOODCUTTING, woodcuttingXP * xpMultiplier);
 
         // Get Skill Stats
-        int level = levelManager.getLevel(p, LevelManager.Skill.WOODCUTTING);
-        int xp = levelManager.getXP(p, LevelManager.Skill.WOODCUTTING);
+        int level = levelManager.getLevel(p.getUniqueId(), LevelManager.Skill.WOODCUTTING);
+        int xp = levelManager.getXP(p.getUniqueId(), LevelManager.Skill.WOODCUTTING);
         int xpToNextLevel = levelManager.getXPForNextLevel(level);
 
         // Get boss bar style

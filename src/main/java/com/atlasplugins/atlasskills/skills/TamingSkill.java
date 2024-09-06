@@ -47,8 +47,8 @@ public class TamingSkill implements Listener {
         levelManager.addXP(p, LevelManager.Skill.TAMING, tamingXP * xpMultiplier);
 
         // Get Skill Stats
-        int level = levelManager.getLevel(p, LevelManager.Skill.TAMING);
-        int xp = levelManager.getXP(p, LevelManager.Skill.TAMING);
+        int level = levelManager.getLevel(p.getUniqueId(), LevelManager.Skill.TAMING);
+        int xp = levelManager.getXP(p.getUniqueId(), LevelManager.Skill.TAMING);
         int xpToNextLevel = levelManager.getXPForNextLevel(level);
 
         // Get boss bar style

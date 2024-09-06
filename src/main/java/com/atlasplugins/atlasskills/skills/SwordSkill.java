@@ -70,8 +70,8 @@ public class SwordSkill implements Listener {
         levelManager.addXP(p, LevelManager.Skill.SWORDS, swordXP * xpMultiplier);
 
         // Get Skill Stats
-        int level = levelManager.getLevel(p, LevelManager.Skill.SWORDS);
-        int xp = levelManager.getXP(p, LevelManager.Skill.SWORDS);
+        int level = levelManager.getLevel(p.getUniqueId(), LevelManager.Skill.SWORDS);
+        int xp = levelManager.getXP(p.getUniqueId(), LevelManager.Skill.SWORDS);
         int xpToNextLevel = levelManager.getXPForNextLevel(level);
 
         // Get boss bar style

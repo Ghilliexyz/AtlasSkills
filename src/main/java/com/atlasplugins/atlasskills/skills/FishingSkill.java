@@ -48,8 +48,8 @@ public class FishingSkill implements Listener {
         levelManager.addXP(p, LevelManager.Skill.FISHING, fishingXP * xpMultiplier);
 
         // Get Skill Stats
-        int level = levelManager.getLevel(p, LevelManager.Skill.FISHING);
-        int xp = levelManager.getXP(p, LevelManager.Skill.FISHING);
+        int level = levelManager.getLevel(p.getUniqueId(), LevelManager.Skill.FISHING);
+        int xp = levelManager.getXP(p.getUniqueId(), LevelManager.Skill.FISHING);
         int xpToNextLevel = levelManager.getXPForNextLevel(level);
 
         // Get boss bar style

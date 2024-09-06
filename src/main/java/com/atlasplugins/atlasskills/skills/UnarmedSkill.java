@@ -70,8 +70,8 @@ public class UnarmedSkill implements Listener {
         levelManager.addXP(p, LevelManager.Skill.UNARMED, unarmedXP * xpMultiplier);
 
         // Get Skill Stats
-        int level = levelManager.getLevel(p, LevelManager.Skill.UNARMED);
-        int xp = levelManager.getXP(p, LevelManager.Skill.UNARMED);
+        int level = levelManager.getLevel(p.getUniqueId(), LevelManager.Skill.UNARMED);
+        int xp = levelManager.getXP(p.getUniqueId(), LevelManager.Skill.UNARMED);
         int xpToNextLevel = levelManager.getXPForNextLevel(level);
 
         // Get boss bar style

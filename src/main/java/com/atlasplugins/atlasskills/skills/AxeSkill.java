@@ -70,8 +70,8 @@ public class AxeSkill implements Listener {
         levelManager.addXP(p, LevelManager.Skill.AXES, axeXP * xpMultiplier);
 
         // Get Skill Stats
-        int level = levelManager.getLevel(p, LevelManager.Skill.AXES);
-        int xp = levelManager.getXP(p, LevelManager.Skill.AXES);
+        int level = levelManager.getLevel(p.getUniqueId(), LevelManager.Skill.AXES);
+        int xp = levelManager.getXP(p.getUniqueId(), LevelManager.Skill.AXES);
         int xpToNextLevel = levelManager.getXPForNextLevel(level);
 
         // Get boss bar style

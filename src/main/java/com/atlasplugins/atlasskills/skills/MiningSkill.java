@@ -78,8 +78,8 @@ public class MiningSkill implements Listener {
         levelManager.addXP(p, LevelManager.Skill.MINING, miningXP * xpMultiplier);
 
         // Get Skill Stats
-        int level = levelManager.getLevel(p, LevelManager.Skill.MINING);
-        int xp = levelManager.getXP(p, LevelManager.Skill.MINING);
+        int level = levelManager.getLevel(p.getUniqueId(), LevelManager.Skill.MINING);
+        int xp = levelManager.getXP(p.getUniqueId(), LevelManager.Skill.MINING);
         int xpToNextLevel = levelManager.getXPForNextLevel(level);
 
         // Get boss bar style

@@ -78,8 +78,8 @@ public class ExcavationSkill implements Listener {
         levelManager.addXP(p, LevelManager.Skill.EXCAVATION, excavationXP * xpMultiplier);
 
         // Get Skill Stats
-        int level = levelManager.getLevel(p, LevelManager.Skill.EXCAVATION);
-        int xp = levelManager.getXP(p, LevelManager.Skill.EXCAVATION);
+        int level = levelManager.getLevel(p.getUniqueId(), LevelManager.Skill.EXCAVATION);
+        int xp = levelManager.getXP(p.getUniqueId(), LevelManager.Skill.EXCAVATION);
         int xpToNextLevel = levelManager.getXPForNextLevel(level);
 
         // Get boss bar style

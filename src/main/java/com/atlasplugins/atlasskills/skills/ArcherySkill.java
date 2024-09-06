@@ -58,8 +58,8 @@ public class ArcherySkill implements Listener {
         levelManager.addXP(p, LevelManager.Skill.ARCHERY, archeryXP * xpMultiplier);
 
         // Get Skill Stats
-        int level = levelManager.getLevel(p, LevelManager.Skill.ARCHERY);
-        int xp = levelManager.getXP(p, LevelManager.Skill.ARCHERY);
+        int level = levelManager.getLevel(p.getUniqueId(), LevelManager.Skill.ARCHERY);
+        int xp = levelManager.getXP(p.getUniqueId(), LevelManager.Skill.ARCHERY);
         int xpToNextLevel = levelManager.getXPForNextLevel(level);
 
         // Get boss bar style
