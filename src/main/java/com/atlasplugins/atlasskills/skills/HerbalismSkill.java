@@ -15,12 +15,10 @@ import org.apache.logging.log4j.Logger;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.block.data.Ageable;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
@@ -34,6 +32,8 @@ public class HerbalismSkill implements Listener {
     private Main main;
     private LevelManager levelManager;
     private WorldGuardPlugin worldGuardPlugin;
+
+    private int xpStacked = 0;
 
     private List<String> CROPS;
 
@@ -109,8 +109,18 @@ public class HerbalismSkill implements Listener {
             finalXP = (herbalismXP * countBlocksBelow(blockBroken));
         }
 
+        // Get the final XP amount
+        int finalXPGained = finalXP * xpMultiplier;
+
+        if(main.getSettingsConfig().getBoolean("SkillBar.SkillBar-XPStacking")){
+            // Get the current xp stack
+            xpStacked += finalXPGained;
+        }else {
+            xpStacked = finalXPGained;
+        }
+
         // Add XP to Skill
-        levelManager.addXP(p, LevelManager.Skill.HERBALISM, finalXP * xpMultiplier);
+        levelManager.addXP(p, LevelManager.Skill.HERBALISM, finalXPGained);
 
         // Get Skill Stats
         int level = levelManager.getLevel(p.getUniqueId(), LevelManager.Skill.HERBALISM);
@@ -130,11 +140,15 @@ public class HerbalismSkill implements Listener {
                 .replace("{skillName}", levelManager.ReformatName(LevelManager.Skill.HERBALISM.toString()))
                 .replace("{skillXP}", String.valueOf(xp))
                 .replace("{skillLvl}", String.valueOf(level))
+                .replace("{skillGainedXP}", String.valueOf(xpStacked))
                 .replace("{skillXPToNextLevel}", String.valueOf(xpToNextLevel)), xp, level);
 
 
         // Hide Bossbar after x amount of seconds
-        UIManager.getBossBarManager().hideProgressBar(p, skillBarHideDelay);
+        UIManager.getBossBarManager().hideProgressBar(p, skillBarHideDelay, () -> {
+            // Reset the xp stack when the bossbar has been hidden.
+            xpStacked = 0;
+        });
     }
 
     // Method to check the number of blocks above the given block that are of the same type

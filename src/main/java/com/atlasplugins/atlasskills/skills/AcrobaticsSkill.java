@@ -10,12 +10,10 @@ import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.sk89q.worldguard.protection.regions.RegionContainer;
-import org.bukkit.block.Block;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 
@@ -26,6 +24,8 @@ public class AcrobaticsSkill implements Listener {
     private Main main;
     private LevelManager levelManager;
     private WorldGuardPlugin worldGuardPlugin;
+
+    private int xpStacked = 0;
 
     public AcrobaticsSkill(Main main) {
         this.main = main;
@@ -69,14 +69,21 @@ public class AcrobaticsSkill implements Listener {
         Random random = new Random();
         int acrobaticsXP = acrobaticsMinXP + random.nextInt(acrobaticsMaxXP - acrobaticsMinXP + 1);
 
-        // Get the final XP amount
-        double finalXP = acrobaticsXP * damage;
-
         // get xp multiplier
         int xpMultiplier = main.getSkillsConfig().getInt("Skill-Addons.Skill-XP-Multiplier.Skill-XP-Multiplier-Amount");
 
+        // Get the final XP amount
+        int finalXPGained = (int) ((acrobaticsXP * damage) * xpMultiplier);
+
+        if(main.getSettingsConfig().getBoolean("SkillBar.SkillBar-XPStacking")){
+            // Get the current xp stack
+            xpStacked += finalXPGained;
+        }else {
+            xpStacked = finalXPGained;
+        }
+
         // Add XP to Skill
-        levelManager.addXP(p, LevelManager.Skill.ACROBATICS, (int) finalXP * xpMultiplier);
+        levelManager.addXP(p, LevelManager.Skill.ACROBATICS, finalXPGained);
 
         // Get Skill Stats
         int level = levelManager.getLevel(p.getUniqueId(), LevelManager.Skill.ACROBATICS);
@@ -96,10 +103,14 @@ public class AcrobaticsSkill implements Listener {
                 .replace("{skillName}", levelManager.ReformatName(LevelManager.Skill.ACROBATICS.toString()))
                 .replace("{skillXP}", String.valueOf(xp))
                 .replace("{skillLvl}", String.valueOf(level))
+                .replace("{skillGainedXP}", String.valueOf(xpStacked))
                 .replace("{skillXPToNextLevel}", String.valueOf(xpToNextLevel)), xp, level);
 
 
         // Hide Bossbar after x amount of seconds
-        UIManager.getBossBarManager().hideProgressBar(p, skillBarHideDelay);
+        UIManager.getBossBarManager().hideProgressBar(p, skillBarHideDelay, () -> {
+            // Reset the xp stack when the bossbar has been hidden.
+            xpStacked = 0;
+        });
     }
 }

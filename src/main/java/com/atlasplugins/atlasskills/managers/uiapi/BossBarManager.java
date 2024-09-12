@@ -88,7 +88,7 @@ public class BossBarManager {
         bossBar.setVisible(true);
     }
 
-    public void hideProgressBar(Player player, long delay) {
+    public void hideProgressBar(Player player, long delay, Runnable onComplete) {
         BukkitRunnable hideTask = hideTasks.get(player);
         if (hideTask != null && !hideTask.isCancelled()) {
             hideTask.cancel();
@@ -102,12 +102,16 @@ public class BossBarManager {
                     bossBar.removePlayer(player);
                     bossBar.setVisible(false);
                 }
+                if (onComplete != null) {
+                    onComplete.run(); // Callback triggered here when task is completed
+                }
             }
         };
 
         hideTasks.put(player, hideTask);
         hideTask.runTaskLater(Main.instance, delay * 20);
     }
+
 
     public void cancelTimerBar() {
         for (BukkitRunnable task : hideTasks.values()) {

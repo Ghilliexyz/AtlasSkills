@@ -28,6 +28,8 @@ public class MiningSkill implements Listener {
     private LevelManager levelManager;
     private WorldGuardPlugin worldGuardPlugin;
 
+    private int xpStacked = 0;
+
     public MiningSkill(Main main) {
         this.main = main;
         this.levelManager = main.getLevelManager();
@@ -74,8 +76,18 @@ public class MiningSkill implements Listener {
         // get xp multiplier
         int xpMultiplier = main.getSkillsConfig().getInt("Skill-Addons.Skill-XP-Multiplier.Skill-XP-Multiplier-Amount");
 
+        // Get the final XP amount
+        int finalXPGained = miningXP * xpMultiplier;
+
+        if(main.getSettingsConfig().getBoolean("SkillBar.SkillBar-XPStacking")){
+            // Get the current xp stack
+            xpStacked += finalXPGained;
+        }else {
+            xpStacked = finalXPGained;
+        }
+
         // Add XP to Skill
-        levelManager.addXP(p, LevelManager.Skill.MINING, miningXP * xpMultiplier);
+        levelManager.addXP(p, LevelManager.Skill.MINING, finalXPGained);
 
         // Get Skill Stats
         int level = levelManager.getLevel(p.getUniqueId(), LevelManager.Skill.MINING);
@@ -95,11 +107,15 @@ public class MiningSkill implements Listener {
                 .replace("{skillName}", levelManager.ReformatName(LevelManager.Skill.MINING.toString()))
                         .replace("{skillXP}", String.valueOf(xp))
                         .replace("{skillLvl}", String.valueOf(level))
+                        .replace("{skillGainedXP}", String.valueOf(xpStacked))
                         .replace("{skillXPToNextLevel}", String.valueOf(xpToNextLevel)), xp, level);
 
 
         // Hide Bossbar after x amount of seconds
-        UIManager.getBossBarManager().hideProgressBar(p, skillBarHideDelay);
+        UIManager.getBossBarManager().hideProgressBar(p, skillBarHideDelay, () -> {
+            // Reset the xp stack when the bossbar has been hidden.
+            xpStacked = 0;
+        });
     }
 
     public Boolean hasCorrectTool(Material tool)

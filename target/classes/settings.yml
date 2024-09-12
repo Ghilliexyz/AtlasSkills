@@ -194,8 +194,17 @@ SkillMessages:
     -  "&c&m&l-----------------------------------------"
 
 #The way the skill bar will be displayed
+# {skillName} = the name of the skill
+# {skillLvl} = the players current level in that skill
+# {skillXP} = the players current xp in that skill
+# {skillXPToNextLevel} = the players required amount of xp until they level up that skill
+# {skillGainedXP} = the players xp they gained when doing an action
 SkillBar:
-  SkillBar-Style-Title: "&c&lSKILL &7{skillName} lvl: &e{skillLvl} &7| xp: &e{skillXP} &7/ &e{skillXPToNextLevel}"
+  SkillBar-Style-Title: "&c&lSKILL &7{skillName} lvl: &e{skillLvl} &7| xp: &e{skillXP} &7/ &e{skillXPToNextLevel} &a+{skillGainedXP} xp"
+  #Xp Stacking if true will collect and count up all the xp gained in that time frame (time being the SkillBar-Hide-Delay)
+  #xp stacking is shown using {skillGainedXP}
+  #if xp stacking is false it will only show how much xp you gained from that single action instead of counting them all up.
+  SkillBar-XPStacking: true
   SkillBar-Color: WHITE
   SkillBar-Style: SEGMENTED_10
   SkillBar-Hide-Delay: 2

@@ -27,12 +27,15 @@ public class GuiListener implements Listener {
         String skillMenuTitle = Main.color(main.getSkillsConfig().getString("Skills-Gui.Skills-Menu.Skills-Menu-Title"));
         // Check if the clicked inventory matches your custom GUI title
         if (title.equals(Main.color(skillMenuTitle))) {
-            event.setCancelled(true); // Cancel the event to prevent normal behavior
+            // Check if the clicked inventory is the custom GUI, not the player's inventory
+            if (event.getClickedInventory() != null && event.getClickedInventory().equals(event.getView().getTopInventory())) {
+                event.setCancelled(true); // Cancel the event to prevent normal behavior
 
-            // Handle clicks within your custom GUI
+                // Handle clicks within your custom GUI
 //            if (event.getSlot() == 10) {
 //                player.sendMessage(Main.color("&c&lACROBATICS!!!!!!!!!!!! ECHO.... 5x"));
 //            }
+            }
         }
 
         // ======= LEADERBOARD GUI ======= \\
@@ -42,17 +45,20 @@ public class GuiListener implements Listener {
 
         // Check if the clicked inventory matches your custom GUI title
         if (title.equals(Main.color(leaderboardMenuTitle))) {
-            event.setCancelled(true); // Cancel the event to prevent normal behavior
+            // Check if the clicked inventory is the custom GUI, not the player's inventory
+            if (event.getClickedInventory() != null && event.getClickedInventory().equals(event.getView().getTopInventory())) {
+                event.setCancelled(true); // Cancel the event to prevent normal behavior
 
-            if (event.getCurrentItem() != null && event.getCurrentItem().hasItemMeta() && event.getCurrentItem().getType() == Material.ARROW) {
-                String itemName = event.getCurrentItem().getItemMeta().getDisplayName();
+                if (event.getCurrentItem() != null && event.getCurrentItem().hasItemMeta() && event.getCurrentItem().getType() == Material.ARROW) {
+                    String itemName = event.getCurrentItem().getItemMeta().getDisplayName();
 
-                if (itemName.equals(Main.color(main.getSkillsConfig().getString("Leaderboard-Gui.Leaderboard-Menu.Leaderboard-Menu-NextPage-Title")))) {
-                    // Open next page
-                    new LeaderboardGui(player, main, main.getLevelManager().getAllPlayerData(), currentPage + 1).open();
-                } else if (itemName.equals(Main.color(main.getSkillsConfig().getString("Leaderboard-Gui.Leaderboard-Menu.Leaderboard-Menu-PreviousPage-Title")))) {
-                    // Open previous page
-                    new LeaderboardGui(player, main, main.getLevelManager().getAllPlayerData(), currentPage - 1).open();
+                    if (itemName.equals(Main.color(main.getSkillsConfig().getString("Leaderboard-Gui.Leaderboard-Menu.Leaderboard-Menu-NextPage-Title")))) {
+                        // Open next page
+                        new LeaderboardGui(player, main, main.getLevelManager().getAllPlayerData(), currentPage + 1).open();
+                    } else if (itemName.equals(Main.color(main.getSkillsConfig().getString("Leaderboard-Gui.Leaderboard-Menu.Leaderboard-Menu-PreviousPage-Title")))) {
+                        // Open previous page
+                        new LeaderboardGui(player, main, main.getLevelManager().getAllPlayerData(), currentPage - 1).open();
+                    }
                 }
             }
         }

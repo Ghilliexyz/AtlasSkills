@@ -18,8 +18,7 @@ public class SkillsGui extends Gui {
     public SkillsGui(Main main, Player player, LevelManager levelManager) {
         // Directly pass the fetched values to super()
         super(player,
-                Main.color(main.getSkillsConfig().getString("Skills-Gui.Skills-Menu.Skills-Menu-Title")),
-                main.getSkillsConfig().getInt("Skills-Gui.Skills-Menu.Skills-Menu-Size"));
+                Main.color(main.getSkillsConfig().getString("Skills-Gui.Skills-Menu.Skills-Menu-Title")), 36);
 
         this.player = player;
         this.levelManager = levelManager;
