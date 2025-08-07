@@ -17,7 +17,6 @@ com\atlasplugins\atlasskills\Metrics$SimpleBarChart.class
 com\atlasplugins\atlasskills\skills\SwordSkill$1.class
 com\atlasplugins\atlasskills\managers\uiapi\ScoreboardManagerr.class
 com\atlasplugins\atlasskills\skills\FishingSkill.class
-com\atlasplugins\atlasskills\commands\user\Test.class
 com\atlasplugins\atlasskills\guis\GuiListener.class
 com\atlasplugins\atlasskills\skills\TamingSkill.class
 com\atlasplugins\atlasskills\managers\uiapi\ActionBarManager.class

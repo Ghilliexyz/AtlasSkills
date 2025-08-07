@@ -21,6 +21,19 @@ public class HelpCommand extends AbstractCommand {
         sender.sendMessage(Main.color("&c● &7Reload command: &c/askills reload"));
         sender.sendMessage(Main.color("&c● &7reloads the Atlas Skills configs"));
         sender.sendMessage(Main.color(""));
+        sender.sendMessage(Main.color("&c● &7Reload command: &c/askills setlvl &e<PlayerName> <SkillName> <SkillLevel>"));
+        sender.sendMessage(Main.color("&c● &7this command allows you to set any players skill to a level."));
+        sender.sendMessage(Main.color(""));
+        sender.sendMessage(Main.color("&c● &7Reload command: &c/askills reset &e<PlayerName>"));
+        sender.sendMessage(Main.color("&c● &7this command allows you to reset any players skills to 0"));
+        sender.sendMessage(Main.color("&c● &7(this will reset every skill for that player.)"));
+        sender.sendMessage(Main.color(""));
+        sender.sendMessage(Main.color("&c● &7Reload command: &c/askills leaderboard"));
+        sender.sendMessage(Main.color("&c● &7this command opens a gui to see players skill stats across the whole server"));
+        sender.sendMessage(Main.color(""));
+        sender.sendMessage(Main.color("&c● &7Reload command: &c/askills skills"));
+        sender.sendMessage(Main.color("&c● &7this command opens a gui to see your own skill stats"));
+        sender.sendMessage(Main.color(""));
         sender.sendMessage(Main.color("&c&m&l-----------------------------------------"));
     }
 

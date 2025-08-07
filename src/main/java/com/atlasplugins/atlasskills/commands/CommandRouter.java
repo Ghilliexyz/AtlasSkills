@@ -30,7 +30,6 @@ public class CommandRouter implements CommandExecutor, TabCompleter {
         registerCommand(new ReloadCommand(main));
         registerCommand(new SkillsCommand(main));
         registerCommand(new LeaderboardCommand(main));
-        registerCommand(new Test(main));
         registerCommand(new SetSkillLvlCommand(main));
         registerCommand(new ResetSkillsCommand(main));
     }
