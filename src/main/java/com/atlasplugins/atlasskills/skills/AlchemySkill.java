@@ -100,8 +100,8 @@ public class AlchemySkill implements Listener {
 
         // Get boss bar style
         String skillBarTitle = main.getSettingsConfig().getString("SkillBar.SkillBar-Style-Title");
-        BarColor skillBarColor = BarColor.valueOf(main.getSettingsConfig().getString("SkillBar.SkillBar-Color"));
-        BarStyle skillBarStyle = BarStyle.valueOf(main.getSettingsConfig().getString("SkillBar.SkillBar-Style"));
+        BarColor skillBarColor = com.atlasplugins.atlasskills.util.ConfigUtils.barColorFromName(main, main.getSettingsConfig().getString("SkillBar.SkillBar-Color"), org.bukkit.boss.BarColor.PURPLE);
+        BarStyle skillBarStyle = com.atlasplugins.atlasskills.util.ConfigUtils.barStyleFromName(main, main.getSettingsConfig().getString("SkillBar.SkillBar-Style"), org.bukkit.boss.BarStyle.SOLID);
         long skillBarHideDelay = main.getSettingsConfig().getLong("SkillBar.SkillBar-Hide-Delay");
 
         // Display Skill Lvl & XP Bar

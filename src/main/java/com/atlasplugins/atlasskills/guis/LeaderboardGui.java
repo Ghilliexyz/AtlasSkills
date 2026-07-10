@@ -380,7 +380,7 @@ public class LeaderboardGui extends Gui {
 
         // Create Item \\
         String GlassTitle = main.getSkillsConfig().getString("Leaderboard-Gui.Leaderboard-Menu.Leaderboard-Menu-Filler-Title");
-        Material GlassConfigItem = Material.valueOf(main.getSkillsConfig().getString("Leaderboard-Gui.Leaderboard-Menu.Leaderboard-Menu-Filler-Item"));
+        Material GlassConfigItem = com.atlasplugins.atlasskills.util.ConfigUtils.materialFromName(main, main.getSkillsConfig().getString("Leaderboard-Gui.Leaderboard-Menu.Leaderboard-Menu-Filler-Item"), org.bukkit.Material.STONE);
         ItemStack GlassItem = new ItemStack(GlassConfigItem);
         ItemMeta GlassItemMeta = GlassItem.getItemMeta();
         // Set Title \\

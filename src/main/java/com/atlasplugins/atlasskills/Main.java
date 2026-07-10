@@ -204,6 +204,8 @@ public final class Main extends JavaPlugin {
             saveResource("skills.yml", false);
         }
         skillsConfig = YamlConfiguration.loadConfiguration(skillsConfigFile);
+        // Back-fill any keys added in newer versions while preserving user values.
+        com.atlasplugins.atlasskills.util.ConfigUtils.applyDefaults(this, skillsConfig, skillsConfigFile, "skills.yml");
     }
 
     public FileConfiguration getSettingsConfig() {
@@ -224,6 +226,8 @@ public final class Main extends JavaPlugin {
             saveResource("settings.yml", false);
         }
         settingsConfig = YamlConfiguration.loadConfiguration(settingsConfigFile);
+        // Back-fill any keys added in newer versions while preserving user values.
+        com.atlasplugins.atlasskills.util.ConfigUtils.applyDefaults(this, settingsConfig, settingsConfigFile, "settings.yml");
     }
 
     public LevelManager getLevelManager(){

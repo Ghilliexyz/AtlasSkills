@@ -305,13 +305,13 @@ public class LevelManager {
                 }
             }
 
-            Sound levelUpSound = Sound.valueOf(main.getSettingsConfig().getString("SkillSounds.Skill-LvlUP-Sound"));
+            Sound levelUpSound = com.atlasplugins.atlasskills.util.ConfigUtils.soundFromName(main, main.getSettingsConfig().getString("SkillSounds.Skill-LvlUP-Sound"));
             float levelUpVolume = main.getSettingsConfig().getInt("SkillSounds.Skill-LvlUP-Volume");
             float levelUpPitch = main.getSettingsConfig().getInt("SkillSounds.Skill-LvlUP-Pitch");
 
             boolean levelUpPlaySound = main.getSettingsConfig().getBoolean("SkillSounds.Skill-LvlUP-Sound-Toggle");
 
-            if (levelUpPlaySound) {
+            if (levelUpPlaySound && levelUpSound != null) {
                 player.playSound(player.getLocation(), levelUpSound, levelUpVolume, levelUpPitch);
             }
         }
@@ -345,13 +345,13 @@ public class LevelManager {
             }
         }
 
-        Sound setLevelSound = Sound.valueOf(main.getSettingsConfig().getString("SkillSounds.Skill-SetSkillLvl-Sound"));
+        Sound setLevelSound = com.atlasplugins.atlasskills.util.ConfigUtils.soundFromName(main, main.getSettingsConfig().getString("SkillSounds.Skill-SetSkillLvl-Sound"));
         float setLevelVolume = main.getSettingsConfig().getInt("SkillSounds.Skill-SetSkillLvl-Volume");
         float setLevelPitch = main.getSettingsConfig().getInt("SkillSounds.Skill-SetSkillLvl-Pitch");
 
         boolean setLevelPlaySound = main.getSettingsConfig().getBoolean("SkillSounds.Skill-SetSkillLvl-Sound-Toggle");
 
-        if (setLevelPlaySound) {
+        if (setLevelPlaySound && setLevelSound != null) {
             sender.playSound(sender.getLocation(), setLevelSound, setLevelVolume, setLevelPitch);
         }
     }
@@ -377,13 +377,13 @@ public class LevelManager {
             }
         }
 
-        Sound resetSound = Sound.valueOf(main.getSettingsConfig().getString("SkillSounds.Skill-ResetSkills-Sound"));
+        Sound resetSound = com.atlasplugins.atlasskills.util.ConfigUtils.soundFromName(main, main.getSettingsConfig().getString("SkillSounds.Skill-ResetSkills-Sound"));
         float resetVolume = main.getSettingsConfig().getInt("SkillSounds.Skill-ResetSkills-Volume");
         float resetPitch = main.getSettingsConfig().getInt("SkillSounds.Skill-ResetSkills-Pitch");
 
         boolean resetPlaySound = main.getSettingsConfig().getBoolean("SkillSounds.Skill-ResetSkills-Sound-Toggle");
 
-        if (resetPlaySound) {
+        if (resetPlaySound && resetSound != null) {
             sender.playSound(sender.getLocation(), resetSound, resetVolume, resetPitch);
         }
     }

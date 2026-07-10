@@ -85,7 +85,7 @@ public class SkillsGui extends Gui {
         // Get Config Stats \\
         int AcrobaticsSlot = main.getSkillsConfig().getInt("Skills-Gui.Acrobatics-Slot.Acrobatics-InventorySlot");
         String AcrobaticsTitle = main.getSkillsConfig().getString("Skills-Gui.Acrobatics-Slot.Acrobatics-Title");
-        Material AcrobaticsConfigItem = Material.valueOf(main.getSkillsConfig().getString("Skills-Gui.Acrobatics-Slot.Acrobatics-Item"));
+        Material AcrobaticsConfigItem = com.atlasplugins.atlasskills.util.ConfigUtils.materialFromName(main, main.getSkillsConfig().getString("Skills-Gui.Acrobatics-Slot.Acrobatics-Item"), org.bukkit.Material.STONE);
         // Create Item \\
         ItemStack AcrobaticsItem = new ItemStack(AcrobaticsConfigItem);
         ItemMeta AcrobaticsMeta = AcrobaticsItem.getItemMeta();
@@ -112,7 +112,7 @@ public class SkillsGui extends Gui {
         // Get Config Stats \\
         int AlchemySlot = main.getSkillsConfig().getInt("Skills-Gui.Alchemy-Slot.Alchemy-InventorySlot");
         String AlchemySlotTitle = main.getSkillsConfig().getString("Skills-Gui.Alchemy-Slot.Alchemy-Title");
-        Material AlchemyConfigItem = Material.valueOf(main.getSkillsConfig().getString("Skills-Gui.Alchemy-Slot.Alchemy-Item"));
+        Material AlchemyConfigItem = com.atlasplugins.atlasskills.util.ConfigUtils.materialFromName(main, main.getSkillsConfig().getString("Skills-Gui.Alchemy-Slot.Alchemy-Item"), org.bukkit.Material.STONE);
         // Create Item \\
         ItemStack AlchemyItem = new ItemStack(AlchemyConfigItem);
         ItemMeta AlchemyMeta = AlchemyItem.getItemMeta();
@@ -139,7 +139,7 @@ public class SkillsGui extends Gui {
         // Get Config Stats \\
         int ArcherySlot = main.getSkillsConfig().getInt("Skills-Gui.Archery-Slot.Archery-InventorySlot");
         String ArcherySlotTitle = main.getSkillsConfig().getString("Skills-Gui.Archery-Slot.Archery-Title");
-        Material ArcheryConfigItem = Material.valueOf(main.getSkillsConfig().getString("Skills-Gui.Archery-Slot.Archery-Item"));
+        Material ArcheryConfigItem = com.atlasplugins.atlasskills.util.ConfigUtils.materialFromName(main, main.getSkillsConfig().getString("Skills-Gui.Archery-Slot.Archery-Item"), org.bukkit.Material.STONE);
         // Create Item \\
         ItemStack ArcheryItem = new ItemStack(ArcheryConfigItem);
         ItemMeta ArcheryMeta = ArcheryItem.getItemMeta();
@@ -166,7 +166,7 @@ public class SkillsGui extends Gui {
         // Get Config Stats \\
         int AxeSlot = main.getSkillsConfig().getInt("Skills-Gui.Axes-Slot.Axes-InventorySlot");
         String AxeSlotTitle = main.getSkillsConfig().getString("Skills-Gui.Axes-Slot.Axes-Title");
-        Material AxeConfigItem = Material.valueOf(main.getSkillsConfig().getString("Skills-Gui.Axes-Slot.Axes-Item"));
+        Material AxeConfigItem = com.atlasplugins.atlasskills.util.ConfigUtils.materialFromName(main, main.getSkillsConfig().getString("Skills-Gui.Axes-Slot.Axes-Item"), org.bukkit.Material.STONE);
         // Create Item \\
         ItemStack AxeItem = new ItemStack(AxeConfigItem);
         ItemMeta AxeMeta = AxeItem.getItemMeta();
@@ -193,7 +193,7 @@ public class SkillsGui extends Gui {
         // Get Config Stats \\
         int ExcavationSlot = main.getSkillsConfig().getInt("Skills-Gui.Excavation-Slot.Excavation-InventorySlot");
         String ExcavationSlotTitle = main.getSkillsConfig().getString("Skills-Gui.Excavation-Slot.Excavation-Title");
-        Material ExcavationConfigItem = Material.valueOf(main.getSkillsConfig().getString("Skills-Gui.Excavation-Slot.Excavation-Item"));
+        Material ExcavationConfigItem = com.atlasplugins.atlasskills.util.ConfigUtils.materialFromName(main, main.getSkillsConfig().getString("Skills-Gui.Excavation-Slot.Excavation-Item"), org.bukkit.Material.STONE);
         // Create Item \\
         ItemStack ExcavationItem = new ItemStack(ExcavationConfigItem);
         ItemMeta ExcavationMeta = ExcavationItem.getItemMeta();
@@ -220,7 +220,7 @@ public class SkillsGui extends Gui {
         // Get Config Stats \\
         int FishingSlot = main.getSkillsConfig().getInt("Skills-Gui.Fishing-Slot.Fishing-InventorySlot");
         String FishingSlotTitle = main.getSkillsConfig().getString("Skills-Gui.Fishing-Slot.Fishing-Title");
-        Material FishingConfigItem = Material.valueOf(main.getSkillsConfig().getString("Skills-Gui.Fishing-Slot.Fishing-Item"));
+        Material FishingConfigItem = com.atlasplugins.atlasskills.util.ConfigUtils.materialFromName(main, main.getSkillsConfig().getString("Skills-Gui.Fishing-Slot.Fishing-Item"), org.bukkit.Material.STONE);
         // Create Item \\
         ItemStack FishingItem = new ItemStack(FishingConfigItem);
         ItemMeta FishingMeta = FishingItem.getItemMeta();
@@ -247,7 +247,7 @@ public class SkillsGui extends Gui {
         // Get Config Stats \\
         int HerbalismSlot = main.getSkillsConfig().getInt("Skills-Gui.Herbalism-Slot.Herbalism-InventorySlot");
         String HerbalismSlotTitle = main.getSkillsConfig().getString("Skills-Gui.Herbalism-Slot.Herbalism-Title");
-        Material HerbalismConfigItem = Material.valueOf(main.getSkillsConfig().getString("Skills-Gui.Herbalism-Slot.Herbalism-Item"));
+        Material HerbalismConfigItem = com.atlasplugins.atlasskills.util.ConfigUtils.materialFromName(main, main.getSkillsConfig().getString("Skills-Gui.Herbalism-Slot.Herbalism-Item"), org.bukkit.Material.STONE);
         // Create Item \\
         ItemStack HerbalismItem = new ItemStack(HerbalismConfigItem);
         ItemMeta HerbalismMeta = HerbalismItem.getItemMeta();
@@ -274,7 +274,7 @@ public class SkillsGui extends Gui {
         // Get Config Stats \\
         int MiningSlot = main.getSkillsConfig().getInt("Skills-Gui.Mining-Slot.Mining-InventorySlot");
         String MiningSlotTitle = main.getSkillsConfig().getString("Skills-Gui.Mining-Slot.Mining-Title");
-        Material MiningConfigItem = Material.valueOf(main.getSkillsConfig().getString("Skills-Gui.Mining-Slot.Mining-Item"));
+        Material MiningConfigItem = com.atlasplugins.atlasskills.util.ConfigUtils.materialFromName(main, main.getSkillsConfig().getString("Skills-Gui.Mining-Slot.Mining-Item"), org.bukkit.Material.STONE);
         // Create Item \\
         ItemStack MiningItem = new ItemStack(MiningConfigItem);
         ItemMeta MiningMeta = MiningItem.getItemMeta();
@@ -301,7 +301,7 @@ public class SkillsGui extends Gui {
         // Get Config Stats \\
         int SwordSlot = main.getSkillsConfig().getInt("Skills-Gui.Swords-Slot.Swords-InventorySlot");
         String SwordSlotTitle = main.getSkillsConfig().getString("Skills-Gui.Swords-Slot.Swords-Title");
-        Material SwordConfigItem = Material.valueOf(main.getSkillsConfig().getString("Skills-Gui.Swords-Slot.Swords-Item"));
+        Material SwordConfigItem = com.atlasplugins.atlasskills.util.ConfigUtils.materialFromName(main, main.getSkillsConfig().getString("Skills-Gui.Swords-Slot.Swords-Item"), org.bukkit.Material.STONE);
         // Create Item \\
         ItemStack SwordItem = new ItemStack(SwordConfigItem);
         ItemMeta SwordMeta = SwordItem.getItemMeta();
@@ -328,7 +328,7 @@ public class SkillsGui extends Gui {
         // Get Config Stats \\
         int TamingSlot = main.getSkillsConfig().getInt("Skills-Gui.Taming-Slot.Taming-InventorySlot");
         String TamingSlotTitle = main.getSkillsConfig().getString("Skills-Gui.Taming-Slot.Taming-Title");
-        Material TamingConfigItem = Material.valueOf(main.getSkillsConfig().getString("Skills-Gui.Taming-Slot.Taming-Item"));
+        Material TamingConfigItem = com.atlasplugins.atlasskills.util.ConfigUtils.materialFromName(main, main.getSkillsConfig().getString("Skills-Gui.Taming-Slot.Taming-Item"), org.bukkit.Material.STONE);
         // Create Item \\
         ItemStack TamingItem = new ItemStack(TamingConfigItem);
         ItemMeta TamingMeta = TamingItem.getItemMeta();
@@ -355,7 +355,7 @@ public class SkillsGui extends Gui {
         // Get Config Stats \\
         int UnarmedSlot = main.getSkillsConfig().getInt("Skills-Gui.Unarmed-Slot.Unarmed-InventorySlot");
         String UnarmedSlotTitle = main.getSkillsConfig().getString("Skills-Gui.Unarmed-Slot.Unarmed-Title");
-        Material UnarmedConfigItem = Material.valueOf(main.getSkillsConfig().getString("Skills-Gui.Unarmed-Slot.Unarmed-Item"));
+        Material UnarmedConfigItem = com.atlasplugins.atlasskills.util.ConfigUtils.materialFromName(main, main.getSkillsConfig().getString("Skills-Gui.Unarmed-Slot.Unarmed-Item"), org.bukkit.Material.STONE);
         // Create Item \\
         ItemStack UnarmedItem = new ItemStack(UnarmedConfigItem);
         ItemMeta UnarmedMeta = UnarmedItem.getItemMeta();
@@ -382,7 +382,7 @@ public class SkillsGui extends Gui {
         // Get Config Stats \\
         int WoodcuttingSlot = main.getSkillsConfig().getInt("Skills-Gui.Woodcutting-Slot.Woodcutting-InventorySlot");
         String WoodcuttingSlotTitle = main.getSkillsConfig().getString("Skills-Gui.Woodcutting-Slot.Woodcutting-Title");
-        Material WoodcuttingConfigItem = Material.valueOf(main.getSkillsConfig().getString("Skills-Gui.Woodcutting-Slot.Woodcutting-Item"));
+        Material WoodcuttingConfigItem = com.atlasplugins.atlasskills.util.ConfigUtils.materialFromName(main, main.getSkillsConfig().getString("Skills-Gui.Woodcutting-Slot.Woodcutting-Item"), org.bukkit.Material.STONE);
         // Create Item \\
         ItemStack WoodcuttingItem = new ItemStack(WoodcuttingConfigItem);
         ItemMeta WoodcuttingMeta = WoodcuttingItem.getItemMeta();
@@ -409,7 +409,7 @@ public class SkillsGui extends Gui {
         // ---------- GLASS FILLER Skill ---------- \\
         // Create Item \\
         String GlassTitle = main.getSkillsConfig().getString("Skills-Gui.Skills-Menu.Skills-Menu-Filler-Title");
-        Material GlassConfigItem = Material.valueOf(main.getSkillsConfig().getString("Skills-Gui.Skills-Menu.Skills-Menu-Filler-Item"));
+        Material GlassConfigItem = com.atlasplugins.atlasskills.util.ConfigUtils.materialFromName(main, main.getSkillsConfig().getString("Skills-Gui.Skills-Menu.Skills-Menu-Filler-Item"), org.bukkit.Material.STONE);
         ItemStack GlassItem = new ItemStack(GlassConfigItem);
         ItemMeta GlassItemMeta = GlassItem.getItemMeta();
         // Set Title \\

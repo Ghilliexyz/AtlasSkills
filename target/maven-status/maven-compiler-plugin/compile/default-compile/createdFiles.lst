@@ -51,6 +51,7 @@ com\atlasplugins\atlasskills\managers\levelsystem\LevelManager$Skill.class
 com\atlasplugins\atlasskills\skills\WoodcuttingSkill$1.class
 com\atlasplugins\atlasskills\skills\MiningSkill$1.class
 com\atlasplugins\atlasskills\Metrics$AdvancedBarChart.class
+com\atlasplugins\atlasskills\util\ConfigUtils.class
 com\atlasplugins\atlasskills\guis\Gui.class
 com\atlasplugins\atlasskills\Metrics$JsonObjectBuilder.class
 com\atlasplugins\atlasskills\commands\admin\ResetSkillsCommand.class
